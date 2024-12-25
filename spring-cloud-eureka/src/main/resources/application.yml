@@ -1,0 +1,33 @@
+server:
+  port: ${SERVER_PORT:8761}
+
+spring:
+  application:
+    name: tsai-eureka
+  security:
+    user:
+      name: ${EUREKA_ADMIN_NAME:eureka}
+      password: ${EUREKA_ADMIN_PASSWORD:eureka}
+
+eureka:
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 30000
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    fetch-registry: ${FETCH_REGISTRY:false}
+    register-with-eureka: ${REGISTER_WITH_EUREKA:false}
+    service-url:
+      defaultZone: ${DEFAULT_ZONE:http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${ENDPOINTS:info,shutdown}
+  endpoint:
+    shutdown:
+      enabled: ${ENABLE_SHOWDOWN:false}

@@ -3,11 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <description>
-        Eureka is a sub-module of the Spring Cloud Netflix module, which is a secondary packaging of Netflix Eureka by Spring Cloud.
-        It is mainly responsible for the service registration and discovery function of Spring Cloud.
-    </description>
-
+    <description>Tsai Spring Cloud</description>
     <groupId>tsai.spring.cloud</groupId>
     <artifactId>tsai-spring-cloud</artifactId>
     <version>1.1.0</version>
@@ -23,7 +19,7 @@
     </properties>
 
     <modules>
-        <module>tsai-spring-cloud-eureka</module>
+        <module>spring-cloud-eureka</module>
     </modules>
 
     <dependencyManagement>
