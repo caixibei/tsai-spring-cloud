@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: tsai-eureka
+    name: ${APPLICATION_NAME:spring-cloud-eureka}
   security:
     user:
       name: ${EUREKA_ADMIN_NAME:eureka}
