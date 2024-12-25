@@ -7,4 +7,6 @@ MAINTAINER caixibei
 ADD  target/spring-cloud-eureka-1.1.0.jar spring-cloud-eureka-1.1.0.jar
 # 运行jar包
 ENTRYPOINT ["java","-jar","/spring-cloud-eureka-1.1.0.jar","&"]
-EXPOSE 8761
+
+# 暴露端口
+# EXPOSE 8761
