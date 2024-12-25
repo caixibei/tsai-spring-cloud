@@ -6,5 +6,5 @@ MAINTAINER caixibei
 # 在target目录下找得到
 ADD  target/spring-cloud-eureka-1.1.0.jar spring-cloud-eureka-1.1.0.jar
 # 运行jar包
-ENTRYPOINT ["nohup","java","-jar","/spring-cloud-eureka-1.1.0.jar","&"]
+ENTRYPOINT ["java","-jar","/spring-cloud-eureka-1.1.0.jar","&"]
 EXPOSE 8761
