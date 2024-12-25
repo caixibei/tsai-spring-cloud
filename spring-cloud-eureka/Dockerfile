@@ -1,5 +1,5 @@
 # 基于java镜像创建新镜像
-FROM java:8
+FROM openjdk:8
 # 作者
 MAINTAINER caixibei
 # 将jar包添加到容器中并更名为 mvn 打包后的jar包名
