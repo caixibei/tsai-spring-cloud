@@ -14,7 +14,7 @@ eureka:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 30000
   instance:
-    hostname: ${spring.application.name}
+    hostname: ${HOSTNAME:${spring.application.name}}
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
