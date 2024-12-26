@@ -4,11 +4,13 @@ server:
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-eureka}
+  # eureka 相关配置
   security:
     user:
       name: ${EUREKA_ADMIN_NAME:eureka}
       password: ${EUREKA_ADMIN_PASSWORD:eureka}
 
+# eureka 相关配置
 eureka:
   server:
     enable-self-preservation: true
@@ -23,6 +25,7 @@ eureka:
     service-url:
       defaultZone: ${DEFAULT_ZONE:http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:8761/eureka/}
 
+# actuator 相关配置
 management:
   endpoints:
     web:
