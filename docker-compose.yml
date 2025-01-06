@@ -37,7 +37,7 @@ services:
       - ENABLE_SELF_PRESERVATION=true
       - EVICTION_INTERVAL_TIMER_IN_MS=30000
     networks:
-      - eureka-network
+      - tsai-spring-cloud
 
   # 定义一个名为 spring-cloud-eureka-slave 的服务
   spring-cloud-eureka-slave:
@@ -75,9 +75,9 @@ services:
       - ENABLE_SELF_PRESERVATION=true
       - EVICTION_INTERVAL_TIMER_IN_MS=30000
     networks:
-      - eureka-network
+      - tsai-spring-cloud
 
 
 networks:
-  eureka-network:
+  tsai-spring-cloud:
     driver: bridge
