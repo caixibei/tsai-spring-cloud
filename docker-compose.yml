@@ -11,7 +11,7 @@ services:
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:
-      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      # 指定构建该服务的上下文路径，即 docker-compose.yml 所在的目录
       context: ./
       # 指定 Dockerfile 文件路径
       dockerfile: ./spring-cloud-eureka/Dockerfile
@@ -49,7 +49,7 @@ services:
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:
-      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      # 指定构建该服务的上下文路径，即 docker-compose.yml 所在的目录
       context: ./
       # 指定 Dockerfile 文件路径
       dockerfile: ./spring-cloud-eureka/Dockerfile
