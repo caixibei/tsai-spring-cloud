@@ -34,6 +34,8 @@ services:
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
+      - ENABLE_SELF_PRESERVATION=true
+      - EVICTION_INTERVAL_TIMER_IN_MS=30000
     networks:
       - eureka-network
 
@@ -70,6 +72,8 @@ services:
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
+      - ENABLE_SELF_PRESERVATION=true
+      - EVICTION_INTERVAL_TIMER_IN_MS=30000
     networks:
       - eureka-network
 

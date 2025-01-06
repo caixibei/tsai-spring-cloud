@@ -13,8 +13,8 @@ spring:
 # eureka 相关配置
 eureka:
   server:
-    enable-self-preservation: true
-    eviction-interval-timer-in-ms: 30000
+    enable-self-preservation: ${ENABLE_SELF_PRESERVATION:true}
+    eviction-interval-timer-in-ms: ${EVICTION_INTERVAL_TIMER_IN_MS:30000}
   instance:
     hostname: ${HOSTNAME:${spring.application.name}}
     prefer-ip-address: ${PREFER_IP_ADDRESS:false}
