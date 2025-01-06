@@ -12,9 +12,12 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: .
+      context: ./
       # 指定 Dockerfile 文件路径
       dockerfile: ./spring-cloud-eureka/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8761:8761"
@@ -28,7 +31,7 @@ services:
       - PREFER_IP_ADDRESS=true
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
-      - DEFAULT_ZONE=http://admin:123456@116.205.112.132:8762/eureka/
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
 
@@ -43,15 +46,18 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: .
+      context: ./
       # 指定 Dockerfile 文件路径
       dockerfile: ./spring-cloud-eureka/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8762:8762"
     # 启动环境参数配置
     environment:
-      - SERVER_PORT=8761
+      - SERVER_PORT=8762
       - APPLICATION_NAME=spring-cloud-eureka
       - EUREKA_ADMIN_NAME=admin
       - EUREKA_ADMIN_PASSWORD=123456
@@ -59,6 +65,6 @@ services:
       - PREFER_IP_ADDRESS=true
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
-      - DEFAULT_ZONE=http://admin:123456@116.205.112.132:8761/eureka/
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
