@@ -34,6 +34,8 @@ services:
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
+    networks:
+      - eureka-network
 
   # 定义一个名为 spring-cloud-eureka-slave 的服务
   spring-cloud-eureka-slave:
@@ -68,3 +70,10 @@ services:
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/
       - ENDPOINTS=info,shutdown
       - ENABLE_SHOWDOWN=true
+    networks:
+      - eureka-network
+
+
+networks:
+  eureka-network:
+    driver: bridge
