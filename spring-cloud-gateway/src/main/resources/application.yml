@@ -1,0 +1,6 @@
+server:
+  port: ${SERVER_PORT:30000}
+
+spring:
+  application:
+    name: ${APPLICATION_NAME:spring-cloud-gateway}
