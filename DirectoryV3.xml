@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/spring-cloud-eureka" title="Eureka 注册中心"/>
+     <tree path="/spring-cloud-eureka" title="    🛜Eureka  注册中心"/>
+     <tree path="/spring-cloud-gateway" title="   🧱Gateway 网关服务"/>
  </trees>
