@@ -1,6 +1,23 @@
+# 服务配置
 server:
   port: ${SERVER_PORT:30000}
 
+# 应用配置
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-gateway}
+
+# Eureka 配置
+eureka:
+  instance:
+    hostname: ${HOSTNAME:${spring.application.name}}
+    prefer-ip-address: ${PREFER_IP_ADDRESS:true}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: ${LEASE_RENEWAL_INTERVAL_IN_SECONDS:30}
+  client:
+    fetch-registry: ${FETCH_REGISTRY:true}
+    register-with-eureka: ${REGISTER_WITH_EUREKA:true}
+    service-url:
+      defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
+
+

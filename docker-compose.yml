@@ -29,6 +29,7 @@ services:
       - EUREKA_ADMIN_PASSWORD=123456
       - HOSTNAME=spring-cloud-eureka-master
       - PREFER_IP_ADDRESS=true
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=30
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
@@ -66,6 +67,7 @@ services:
       - EUREKA_ADMIN_NAME=admin
       - EUREKA_ADMIN_PASSWORD=123456
       - HOSTNAME=spring-cloud-eureka-slave
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=30
       - PREFER_IP_ADDRESS=true
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
@@ -101,6 +103,12 @@ services:
     environment:
       - SERVER_PORT=30000
       - APPLICATION_NAME=spring-cloud-gateway
+      - HOSTNAME=spring-cloud-gateway-master
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=10
+      - PREFER_IP_ADDRESS=true
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
     networks:
       - tsai-spring-cloud
 
@@ -128,6 +136,12 @@ services:
     environment:
       - SERVER_PORT=30001
       - APPLICATION_NAME=spring-cloud-gateway
+      - HOSTNAME=spring-cloud-gateway-slave
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=10
+      - PREFER_IP_ADDRESS=true
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
     networks:
       - tsai-spring-cloud
 
