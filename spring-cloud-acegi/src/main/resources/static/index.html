@@ -8,7 +8,30 @@
 </head>
 <body>
 <div id="app">
-登录成功!
+    <div class="login_body">
+        <div></div>
+        <div class="login_area">
+            <el-form class="login_form"
+                     :model="loginForm"
+                     size="large"
+                     status-icon
+                     scroll-to-error
+                     label-suffix=":"
+                     label-width="28%"
+                     label-position="right">
+                <el-form-item label="用户名" prop="username" required>
+                    <el-input v-model="loginForm.username" />
+                </el-form-item>
+                <el-form-item label="密码" prop="password" required>
+                    <el-input v-model="loginForm.password" />
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary">登录</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div></div>
+    </div>
 </div>
 </body>
 <link type="text/css" rel="stylesheet" href="assets/css/index.css">

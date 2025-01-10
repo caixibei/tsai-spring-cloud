@@ -52,3 +52,40 @@ body, #app {
     background: #F2F2F2;
     overflow: hidden;
 }
+
+.login_body {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-image: url("../image/login_bg_v1.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_body > div:nth-child(2) {
+    flex: 0 0 27%;
+}
+
+.login_body > div{
+    flex: 1;
+}
+
+.login_area {
+    background-color: rgba(0,0,0,0.3);
+    height: 50vh;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_form{
+    width: 60%;
+}
+
+.login_form .el-form-item__label{
+    color: #fff;
+}

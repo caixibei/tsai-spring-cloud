@@ -10,7 +10,11 @@ const router = createRouter({
 const app = createApp({
   components: {},
   setup(){
-    return {}
+    const loginForm = ref({});
+
+    return {
+      loginForm
+    }
   }
 })
 
