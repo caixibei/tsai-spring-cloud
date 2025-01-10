@@ -89,3 +89,14 @@ body, #app {
 .login_form .el-form-item__label{
     color: #fff;
 }
+
+.login_btn .el-form-item__content{
+    margin-left: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_btn .el-form-item__content .el-button {
+    width: 98%;
+}
