@@ -3,4 +3,5 @@
      <tree path="/spring-cloud-eureka" title="    🛜Eureka  注册中心"/>
      <tree path="/spring-cloud-gateway" title="   🧱Gateway 网关服务"/>
      <tree path="/spring-cloud-test" title="      ℹ️Test    组件测试"/>
+     <tree path="/spring-cloud-acegi" title="     ✳️Acegi   认证模块"/>
  </trees>
