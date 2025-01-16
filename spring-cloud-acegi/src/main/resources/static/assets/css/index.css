@@ -74,7 +74,7 @@ body, #app {
 }
 
 .login_area {
-    background-color: rgba(0,0,0,0.6);
+    background-color: #fff;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -88,7 +88,7 @@ body, #app {
 }
 
 .login_form .el-form-item__label{
-    color: #fff;
+    color: #000;
 }
 
 .login_btn .el-form-item__content{
@@ -102,7 +102,7 @@ body, #app {
     font-size: 5vh;
     font-weight: bold;
     font-family: monospace;
-    color: #fff;
+    color: #000;
     padding: 1vh 0 5vh 0;
 }
 
