@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RedirectController {
     @PostMapping("/dashboard")
     public String dashboard () {
-        return "redirect:https://docs.spring.io";
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/error")
     public String error () {
-        return "redirect:https://element-plus.org/";
+        return "redirect:/error";
     }
 }

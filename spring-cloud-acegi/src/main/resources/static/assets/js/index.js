@@ -1,15 +1,28 @@
 const {createApp, ref, onMounted, markRaw} = Vue
 const {createRouter, createWebHashHistory} = VueRouter
 
-const routes = []
+// 路由信息配置
+const routes = [
+  {
+    path: '/dashboard',
+    name: 'dashboardPage',
+    component: DashboardPage
+  },
+  {
+    path: '/error',
+    name: 'errorPage',
+    component: ErrorPage
+  }
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
 
+// 应用挂载
 const app = createApp({
-  components: {},
+  components: {DashboardPage,ErrorPage},
   setup() {
     /**表单数据*/
     const loginForm = ref({})
