@@ -1,7 +1,8 @@
-const { createApp,ref,onMounted,markRaw } = Vue
-const { createRouter, createWebHashHistory } = VueRouter
+const {createApp, ref, onMounted, markRaw} = Vue
+const {createRouter, createWebHashHistory} = VueRouter
 
 const routes = []
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes
@@ -9,32 +10,28 @@ const router = createRouter({
 
 const app = createApp({
   components: {},
-  setup(){
+  setup() {
+    /**表单数据*/
     const loginForm = ref({})
-
+    /**表单校验规则*/
+    const rules = ref({
+      username: [{required: true, trigger: 'blur', message: '用户名不可为空'}],
+      password: [{required: true, trigger: 'blur', message: '密码不可为空'}],
+    })
     const login = () => {
-      // const formData = new FormData()
-      // const { username,password }  = loginForm.value
-      // console.log(username,'---username---')
-      // console.log(password,'---password---')
-      // formData.append("username", username)
-      // formData.append("password", password)
-      post("/login",loginForm.value)
-        .then(res=>{
-          console.log(res,'---login---')
-        }).catch(error => {
-          console.error(error)
+      post('/login', Qs.stringify(loginForm.value), {
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      }).then(res => {
+      }).catch(error => {
+        console.error(error)
       })
     }
-    return {
-      loginForm,
-      login
-    }
+
+    return {loginForm, login, rules}
   }
 })
 
-app.use(ElementPlus,{
-  locale: ElementPlusLocaleZhCn,
-})
 app.use(router)
+  .use(ElementPlus, {locale: ElementPlusLocaleZhCn})
+
 app.mount('#app')
