@@ -10,6 +10,7 @@ public class TestUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("执行自定义登录逻辑...");
         try {
             // 模拟从数据库根据 username 获取用户
             if (!"admin".equals(username)) {

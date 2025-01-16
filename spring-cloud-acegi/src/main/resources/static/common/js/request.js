@@ -1,50 +1,33 @@
-const instance = axios.create({
-  timeout: 1000
-});
+// 创建 Axios 请求实例
+const instance = axios.create({ timeout: 1000 })
 
-instance.interceptors.request.use(
-  function (config) {
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+// 请求拦截器
+instance.interceptors.request.use(config=>config, error => Promise.reject(error))
 
-instance.interceptors.response.use(
-  function (response) {
-    // todo
-    // const res = response.data;
-    // if (res.code === 401) {
-    //     window.location = `${window.logoutUrl}?url=${window.location.origin}`;
-    // }
-    return response;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+// 响应拦截器
+instance.interceptors.response.use(response =>  response,error => Promise.reject(error))
 
-function get(url, params) {
+// get 请求
+function get(url, params, config) {
   return new Promise((resolve, reject) => {
-    instance.get(url, { params: params })
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((err) => {
-        reject(err.data);
-      });
-  });
+    instance.get(url, {
+      params: params,
+      ...config
+    }).then((res) => {
+      resolve(res.data)
+    }).catch((err) => {
+      reject(err.data)
+    })
+  })
 }
 
-function post(url, data) {
+// post 请求
+function post(url, data, config) {
   return new Promise((resolve, reject) => {
-    instance.post(url, data)
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+    instance.post(url, data, config).then((res) => {
+      resolve(res)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
 }
