@@ -9,16 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.handler.LoginSuccessHandler;
-
 import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -60,18 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 异常处理器
                 .and().exceptionHandling()
                     // 403：无权访问处理器
-                    .accessDeniedHandler(accessDeniedHandler)
-                // RememberMe 功能
-                .and().rememberMe()
-                    .tokenRepository(persistentTokenRepository());
-    }
-
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-        // 只使用一次
-        tokenRepository.setCreateTableOnStartup(true);
-        return tokenRepository;
+                    .accessDeniedHandler(accessDeniedHandler);
     }
 
     @Override
@@ -81,23 +65,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 配置一个全局统一共享的PasswordEncoder（密码编码器），例如:
-     * <ul>
-     * <li>bcrypt - {@link BCryptPasswordEncoder} (也用于编码)</li>
-     * <li>ldap - {@link org.springframework.security.crypto.password.LdapShaPasswordEncoder}</li>
-     * <li>MD4 - {@link org.springframework.security.crypto.password.Md4PasswordEncoder}</li>
-     * <li>MD5 - {@code new MessageDigestPasswordEncoder("MD5")}</li>
-     * <li>noop - {@link org.springframework.security.crypto.password.NoOpPasswordEncoder}</li>
-     * <li>SHA-1 - {@code new MessageDigestPasswordEncoder("SHA-1")}</li>
-     * <li>SHA-256 - {@code new MessageDigestPasswordEncoder("SHA-256")}</li>
-     * <li>sha256 - {@link org.springframework.security.crypto.password.StandardPasswordEncoder}</li>
-     * </ul>
-     *
+     * 配置一个全局统一共享的PasswordEncoder（密码编码器）
      * @return the {@link PasswordEncoder} to use
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
 }
