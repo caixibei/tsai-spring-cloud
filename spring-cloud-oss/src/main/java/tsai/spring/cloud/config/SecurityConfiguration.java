@@ -11,9 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.handler.LoginSuccessHandler;
+
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -30,6 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +60,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 异常处理器
                 .and().exceptionHandling()
                     // 403：无权访问处理器
-                    .accessDeniedHandler(accessDeniedHandler);
+                    .accessDeniedHandler(accessDeniedHandler)
+                // RememberMe 功能
+                .and().rememberMe()
+                    .tokenRepository(persistentTokenRepository());
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        // 只使用一次
+        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
     }
 
     @Override

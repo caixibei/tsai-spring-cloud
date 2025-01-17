@@ -25,8 +25,8 @@
     <modules>
         <module>spring-cloud-eureka</module>
         <module>spring-cloud-gateway</module>
+        <module>spring-cloud-oss</module>
         <module>spring-cloud-test</module>
-        <module>spring-cloud-acegi</module>
     </modules>
 
     <dependencyManagement>

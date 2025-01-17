@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/spring-cloud-eureka" title="    🛜Eureka  注册中心"/>
-     <tree path="/spring-cloud-gateway" title="   🧱Gateway 网关服务"/>
-     <tree path="/spring-cloud-test" title="      ℹ️Test    组件测试"/>
-     <tree path="/spring-cloud-acegi" title="     ✳️Acegi   认证模块"/>
+     <tree path="/spring-cloud-eureka" title="    🛜Eureka     注册中心"/>
+     <tree path="/spring-cloud-gateway" title="   🧱Gateway    网关服务"/>
+     <tree path="/spring-cloud-test" title="      ℹ️Test       组件测试"/>
+     <tree path="/spring-cloud-oss" title="       ✳️Oauth2+SSO 认证模块"/>
  </trees>
