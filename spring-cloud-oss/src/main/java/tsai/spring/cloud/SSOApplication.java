@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 @SpringBootApplication
-public class AcegiApplication {
+public class SSOApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(AcegiApplication.class);
+    private static Logger logger = LoggerFactory.getLogger(SSOApplication.class);
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(AcegiApplication.class, args);
+        ApplicationContext context = SpringApplication.run(SSOApplication.class, args);
         Environment environment = context.getEnvironment();
         String port = environment.getProperty("server.port");
         String fetchRegistry = environment.getProperty("eureka.client.fetch-registry");
