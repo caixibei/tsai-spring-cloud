@@ -20,7 +20,7 @@
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
         <inject.version>1</inject.version>
-        <tsai.version>1.0.3-SNAPSHOT</tsai.version>
+        <tsai.version>1.0.2-RELEASE</tsai.version>
     </properties>
 
     <modules>
@@ -65,6 +65,11 @@
             <dependency>
                 <groupId>com.tsaiframework.boot</groupId>
                 <artifactId>tsai-spring-boot-core</artifactId>
+                <version>${tsai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tsaiframework.boot</groupId>
+                <artifactId>mpj-spring-boot-starter</artifactId>
                 <version>${tsai.version}</version>
             </dependency>
         </dependencies>
