@@ -44,6 +44,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.tsaiframework.boot</groupId>
+            <artifactId>tsai-spring-boot-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

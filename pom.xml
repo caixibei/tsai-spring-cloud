@@ -20,6 +20,7 @@
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
         <inject.version>1</inject.version>
+        <tsai.version>1.0.3-SNAPSHOT</tsai.version>
     </properties>
 
     <modules>
@@ -60,6 +61,11 @@
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>${inject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tsaiframework.boot</groupId>
+                <artifactId>tsai-spring-boot-core</artifactId>
+                <version>${tsai.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
