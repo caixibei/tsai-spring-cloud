@@ -22,10 +22,10 @@ RUN chmod -R 777 /app
 # 创建符号链接将时区信息链接到 /etc/localtime，并写入时区信息到 /etc/timezone 文件
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 将当前目录下的 jar 包 文件添加到容器的 /spring-cloud-eureka 目录下
+# 将当前目录下的 jar 包 文件添加到容器的 /app 目录下
 # COPY ["./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar","/app"]
 COPY ["./spring-cloud-eureka/target","/app"]
 
 # 容器启动时命令
-CMD ls -al /eureka
+CMD ls -al /app
 ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /app/spring-cloud-eureka-${VERSION}.jar"]
