@@ -27,7 +27,7 @@ RUN mkdir -p /tsai-spring-cloud
 WORKDIR /tsai-spring-cloud
 
 # 将当前目录下的 jar 包 文件添加到容器的 /tsai-spring-cloud 目录下
-ADD spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /tsai-spring-cloud
+ADD ./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /tsai-spring-cloud
 
 # 容器启动时命令，先休眠 30s ，然后使用指定的JVM参数运行 /tsai-spring-cloud/spring-cloud-eureka-**.jar
 #CMD sleep 30;java $JAVA_OPTS -jar /tsai-spring-cloud/spring-cloud-eureka-${VERSION}.jar
