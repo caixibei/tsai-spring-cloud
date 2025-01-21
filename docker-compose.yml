@@ -9,6 +9,11 @@
 # sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 # docker-compose --version
 
+# 开启交换区，扩大运存（不推荐，速度会比较慢，有条件的购买更大的服务器）
+# sudo dd if=/dev/zero of=swapfile bs=1G count=3
+# sudo mkswap swapfile
+# sudo chmod 600 swapfile
+# sudo swapon swapfile
 version: "3"
 services:
 
