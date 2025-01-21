@@ -2,3 +2,4 @@ src
 *.xml
 !target
 .dockerignore
+!*/*.jar

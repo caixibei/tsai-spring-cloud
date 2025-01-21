@@ -26,6 +26,7 @@ services:
     image: redis:latest
     # 指定容器名称为 mysql
     container_name: redis
+    privileged: true
     # 重启策略
     restart: always
     # 端口映射
@@ -58,6 +59,7 @@ services:
   mysql-service:
     # 镜像版本
     image: mysql:5.7
+    privileged: true
     # 指定容器名称为 mysql
     container_name: mysql
     # 启动环境参数配置
@@ -94,7 +96,7 @@ services:
     # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
     container_name: spring-cloud-eureka-master
-    privileged: false
+    privileged: true
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:
@@ -147,7 +149,7 @@ services:
     # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
     container_name: spring-cloud-eureka-slave
-    privileged: false
+    privileged: true
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:
@@ -200,7 +202,7 @@ services:
     # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-master
     container_name: spring-cloud-gateway-master
-    privileged: false
+    privileged: true
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:
@@ -246,7 +248,7 @@ services:
     # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-slave
     container_name: spring-cloud-gateway-slave
-    privileged: false
+    privileged: true
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: always
     build:

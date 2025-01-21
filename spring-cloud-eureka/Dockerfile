@@ -15,17 +15,17 @@ ENV JAVA_OPTS="-Xms256m -Xmx512m"
 ENV TZ=Asia/Shanghai
 ENV LANG C.UTF-8
 
-# 设置工作目录为 /spring-cloud-eureka
-WORKDIR /spring-cloud-eureka
-RUN chmod -R 777 /spring-cloud-eureka
+# 设置工作目录为 /app
+WORKDIR /app
+RUN chmod -R 777 /app
 
 # 创建符号链接将时区信息链接到 /etc/localtime，并写入时区信息到 /etc/timezone 文件
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 将当前目录下的 jar 包 文件添加到容器的 /spring-cloud-eureka 目录下
-# COPY ./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /spring-cloud-eureka
-COPY ./spring-cloud-eureka/target /spring-cloud-eureka
+# COPY ["./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar","/app"]
+COPY ["./spring-cloud-eureka/target","/app"]
 
 # 容器启动时命令
-CMD ls -al /spring-cloud-eureka
-ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /spring-cloud-eureka/spring-cloud-eureka-${VERSION}.jar"]
+CMD ls -al /eureka
+ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /app/spring-cloud-eureka-${VERSION}.jar"]
