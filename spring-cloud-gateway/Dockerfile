@@ -21,7 +21,7 @@ ENV LANG C.UTF-8
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 创建目录 /tsai-spring-cloud
-RUN mkdir -p /tsai-spring-cloud
+# RUN mkdir -p /tsai-spring-cloud
 
 # 设置工作目录为 /tsai-spring-cloud
 WORKDIR /tsai-spring-cloud
