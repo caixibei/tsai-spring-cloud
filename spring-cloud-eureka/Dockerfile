@@ -21,5 +21,4 @@ RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 COPY ./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /app
 
 # 容器启动时命令
-CMD ls -al /app
 ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /app/spring-cloud-eureka-${VERSION}.jar"]
