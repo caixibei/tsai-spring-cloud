@@ -15,8 +15,8 @@
 # sudo chmod 600 swapfile
 # sudo swapon swapfile
 
-# version 字段过时，可以拿掉
-# version: "3.8"
+# version 字段过时
+# version: '3.8'
 
 services:
 
