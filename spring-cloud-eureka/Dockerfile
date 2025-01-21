@@ -26,6 +26,6 @@ RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # COPY ./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /spring-cloud-eureka
 COPY ./spring-cloud-eureka/target /spring-cloud-eureka
 
-# 容器启动时命令，先休眠 30s ，然后使用指定的JVM参数运行 /tsai-spring-cloud/spring-cloud-eureka-**.jar
+# 容器启动时命令
 CMD ls -al /spring-cloud-eureka
 ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /spring-cloud-eureka/spring-cloud-eureka-${VERSION}.jar"]
