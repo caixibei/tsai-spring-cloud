@@ -1,0 +1,4 @@
+src
+*.xml
+!target
+.dockerignore

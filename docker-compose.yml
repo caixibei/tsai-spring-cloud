@@ -99,9 +99,10 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: spring-cloud-eureka
+      # context: spring-cloud-eureka
+      context: .
       # 指定 Dockerfile 文件路径
-      # dockerfile: ./spring-cloud-eureka/Dockerfile
+      dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
         VERSION: 1.1.0
@@ -151,9 +152,10 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: spring-cloud-eureka
+      # context: spring-cloud-eureka
+      context: .
       # 指定 Dockerfile 文件路径
-      # dockerfile: ./spring-cloud-eureka/Dockerfile
+      dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
         VERSION: 1.1.0
