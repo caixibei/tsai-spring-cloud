@@ -17,13 +17,14 @@ ENV LANG C.UTF-8
 
 # 设置工作目录为 /spring-cloud-gateway
 WORKDIR /spring-cloud-gateway
+RUN chmod -R 777 /spring-cloud-gateway
 
 # 创建符号链接将时区信息链接到 /etc/localtime，并写入时区信息到 /etc/timezone 文件
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 将当前目录下的 jar 包 文件添加到容器的 /spring-cloud-gateway 目录下
 # COPY ./target/spring-cloud-gateway-${VERSION}.jar /spring-cloud-gateway
-COPY . /spring-cloud-gateway
+COPY ./spring-cloud-gateway/target /spring-cloud-gateway
 
 # 容器启动时命令，先休眠 30s ，然后使用指定的JVM参数运行 /tsai-spring-cloud/spring-cloud-gateway-**.jar
 CMD ls -al /spring-cloud-gateway

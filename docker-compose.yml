@@ -129,17 +129,17 @@ services:
     networks:
       - tsai-spring-cloud
     # 部署设置
-    #deploy:
-    #  # 确保只有一个副本
-    #  replicas: 1
-    #  # 部署资源大小限制
-    #  resources:
-    #    limits:
-    #      cpus: 0.2
-    #      memory: 512M
-    #    reservations:
-    #      cpus: 0.2
-    #      memory: 512M
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
   # 定义一个名为 spring-cloud-eureka-slave 的服务
   spring-cloud-eureka-slave:
@@ -182,17 +182,17 @@ services:
     networks:
       - tsai-spring-cloud
     # 部署设置
-    #deploy:
-    #  # 确保只有一个副本
-    #  replicas: 1
-    #  # 部署资源大小限制
-    #  resources:
-    #    limits:
-    #      cpus: 0.2
-    #      memory: 512M
-    #    reservations:
-    #      cpus: 0.2
-    #      memory: 512M
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
   # 定义一个名为 spring-cloud-gateway-master 的服务
   spring-cloud-gateway-master:
@@ -205,9 +205,9 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: spring-cloud-gateway
+      context: ./
       # 指定 Dockerfile 文件路径
-      # dockerfile: ./spring-cloud-gateway/Dockerfile
+      dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
         VERSION: 1.1.0
@@ -224,8 +224,21 @@ services:
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+    # 网络设置
     networks:
       - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
   # 定义一个名为 spring-cloud-gateway-slave 的服务
   spring-cloud-gateway-slave:
@@ -238,9 +251,9 @@ services:
     restart: always
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      context: spring-cloud-gateway
+      context: ./
       # 指定 Dockerfile 文件路径
-      # dockerfile: ./spring-cloud-gateway/Dockerfile
+      dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
         VERSION: 1.1.0
@@ -257,8 +270,21 @@ services:
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+    # 网络设置
     networks:
       - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
 networks:
   tsai-spring-cloud:
