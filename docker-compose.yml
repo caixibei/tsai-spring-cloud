@@ -7,10 +7,6 @@ services:
     image: redis:latest
     # 指定容器名称为 mysql
     container_name: redis
-    # 构建配置
-    build:
-      # 指定构建该服务的上下文路径，即 docker-compose.yml 所在的目录
-      context: ./
     # 重启策略
     restart: always
     # 端口映射
@@ -43,10 +39,6 @@ services:
   mysql-service:
     # 镜像版本
     image: mysql:5.7
-    # 构建配置
-    build:
-      # 指定构建该服务的上下文路径，即 docker-compose.yml 所在的目录
-      context: ./
     # 指定容器名称为 mysql
     container_name: mysql
     # 启动环境参数配置
