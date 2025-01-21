@@ -23,7 +23,8 @@ RUN chmod -R 777 /app
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 将当前目录下的 jar 包 文件添加到容器的 /app 目录下
-COPY target/spring-cloud-eureka-${VERSION}.jar /app/
+# COPY ["./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar","/app"]
+COPY ["./spring-cloud-eureka/target","/app"]
 
 # 容器启动时命令
 CMD ls -al /app

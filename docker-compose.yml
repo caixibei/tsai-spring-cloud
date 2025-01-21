@@ -14,6 +14,10 @@
 # sudo mkswap swapfile
 # sudo chmod 600 swapfile
 # sudo swapon swapfile
+
+# version 字段过时
+# version: '3.8'
+
 services:
 
   # 定义一个名为 redis-service 的服务
@@ -82,6 +86,204 @@ services:
         limits:
           cpus: 0.5
           memory: 1024M
+        reservations:
+          cpus: 0.2
+          memory: 512M
+
+  # 定义一个名为 spring-cloud-eureka-master 的服务
+  spring-cloud-eureka-master:
+    # 指定容器所使用的镜像名称为 spring-cloud-eureka
+    # image: spring-cloud-eureka:latest
+    # 指定容器的名称为 spring-cloud-eureka-master
+    container_name: spring-cloud-eureka-master
+    privileged: true
+    # 设置容器的自动重启策略为 always，即容器总是重新启动
+    restart: always
+    build:
+      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      # context: spring-cloud-eureka
+      context: .
+      # 指定 Dockerfile 文件路径
+      dockerfile: ./spring-cloud-eureka/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
+    # 暴露容器的端口映射，将容器的端口映射到主机端口
+    ports:
+      - "8761:8761"
+    # 启动环境参数配置
+    environment:
+      - SERVER_PORT=8761
+      - APPLICATION_NAME=spring-cloud-eureka
+      - EUREKA_ADMIN_NAME=admin
+      - EUREKA_ADMIN_PASSWORD=123456
+      - HOSTNAME=spring-cloud-eureka-master
+      - PREFER_IP_ADDRESS=true
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=30
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+      - ENDPOINTS=info,shutdown
+      - ENABLE_SHOWDOWN=true
+      - ENABLE_SELF_PRESERVATION=true
+      - EVICTION_INTERVAL_TIMER_IN_MS=30000
+    # 网络设置
+    networks:
+      - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
+
+  # 定义一个名为 spring-cloud-eureka-slave 的服务
+  spring-cloud-eureka-slave:
+    # 指定容器所使用的镜像名称为 spring-cloud-eureka
+    # image: spring-cloud-eureka:latest
+    # 指定容器的名称为 spring-cloud-eureka-master
+    container_name: spring-cloud-eureka-slave
+    privileged: true
+    # 设置容器的自动重启策略为 always，即容器总是重新启动
+    restart: always
+    build:
+      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      # context: spring-cloud-eureka
+      context: .
+      # 指定 Dockerfile 文件路径
+      dockerfile: ./spring-cloud-eureka/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
+    # 暴露容器的端口映射，将容器的端口映射到主机端口
+    ports:
+      - "8762:8762"
+    # 启动环境参数配置
+    environment:
+      - SERVER_PORT=8762
+      - APPLICATION_NAME=spring-cloud-eureka
+      - EUREKA_ADMIN_NAME=admin
+      - EUREKA_ADMIN_PASSWORD=123456
+      - HOSTNAME=spring-cloud-eureka-slave
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=30
+      - PREFER_IP_ADDRESS=true
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/
+      - ENDPOINTS=info,shutdown
+      - ENABLE_SHOWDOWN=true
+      - ENABLE_SELF_PRESERVATION=true
+      - EVICTION_INTERVAL_TIMER_IN_MS=30000
+    # 网络设置
+    networks:
+      - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
+
+  # 定义一个名为 spring-cloud-gateway-master 的服务
+  spring-cloud-gateway-master:
+    # 指定容器所使用的镜像名称为 spring-cloud-gateway
+    # image: spring-cloud-gateway:latest
+    # 指定容器的名称为 spring-cloud-gateway-master
+    container_name: spring-cloud-gateway-master
+    privileged: true
+    # 设置容器的自动重启策略为 always，即容器总是重新启动
+    restart: always
+    build:
+      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      context: .
+      # 指定 Dockerfile 文件路径
+      dockerfile: ./spring-cloud-gateway/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
+    # 暴露容器的端口映射，将容器的端口映射到主机端口
+    ports:
+      - "30000:30000"
+    # 启动环境参数配置
+    environment:
+      - SERVER_PORT=30000
+      - APPLICATION_NAME=spring-cloud-gateway
+      - HOSTNAME=spring-cloud-gateway-master
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=10
+      - PREFER_IP_ADDRESS=true
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+    # 网络设置
+    networks:
+      - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
+
+  # 定义一个名为 spring-cloud-gateway-slave 的服务
+  spring-cloud-gateway-slave:
+    # 指定容器所使用的镜像名称为 spring-cloud-gateway
+    # image: spring-cloud-gateway:latest
+    # 指定容器的名称为 spring-cloud-gateway-slave
+    container_name: spring-cloud-gateway-slave
+    privileged: true
+    # 设置容器的自动重启策略为 always，即容器总是重新启动
+    restart: always
+    build:
+      # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
+      context: .
+      # 指定 Dockerfile 文件路径
+      dockerfile: ./spring-cloud-gateway/Dockerfile
+      # 参数
+      args:
+        VERSION: 1.1.0
+    # 暴露容器的端口映射，将容器的端口映射到主机端口
+    ports:
+      - "30001:30001"
+    # 启动环境参数配置
+    environment:
+      - SERVER_PORT=30001
+      - APPLICATION_NAME=spring-cloud-gateway
+      - HOSTNAME=spring-cloud-gateway-slave
+      - LEASE_RENEWAL_INTERVAL_IN_SECONDS=10
+      - PREFER_IP_ADDRESS=true
+      - FETCH_REGISTRY=true
+      - REGISTER_WITH_EUREKA=true
+      - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+    # 网络设置
+    networks:
+      - tsai-spring-cloud
+    # 部署设置
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
         reservations:
           cpus: 0.2
           memory: 512M
