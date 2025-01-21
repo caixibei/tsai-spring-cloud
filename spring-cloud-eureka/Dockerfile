@@ -23,7 +23,7 @@ RUN chmod -R 777 /spring-cloud-eureka
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 将当前目录下的 jar 包 文件添加到容器的 /spring-cloud-eureka 目录下
-# COPY ./target/spring-cloud-eureka-${VERSION}.jar /spring-cloud-eureka
+# COPY ./spring-cloud-eureka/target/spring-cloud-eureka-${VERSION}.jar /spring-cloud-eureka
 COPY ./spring-cloud-eureka/target /spring-cloud-eureka
 
 # 容器启动时命令，先休眠 30s ，然后使用指定的JVM参数运行 /tsai-spring-cloud/spring-cloud-eureka-**.jar
