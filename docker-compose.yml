@@ -1,6 +1,6 @@
 # docker version: 26.1.3
 # docker compose version: 2.18.1
-version: "2"
+version: "3"
 services:
 
   # 定义一个名为 redis-service 的服务
@@ -74,7 +74,7 @@ services:
   # 定义一个名为 spring-cloud-eureka-master 的服务
   spring-cloud-eureka-master:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
-    image: spring-cloud-eureka:latest
+    # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
     container_name: spring-cloud-eureka-master
     privileged: false
@@ -126,7 +126,7 @@ services:
   # 定义一个名为 spring-cloud-eureka-slave 的服务
   spring-cloud-eureka-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
-    image: spring-cloud-eureka:latest
+    # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
     container_name: spring-cloud-eureka-slave
     privileged: false
@@ -178,7 +178,7 @@ services:
   # 定义一个名为 spring-cloud-gateway-master 的服务
   spring-cloud-gateway-master:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
-    image: spring-cloud-gateway:latest
+    # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-master
     container_name: spring-cloud-gateway-master
     privileged: false
@@ -211,7 +211,7 @@ services:
   # 定义一个名为 spring-cloud-gateway-slave 的服务
   spring-cloud-gateway-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
-    image: spring-cloud-gateway:latest
+    # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-slave
     container_name: spring-cloud-gateway-slave
     privileged: false
@@ -240,12 +240,6 @@ services:
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
     networks:
       - tsai-spring-cloud
-
-
-
-
-
-
 
 networks:
   tsai-spring-cloud:
