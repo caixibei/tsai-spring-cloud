@@ -39,17 +39,17 @@ services:
     networks:
       - tsai-spring-cloud
     # 部署设置
-    #deploy:
-    #  # 确保只有一个副本
-    #  replicas: 1
-    #  # 部署资源大小限制
-    #  resources:
-    #    limits:
-    #      cpus: 0.2
-    #      memory: 512M
-    #    reservations:
-    #      cpus: 0.2
-    #      memory: 512M
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 512M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
   # 定义一个名为 mysql_service 的服务
   mysql-service:
@@ -73,17 +73,17 @@ services:
     networks:
       - tsai-spring-cloud
     # 部署设置
-    #deploy:
-    #  # 确保只有一个副本
-    #  replicas: 1
-    #  # 部署资源大小限制
-    #  resources:
-    #    limits:
-    #      cpus: 0.5
-    #      memory: 1024M
-    #    reservations:
-    #      cpus: 0.2
-    #      memory: 512M
+    deploy:
+      # 确保只有一个副本
+      replicas: 1
+      # 部署资源大小限制
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 1024M
+        reservations:
+          cpus: 0.2
+          memory: 512M
 
   # 定义一个名为 spring-cloud-eureka-master 的服务
   spring-cloud-eureka-master:
