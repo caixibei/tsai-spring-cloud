@@ -1,5 +1,5 @@
 # docker version: 26.1.3
-# docker compose version: 2.18.1
+# docker compose version: 2.27.0
 version: "3"
 services:
 
