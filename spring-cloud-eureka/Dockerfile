@@ -15,16 +15,16 @@ ENV JAVA_OPTS="-Xms256m -Xmx512m"
 ENV TZ=Asia/Shanghai
 ENV LANG C.UTF-8
 
-# 设置工作目录为 /tsai-spring-cloud
-WORKDIR /tsai-spring-cloud
+# 设置工作目录为 /spring-cloud-eureka
+WORKDIR /spring-cloud-eureka
 
 # 创建符号链接将时区信息链接到 /etc/localtime，并写入时区信息到 /etc/timezone 文件
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 将当前目录下的 jar 包 文件添加到容器的 /tsai-spring-cloud 目录下
-# COPY ./target/spring-cloud-eureka-${VERSION}.jar /tsai-spring-cloud
-COPY target /tsai-spring-cloud
+# 将当前目录下的 jar 包 文件添加到容器的 /spring-cloud-eureka 目录下
+# COPY ./target/spring-cloud-eureka-${VERSION}.jar /spring-cloud-eureka
+COPY . /spring-cloud-eureka
 
 # 容器启动时命令，先休眠 30s ，然后使用指定的JVM参数运行 /tsai-spring-cloud/spring-cloud-eureka-**.jar
-CMD ls -al /tsai-spring-cloud
-ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /tsai-spring-cloud/spring-cloud-eureka-${VERSION}.jar"]
+CMD ls -al /spring-cloud-eureka
+ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /spring-cloud-eureka/spring-cloud-eureka-${VERSION}.jar"]
