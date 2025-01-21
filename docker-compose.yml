@@ -63,8 +63,8 @@ services:
       # 部署资源大小限制
       resources:
         limits:
-          cpus: 0.2
-          memory: 512M
+          cpus: 0.5
+          memory: 1024M
         reservations:
           cpus: 0.2
           memory: 512M
