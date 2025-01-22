@@ -32,22 +32,7 @@ const app = createApp({
       password: [{required: true, trigger: 'blur', message: '密码不可为空'}],
     })
 
-    const getDetail = async () => {
-      const result = await get('/oauth/client_detail')
-      loginForm.value.client_id = result?.data?.client_id
-      loginForm.value.client_secret = result?.data?.client_secret
-      loginForm.value.grant_type = 'password'
-    }
-
     const login = () => {
-      // spring security
-      // post('/login', Qs.stringify(loginForm.value), {
-      //   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      // }).then(res => {
-      //   window.location.href = res.request.responseURL
-      // }).catch(error => {
-      //   console.error(error)
-      // })
       // oauth2
       post('/oauth/token', Qs.stringify(loginForm.value), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -57,7 +42,6 @@ const app = createApp({
         console.error(error)
       })
     }
-    getDetail()
     return {loginForm, login, rules}
   }
 })
