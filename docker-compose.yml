@@ -22,6 +22,23 @@
 
 services:
 
+  # 定义一个名为 dpanel-service 的服务
+  dpanel-service:
+    image: dpanel/dpanel
+    container_name: dpanel
+    privileged: true
+    # 重启策略
+    restart: always
+    # 端口映射
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    # 磁盘挂载
+    volumes:
+      - ./docker/dpanel/data:/dpanel:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+
   # 定义一个名为 redis-service 的服务
   redis-service:
     # 镜像版本
