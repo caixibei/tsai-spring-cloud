@@ -1,5 +1,3 @@
-# 涉及到的加密工具及明文密码
-# 工具：
 server:
   port: ${SERVER_PORT:9000}
 
