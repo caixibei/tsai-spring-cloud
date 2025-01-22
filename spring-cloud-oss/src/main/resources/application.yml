@@ -42,8 +42,8 @@ spring:
         enabled: true
         allow:
         reset-enable: false
-        login-username: ENC(U8L4BqoN6jdZbE2VwYCJIQ==)
-        login-password: ENC(+dc7JY/gGjkr6NLajVL3qw==)
+        login-username: ENC(LJJZq5/m+BsKZm753vxChQ==)
+        login-password: ENC(8Wa/OwMogrS2z1vknfN3Fg==)
         url-pattern: /druid/*
     dynamic:
       primary: mysql
@@ -75,9 +75,9 @@ spring:
         mysql:
           type: com.alibaba.druid.pool.DruidDataSource
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: ENC(4Vbp80k396a6prqK6L0x205CnPtqTHXGyR9qGXrd8x6uQThAC0H40KmqSjGJSGUdqQwdWjayplxec3sJqBsjZBhEB+AStbaZORLEXjnKjhiHxJWbvCI5MJLinxRG8CBOFEubV3jIiRHhPgklBFNJeGUx2GMnu1+GleYA3dPaRtteIDvQvuEUirQ7Rp+yvY6wgztdS0LH4Rdze7wLFc/aBCoeM6vfx3PUyGsjCtPXFsoT+3qPWX1uHICkjJTwVRWcj/2YEVRQzMJEobNRGxQRYheTIRNjM13q)
-          username: ENC(/4HuThfjzoFtwp0h2QlZYQ==)
-          password: ENC(/4HuThfjzoFtwp0h2QlZYQ==)
+          url: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_URL:ENC(/5xJ0XvV4wg87/M+IHPP6B/qu91ZLspRWzrYdDmz6HpKLzk6Kh5gUDcz/bjbdul5tiUjNLn8NE1lhOVc6UAHlEG6GY8UU8HflSRACjzU3aKy3R2EEZCKAaRN2nlzLaBg0awR2J4D2lbXLqd0lhvWFeIQv8YWy6B61YeDNLHZvz8781bsMSfl4sZk0UtIY3UgTnx2FG5tzfGzr1b8+0PDkbo4C99/tkic+RlRIE8seRCi6k/UEYkZH2GksvC6oQWX+kppBjKBYwOWkp4EvFeqPTFm3PT+rbYB)}
+          username: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_USERNAME:ENC(QkI0VPRiOCJR8EbbhdlIog==)}
+          password: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_PASSWORD:ENC(0iRXcamB2YeKTq5XjQTsas1WC0K2SWx4)}
           druid:
             initial-size: 1
             max-active: 20
