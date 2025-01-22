@@ -1,6 +1,6 @@
 # 版本记录
-# docker version: 26.1.3
-# docker compose version: 2.27.0
+# docker version: 27.4.0
+# docker compose version: v2.31.0-desktop.2
 # centos version: 7.8
 
 # docker-compose安装命令
@@ -14,9 +14,6 @@
 # sudo mkswap swapfile
 # sudo chmod 600 swapfile
 # sudo swapon swapfile
-
-# version 字段过时
-# version: '3.8'
 
 services:
 
