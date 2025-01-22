@@ -117,3 +117,16 @@ algorithm=PBEWithMD5AndDES
 ```
 
 密文（输出）：8Wa/OwMogrS2z1vknfN3Fg==
+
+6. jwt.jks 证书生成
+
+```shell
+# 删除
+keytool -delete -alias jwt -keystore jwt.jks
+# 生成
+keytool -genkey -alias jwt ^
+-keyalg RSA ^
+-keypass DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7 ^
+-keystore jwt.jks ^
+-storepass 123456
+```

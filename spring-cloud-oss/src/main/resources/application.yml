@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-acegi}
+  redis:
+    host: ${REDIS_HOST:116.205.112.132}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:NJI(mko0}
   datasource:
     druid:
       keep-alive: true

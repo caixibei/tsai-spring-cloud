@@ -3,6 +3,7 @@ import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.handler.LoginSuccessHandler;
+import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -21,16 +24,11 @@ import tsai.spring.cloud.handler.LoginSuccessHandler;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private LoginSuccessHandler successHandler;
-
-    @Autowired
-    private LoginFailureHandler failureHandler;
-
-    @Autowired
-    private AccessDenyHandler accessDeniedHandler;
+    //private LoginSuccessHandler successHandler;
+    //private LoginFailureHandler failureHandler;
+    //private AccessDenyHandler accessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,27 +37,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index.html")
                 // 登录成功处理器
-                .successHandler(successHandler)
+                //.successHandler(successHandler)
                 // 登录失败处理器
-                .failureHandler(failureHandler)
+                //.failureHandler(failureHandler)
                 // 开启权限控制
                 .and()
                 .authorizeRequests()
-                // 对静态资源放行
-                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg", "/**/*.png", "/**/*.gif", "/**/*.ico", "/index.html")
+                // 对静态资源、Oauth2放行
+                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
+                        "/**/*.png", "/**/*.gif", "/**/*.ico",
+                        "/index.html","/login/**","/oauth/**","/logout/**")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
-                .anyRequest().authenticated()
+                .anyRequest().authenticated();
                 // 异常处理器
-                .and().exceptionHandling()
+                //.and().exceptionHandling()
                     // 403：无权访问处理器
-                    .accessDeniedHandler(accessDeniedHandler);
+                    //.accessDeniedHandler(accessDeniedHandler);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     /**
