@@ -129,6 +129,6 @@ mybatis-plus:
 mpj:
   base-package: tsai.spring.cloud.**.mapper
   defaults:
-    method-handler: true
-    sql-injector: true
-    mpj-injector: true
+    enable-injector: true
+    enable-interceptor: true
+    enable-meta-handler: true
