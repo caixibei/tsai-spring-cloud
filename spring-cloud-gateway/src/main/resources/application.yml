@@ -20,4 +20,16 @@ eureka:
     service-url:
       defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
 
-
+security:
+  oauth2:
+    client:
+      client-id: ${spring.application.name}
+      client-secret: 123456
+      user-authorization-uri: http://localhost:9000/oauth/authorize
+      access-token-uri: http://localhost:9000/oauth/token
+    resource:
+      id: ${spring.application.name}
+      check-token-url: http://127.0.0.1:9000/oauth/check_token
+      jwt:
+        key-uri: http://localhost:9000/oauth/token_key
+        key-password: 123456

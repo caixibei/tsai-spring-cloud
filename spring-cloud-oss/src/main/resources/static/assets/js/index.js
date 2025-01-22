@@ -25,7 +25,11 @@ const app = createApp({
   components: {DashboardPage,ErrorPage},
   setup() {
     /**表单数据*/
-    const loginForm = ref({})
+    const loginForm = ref({
+      grant_type: 'password',
+      client_id: '',
+      client_secret: ''
+    })
     /**表单校验规则*/
     const rules = ref({
       username: [{required: true, trigger: 'blur', message: '用户名不可为空'}],

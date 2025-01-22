@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,12 +8,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -21,12 +26,15 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Oauth 2 授权服务配置
+ *
  * @author tsai
  */
 @Configuration
@@ -59,7 +67,14 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         clientDetailsService.setPasswordEncoder(passwordEncoder);
         clients.withClientDetails(clientDetailsService);
         // 2.以内存方式存储（不推荐）
-        // super.configure(clients);
+        // clients.inMemory()
+        //         .withClient("my-client-id")
+        //         .secret("{noop}my-client-secret")
+        //         .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+        //         .scopes("all")
+        //         .accessTokenValiditySeconds(3600)
+        //         // 刷新 token 的长 token 有效期 24 hours
+        //         .refreshTokenValiditySeconds(86400);
     }
 
     @Override
@@ -94,6 +109,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 使用非对称加密算法对 Token 签名
+     *
      * @return {@link JwtAccessTokenConverter}
      */
     @Bean
