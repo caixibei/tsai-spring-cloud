@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureForwardUrl("/error")
                 .and()
                 .authorizeRequests()
-                // 对静态资源、Oauth2放行
+                // 对静态资源、Oauth2 放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/index.html","/login","/oauth/**","/error")
