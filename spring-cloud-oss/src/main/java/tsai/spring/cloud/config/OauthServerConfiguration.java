@@ -26,12 +26,10 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
-
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * Oauth 2 授权服务配置
  *
