@@ -4,19 +4,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 @EnableOAuth2Sso
 @EnableFeignClients
 @SpringBootApplication
-public class GatewayApplication {
+public class SystemApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(GatewayApplication.class);
+    private static Logger logger = LoggerFactory.getLogger(SystemApplication.class);
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(GatewayApplication.class, args);
+        ApplicationContext context = SpringApplication.run(SystemApplication.class, args);
         Environment environment = context.getEnvironment();
         String port = environment.getProperty("server.port");
         String fetchRegistry = environment.getProperty("eureka.client.fetch-registry");
@@ -24,7 +23,7 @@ public class GatewayApplication {
         String defaultZone = environment.getProperty("eureka.client.service-url.defaultZone");
         String hostname = environment.getProperty("eureka.instance.hostname");
         String preferIpAddress = environment.getProperty("eureka.instance.prefer-ip-address");
-        logger.info("===================服务网关运行环境信息===================");
+        logger.info("===================认证服务运行环境信息===================");
         logger.info("服务端口：{}",port);
         logger.info("实例地址：{}",hostname);
         logger.info("是否从注册中心拉取服务：{}", fetchRegistry);

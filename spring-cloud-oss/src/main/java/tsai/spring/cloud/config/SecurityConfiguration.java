@@ -27,9 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
 
-    @Value("${spring.application.name}")
-    private String contextPath;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -38,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 对静态资源、Oauth2放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/index.html",String.format("/%s/oauth/**",contextPath))
+                        "/index.html","/oauth/**")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()

@@ -6,7 +6,18 @@ server:
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-gateway}
-
+  cloud:
+    gateway:
+      # 路由规则
+      routes:
+        # 路由ID，唯一
+        - id: spring-cloud-system
+          # 目标URL，路由到微服务的地址
+          uri: lb://spring-cloud-system
+          # 断言（判断条件）
+          predicates:
+            # 匹配对应URL的请求，将匹配到的请求追加到目标URI之后
+            - Path=/system/**
 # Eureka 配置
 eureka:
   instance:
@@ -19,18 +30,3 @@ eureka:
     register-with-eureka: ${REGISTER_WITH_EUREKA:true}
     service-url:
       defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
-
-security:
-  oauth2:
-    client:
-      client-id: tsai-spring-cloud
-      client-secret: 123456
-      user-authorization-uri: http://localhost:9000/spring-cloud-acegi/oauth/authorize
-      access-token-uri: http://localhost:9000/spring-cloud-acegi/oauth/token
-    resource:
-      id: ${spring.application.name}
-      check-token-url: http://127.0.0.1:9000/spring-cloud-acegi/oauth/check_token
-      token-info-uri: http://127.0.0.1:9000/spring-cloud-acegi/sso/oauth/check_token
-      jwt:
-        key-uri: http://localhost:9000/spring-cloud-acegi/oauth/token_key
-        key-password: 123456

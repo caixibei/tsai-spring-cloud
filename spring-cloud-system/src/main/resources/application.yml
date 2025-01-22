@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT:9000}
+  port: ${SERVER_PORT:7080}
   servlet:
     context-path: /${spring.application.name}
 
 spring:
   application:
-    name: ${APPLICATION_NAME:spring-cloud-oss}
+    name: ${APPLICATION_NAME:spring-cloud-system}
   redis:
     host: ${REDIS_HOST:116.205.112.132}
     port: ${REDIS_PORT:6379}
@@ -138,3 +138,26 @@ mpj:
     enable-meta-handler: true
     enable-interceptor: true
     enable-injector: true
+
+security:
+  oauth2:
+    client:
+      client-id: tsai-spring-cloud
+      client-secret: 123456
+      # user-authorization-uri: http://localhost:9000/spring-cloud-oss/oauth/authorize
+      # access-token-uri: http://localhost:9000/spring-cloud-oss/oauth/token
+      grant-type: password
+    resource:
+      id: ${spring.application.name}
+      check-token-url: http://127.0.0.1:9000/spring-cloud-oss/oauth/check_token
+      token-info-uri: http://127.0.0.1:9000/spring-cloud-oss/sso/oauth/check_token
+      jwt:
+        key-uri: http://localhost:9000/spring-cloud-oss/oauth/token_key
+        key-password: 123456
+
+feign:
+  oauth2:
+    # 开启Oauth支持，这样就会在请求头中携带Token了
+    enabled: true
+    # 同时开启负载均衡支持
+    load-balanced: true
