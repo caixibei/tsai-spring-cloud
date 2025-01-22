@@ -30,12 +30,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .formLogin().disable()
+                .formLogin()
+                .loginPage("/index.html")
+                .loginProcessingUrl("/login")
+                .successForwardUrl("/dashbord.html")
+                .failureForwardUrl("/error.html")
+                .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/index.html","/oauth/**","/login")
+                        "/index.html","/login","/oauth/**")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()

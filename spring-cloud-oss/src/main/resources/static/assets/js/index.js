@@ -22,13 +22,14 @@ const router = createRouter({
 
 // 应用挂载
 const app = createApp({
-  components: {DashboardPage,ErrorPage},
+  components: {DashboardPage, ErrorPage},
   setup() {
     /**表单数据*/
     const loginForm = ref({
       client_id: 'tsai-spring-cloud',
-      client_secret: '123456',
-      grant_type: 'password'
+      // response_type: 'code',
+      grant_type: 'password',
+      client_secret: '123456'
     })
     /**表单校验规则*/
     const rules = ref({
@@ -38,10 +39,10 @@ const app = createApp({
 
     const login = () => {
       // oauth2
-      post('/oauth/token', Qs.stringify(loginForm.value), {
+      post('/login', Qs.stringify(loginForm.value), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).then(res => {
-        console.log(res,'-res-')
+        console.log(res, '-res-')
       }).catch(error => {
         console.error(error)
       })

@@ -26,10 +26,12 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -61,28 +63,34 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 1.基于JDBC模式的密码认证
-        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        clientDetailsService.setPasswordEncoder(passwordEncoder);
-        clients.withClientDetails(clientDetailsService);
+        // JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        // clientDetailsService.setPasswordEncoder(passwordEncoder);
+        // clients.withClientDetails(clientDetailsService);
         // 2.以内存方式存储（不推荐）
-        // clients.inMemory()
-        //         .withClient("my-client-id")
-        //         .secret("{noop}my-client-secret")
-        //         .authorizedGrantTypes("authorization_code", "password", "refresh_token")
-        //         .scopes("all")
-        //         .accessTokenValiditySeconds(3600)
-        //         // 刷新 token 的长 token 有效期 24 hours
-        //         .refreshTokenValiditySeconds(86400);
+        clients.inMemory()
+                .withClient("tsai-spring-cloud")
+                .autoApprove(true)
+                .secret("$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi")
+                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+                .scopes("all")
+                .redirectUris("http://localhost:7080/login")
+                .accessTokenValiditySeconds(3600)
+                // 刷新 token 的长 token 有效期 24 hours
+                .refreshTokenValiditySeconds(86400);
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        //允许表单认证
+        // OSS 单点登录
         security.allowFormAuthenticationForClients()
-                // 需通过认证后才能访问 /oauth/token_key 获取 token 加密公钥
-                .tokenKeyAccess("permitAll()")
-                // 开放 /oauth/check_token
+                .tokenKeyAccess("isAuthenticated()")
                 .checkTokenAccess("permitAll()");
+        // 非单点登录
+        // security.allowFormAuthenticationForClients()
+        //         // 需通过认证后才能访问 /oauth/token_key 获取 token 加密公钥
+        //         .tokenKeyAccess("permitAll()")
+        //         // 开放 /oauth/check_token
+        //         .checkTokenAccess("permitAll()");
     }
 
     @Override

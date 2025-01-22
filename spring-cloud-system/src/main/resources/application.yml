@@ -1,7 +1,9 @@
 server:
   port: ${SERVER_PORT:7080}
-  context-path: /${spring.application.name}
-
+  servlet:
+    session:
+      cookie:
+        name: ${spring.application.name}
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-system}
@@ -138,18 +140,21 @@ mpj:
     enable-interceptor: true
     enable-injector: true
 
+# 单点登录
+oauth2-server-url: http://localhost:9000
 security:
   oauth2:
     client:
       client-id: tsai-spring-cloud
       client-secret: 123456
-      user-authorization-uri: http://localhost:9000/oauth/authorize
-      access-token-uri: http://localhost:9000/oauth/token
+      access-token-uri: ${oauth2-server-url}/oauth/token
+      # 授权模式下，密码模式不需要
+      user-authorization-uri: ${oauth2-server-url}/oauth/authorize
     resource:
       id: ${spring.application.name}
-      check-token-url: http://127.0.0.1:9000/oauth/check_token
+      check-token-url: ${oauth2-server-url}/oauth/check_token
       jwt:
-        key-uri: http://localhost:9000/oauth/token_key
+        key-uri: ${oauth2-server-url}/oauth/token_key
         key-password: 123456
         
 feign:
