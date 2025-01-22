@@ -3,13 +3,18 @@
 # docker compose version: v2.31.0-desktop.2
 # centos version: 7.8
 
-# docker-compose安装命令
+# 1. 添加镜像代理
+# echo '{"dns":["8.8.8.8","8.8.4.4"],"registry-mirrors":["https://docker.xuanyuan.me","https://docker.1ms.run","https://hub.rat.dev"]}' > /etc/docker/daemon.json
+# systemctl daemon-reload
+# systemctl restart docker
+
+# 2.docker-compose安装命令
 # sudo curl -L "https://github.com/docker/compose/releases/download/v2.31.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 # sudo chmod +x /usr/local/bin/docker-compose
 # sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 # docker-compose --version
 
-# 开启交换区，扩大运存（不推荐，速度会比较慢，有条件的购买更大的服务器）
+# 3.开启交换区，扩大运存（不推荐，速度会比较慢，有条件的购买更大的服务器）
 # sudo dd if=/dev/zero of=swapfile bs=1G count=3
 # sudo mkswap swapfile
 # sudo chmod 600 swapfile
