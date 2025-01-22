@@ -1,9 +1,102 @@
+# 涉及到的加密工具及明文密码
+# 工具：
 server:
   port: ${SERVER_PORT:9000}
 
 spring:
   application:
     name: ${APPLICATION_NAME:spring-cloud-acegi}
+  datasource:
+    druid:
+      keep-alive: true
+      max-active: 20
+      initial-size: 1
+      min-idle: 1
+      max-wait: 360000
+      use-unfair-lock: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      max-evictable-idle-time-millis: 180000
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      phy-timeout-millis: 15000
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filter:
+        wall:
+          config:
+            multi-statement-allow: true
+            drop-table-allow: false
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /*.js,/*.gif,/*.jpg,/*.bmp,/*.png,/*.css,/*.ico,/druid/*
+        session-stat-enable: true
+        profile-enable: true
+      stat-view-servlet:
+        enabled: true
+        allow:
+        reset-enable: false
+        login-username: ENC(U8L4BqoN6jdZbE2VwYCJIQ==)
+        login-password: ENC(+dc7JY/gGjkr6NLajVL3qw==)
+        url-pattern: /druid/*
+    dynamic:
+      primary: mysql
+      strict: false
+      datasource:
+        #db2:
+        #  type: com.alibaba.druid.pool.DruidDataSource
+        #  driver-class-name: com.ibm.db2.jcc.DB2Driver
+        #  url: ENC(AWKzTaOZq0X6Nh7M0dZAmqITTDNW45oOrIu3txP9uOaEvVj9m6TOEL2nlApwTnu5/A+O5Sg2v9D8O6i5H9VIvOw0seTqJjst)
+        #  username: ENC(+qacedhy7A9LtB9emwRN6rLJ0amtDREn)
+        #  password: ENC(U6HdbxxyB1p6SghOL4NbR9mUkbHHkBxR)
+        #  druid:
+        #    initial-size: 1
+        #    max-active: 20
+        #    min-idle: 1
+        #    max-wait: 360000
+        #    use-unfair-lock: true
+        #    min-evictable-idle-time-millis: 30000
+        #    max-evictable-idle-time-millis: 180000
+        #    time-between-eviction-runs-millis: 60000
+        #    validation-query: select current date from sysibm.sysdummy1
+        #    validation-query-timeout: -1
+        #    test-on-borrow: false
+        #    test-on-return: false
+        #    test-while-idle: true
+        #    pool-prepared-statements: true
+        #    filters: stat,wall
+        #    share-prepared-statements: true
+        mysql:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: ENC(4Vbp80k396a6prqK6L0x205CnPtqTHXGyR9qGXrd8x6uQThAC0H40KmqSjGJSGUdqQwdWjayplxec3sJqBsjZBhEB+AStbaZORLEXjnKjhiHxJWbvCI5MJLinxRG8CBOFEubV3jIiRHhPgklBFNJeGUx2GMnu1+GleYA3dPaRtteIDvQvuEUirQ7Rp+yvY6wgztdS0LH4Rdze7wLFc/aBCoeM6vfx3PUyGsjCtPXFsoT+3qPWX1uHICkjJTwVRWcj/2YEVRQzMJEobNRGxQRYheTIRNjM13q)
+          username: ENC(/4HuThfjzoFtwp0h2QlZYQ==)
+          password: ENC(/4HuThfjzoFtwp0h2QlZYQ==)
+          druid:
+            initial-size: 1
+            max-active: 20
+            min-idle: 1
+            max-wait: 360000
+            use-unfair-lock: true
+            min-evictable-idle-time-millis: 30000
+            max-evictable-idle-time-millis: 180000
+            time-between-eviction-runs-millis: 60000
+            validation-query: select 1
+            validation-query-timeout: -1
+            test-on-borrow: false
+            test-on-return: false
+            test-while-idle: true
+            pool-prepared-statements: true
+            filters: stat,wall
+            share-prepared-statements: true
 
 # Eureka 配置
 eureka:
@@ -17,3 +110,27 @@ eureka:
     register-with-eureka: ${REGISTER_WITH_EUREKA:true}
     service-url:
       defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
+
+# Jasypt 加密
+jasypt:
+  encryptor:
+    password: ${JSYPT_ENCRYPTOR_PASSWORD:DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7}
+    algorithm: ${JSYPT_ENCRYPTOR_ALGORITHM:PBEWithMD5AndDES}
+    string-output-type: ${JSYPT_ENCRYPTOR_STRING_OUTPUT_TYPE:base64}
+    iv-generator-classname: ${JSYPT_ENCRYPTOR_IV_GENERATOR_CLASSNAME:org.jasypt.iv.NoIvGenerator}
+
+# ORM 框架
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*-mapper.xml
+  global-config:
+    db-config:
+      id-type: assign_uuid
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mpj:
+  base-package: tsai.spring.cloud.**.mapper
+  defaults:
+    method-handler: true
+    sql-injector: true
+    mpj-injector: true

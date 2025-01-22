@@ -20,6 +20,7 @@
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
         <inject.version>1</inject.version>
+        <jasypt.version>3.0.2</jasypt.version>
         <tsai.version>1.0.2-RELEASE</tsai.version>
     </properties>
 
@@ -71,6 +72,11 @@
                 <groupId>com.tsaiframework.boot</groupId>
                 <artifactId>mpj-spring-boot-starter</artifactId>
                 <version>${tsai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
