@@ -32,10 +32,19 @@ const app = createApp({
       password: [{required: true, trigger: 'blur', message: '密码不可为空'}],
     })
     const login = () => {
-      post('/login', Qs.stringify(loginForm.value), {
+      // spring security
+      // post('/login', Qs.stringify(loginForm.value), {
+      //   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      // }).then(res => {
+      //   window.location.href = res.request.responseURL
+      // }).catch(error => {
+      //   console.error(error)
+      // })
+      // oauth2
+      post('/oauth/token', Qs.stringify(loginForm.value), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).then(res => {
-        window.location.href = res.request.responseURL
+        console.log(res,'-res-')
       }).catch(error => {
         console.error(error)
       })

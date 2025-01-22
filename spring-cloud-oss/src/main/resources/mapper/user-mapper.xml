@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tsai.spring.cloud.mapper.UserMapper">
+
+    <!--根据 username 查询单个用户（username 为唯一的）-->
+    <select id="findByUserName" resultType="tsai.spring.cloud.pojo.User">
+        select ID,
+               USERNAME,
+               PASSWORD
+        from TSAI_USER
+        where USERNAME = #{username}
+    </select>
+
+</mapper>

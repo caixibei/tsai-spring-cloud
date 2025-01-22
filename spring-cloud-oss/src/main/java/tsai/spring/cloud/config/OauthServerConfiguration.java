@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -95,7 +94,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 使用非对称加密算法对 Token 签名
-     * @return
+     * @return {@link JwtAccessTokenConverter}
      */
     @Bean
     public JwtAccessTokenConverter tokenConverter() {
@@ -107,7 +106,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Bean
     public KeyPair keyPair() {
         // 从证书文件 jwt.jks 中获取秘钥对
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7".toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
         return keyStoreKeyFactory.getKeyPair("jwt", "DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7".toCharArray());
     }
 
