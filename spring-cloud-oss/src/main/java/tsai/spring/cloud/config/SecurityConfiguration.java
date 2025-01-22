@@ -33,14 +33,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index.html")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/dashbord.html")
-                .failureForwardUrl("/error.html")
+                .successForwardUrl("/dashbord")
+                .failureForwardUrl("/error")
                 .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/index.html","/login","/oauth/**")
+                        "/index.html","/login","/oauth/**","/error")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
