@@ -139,11 +139,11 @@ services:
       # 部署资源大小限制
       resources:
         limits:
-          cpus: 0.2
-          memory: 512M
+          cpus: 0.5
+          memory: 1024M
         reservations:
-          cpus: 0.2
-          memory: 512M
+          cpus: 0.5
+          memory: 1024M
 
   # 定义一个名为 spring-cloud-eureka-slave 的服务
   spring-cloud-eureka-slave:
@@ -192,11 +192,11 @@ services:
       # 部署资源大小限制
       resources:
         limits:
-          cpus: 0.2
-          memory: 512M
+          cpus: 0.5
+          memory: 1024M
         reservations:
-          cpus: 0.2
-          memory: 512M
+          cpus: 0.5
+          memory: 1024M
 
   # 定义一个名为 spring-cloud-gateway-master 的服务
   spring-cloud-gateway-master:
