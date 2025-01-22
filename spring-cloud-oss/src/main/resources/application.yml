@@ -137,3 +137,9 @@ mpj:
     enable-interceptor: true
     enable-injector: true
 
+security:
+  oauth2:
+    client:
+      client-id: ${spring.application.name}
+      client-secret: 123456
+      grant-type: password
