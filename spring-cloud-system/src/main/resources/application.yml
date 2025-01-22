@@ -1,7 +1,6 @@
 server:
   port: ${SERVER_PORT:7080}
-  servlet:
-    context-path: /${spring.application.name}
+  context-path: /${spring.application.name}
 
 spring:
   application:
