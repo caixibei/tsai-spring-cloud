@@ -35,7 +35,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                // 允许访问所有 Actuator 端点
+                //.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

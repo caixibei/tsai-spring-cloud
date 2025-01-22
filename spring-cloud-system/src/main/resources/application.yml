@@ -143,17 +143,15 @@ security:
     client:
       client-id: tsai-spring-cloud
       client-secret: 123456
-      # user-authorization-uri: http://localhost:9000/spring-cloud-oss/oauth/authorize
-      # access-token-uri: http://localhost:9000/spring-cloud-oss/oauth/token
-      grant-type: password
+      user-authorization-uri: http://localhost:9000/oauth/authorize
+      access-token-uri: http://localhost:9000/oauth/token
     resource:
       id: ${spring.application.name}
-      check-token-url: http://127.0.0.1:9000/spring-cloud-oss/oauth/check_token
-      token-info-uri: http://127.0.0.1:9000/spring-cloud-oss/sso/oauth/check_token
+      check-token-url: http://127.0.0.1:9000/oauth/check_token
       jwt:
-        key-uri: http://localhost:9000/spring-cloud-oss/oauth/token_key
+        key-uri: http://localhost:9000/oauth/token_key
         key-password: 123456
-
+        
 feign:
   oauth2:
     # 开启Oauth支持，这样就会在请求头中携带Token了

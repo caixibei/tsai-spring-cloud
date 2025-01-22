@@ -18,6 +18,7 @@ spring:
           predicates:
             # 匹配对应URL的请求，将匹配到的请求追加到目标URI之后
             - Path=/system/**
+
 # Eureka 配置
 eureka:
   instance:

@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 对静态资源、Oauth2放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/index.html","/oauth/**")
+                        "/index.html","/oauth/**","/login")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
