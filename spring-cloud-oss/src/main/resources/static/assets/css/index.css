@@ -95,9 +95,10 @@ body, #app {
     color: #000;
 }
 
+/*错误提示信息右靠齐*/
 .login_form .el-form-item__error{
-    right: 0;
-    left: unset;
+    /*right: 0;*/
+    /*left: unset;*/
 }
 
 .login_btn .el-form-item__content{
