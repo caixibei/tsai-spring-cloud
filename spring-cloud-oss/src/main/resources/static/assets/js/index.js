@@ -2,18 +2,7 @@ const {createApp, ref, onMounted, markRaw} = Vue
 const {createRouter, createWebHashHistory} = VueRouter
 
 // 路由信息配置
-const routes = [
-  {
-    path: '/dashboard',
-    name: 'dashboardPage',
-    component: DashboardPage
-  },
-  {
-    path: '/error',
-    name: 'errorPage',
-    component: ErrorPage
-  }
-]
+const routes = []
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -22,15 +11,10 @@ const router = createRouter({
 
 // 应用挂载
 const app = createApp({
-  components: {DashboardPage, ErrorPage},
+  components: {},
   setup() {
     /**表单数据*/
-    const loginForm = ref({
-      // client_id: 'tsai-spring-cloud',
-      // response_type: 'code',
-      // grant_type: 'password',
-      // client_secret: '123456'
-    })
+    const loginForm = ref({})
     /**表单校验规则*/
     const rules = ref({
       username: [{required: true, trigger: 'blur', message: '用户名不可为空'}],
@@ -41,6 +25,7 @@ const app = createApp({
       post('/login', Qs.stringify(loginForm.value), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).then(res => {
+        console.log(res,'登录结束')
         window.location.href = res?.request?.responseURL
       }).catch(error => {
         console.error(error)
