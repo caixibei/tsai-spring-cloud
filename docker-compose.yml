@@ -124,6 +124,8 @@ services:
       - FETCH_REGISTRY=true
       - REGISTER_WITH_EUREKA=true
       - DEFAULT_ZONE=http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/
+      - ENDPOINTS=info,shutdown
+      - ENABLE_SHOWDOWN=true
       - JSYPT_ENCRYPTOR_PASSWORD=DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7
       - JSYPT_ENCRYPTOR_ALGORITHM=PBEWithMD5AndDES
       - JSYPT_ENCRYPTOR_STRING_OUTPUT_TYPE=base64

@@ -163,3 +163,13 @@ feign:
     enabled: true
     # 同时开启负载均衡支持
     load-balanced: true
+
+# actuator 相关配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${ENDPOINTS:info,shutdown}
+  endpoint:
+    shutdown:
+      enabled: ${ENABLE_SHOWDOWN:false}
