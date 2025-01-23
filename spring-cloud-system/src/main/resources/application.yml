@@ -145,7 +145,7 @@ oauth2-server-url: http://localhost:9000
 security:
   oauth2:
     client:
-      client-id: spring-cloud-system
+      client-id: ${spring.application.name}
       client-secret: 123456
       access-token-uri: ${oauth2-server-url}/oauth/token
       # 授权模式下，密码模式不需要
