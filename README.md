@@ -149,7 +149,20 @@ CREATE TABLE `oauth_client_details`(
     PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-INSERT INTO `oauth_client_details` VALUES ('tsai-spring-cloud', NULL, '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'authorization_code,password,refresh_token', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `oauth_client_details` 
+VALUES (
+    'spring-cloud-system', 
+    'spring-cloud-system', 
+    '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 
+    'all',
+    'authorization_code,password,refresh_token',
+    'http://localhost:7080/login', 
+    NULL,
+    3600,
+    NULL, 
+    NULL, 
+    'all'
+);
 
 create table `TSAI_USER`(
     ID varchar(128) not null primary key ,

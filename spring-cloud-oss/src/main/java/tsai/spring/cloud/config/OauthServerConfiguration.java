@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -20,10 +22,12 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -55,20 +59,21 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 1.基于JDBC模式的密码认证
-        // JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        // clientDetailsService.setPasswordEncoder(passwordEncoder);
-        // clients.withClientDetails(clientDetailsService);
+        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        clientDetailsService.setPasswordEncoder(passwordEncoder);
+        clients.withClientDetails(clientDetailsService);
         // 2.以内存方式存储（不推荐）
-        clients.inMemory()
-                .withClient("tsai-spring-cloud")
-                .autoApprove(true)
-                .secret("$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi")
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
-                .scopes("all")
-                .redirectUris("http://localhost:7080/login")
-                .accessTokenValiditySeconds(3600)
-                // 刷新 token 的长 token 有效期 24 hours
-                .refreshTokenValiditySeconds(86400);
+        // 或 .autoApprove(true) 开启所有
+        // clients.inMemory()
+        //         .withClient("spring-cloud-system")
+        //         .autoApprove("all")
+        //         .secret("$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi")
+        //         .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+        //         .scopes("all")
+        //         .redirectUris("http://localhost:7080/login")
+        //         .accessTokenValiditySeconds(3600)
+        //         // 刷新 token 的长 token 有效期 24 hours
+        //         .refreshTokenValiditySeconds(86400);
     }
 
     @Override
