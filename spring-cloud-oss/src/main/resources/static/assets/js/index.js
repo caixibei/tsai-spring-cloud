@@ -25,7 +25,6 @@ const app = createApp({
       post('/login', Qs.stringify(loginForm.value), {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       }).then(res => {
-        console.log(res,'登录结束')
         window.location.href = res?.request?.responseURL
       }).catch(error => {
         console.error(error)
