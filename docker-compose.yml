@@ -1,21 +1,20 @@
 services:
-
   # 定义一个名为 dpanel-service 的服务
-  dpanel-service:
-    image: dpanel/dpanel
-    container_name: dpanel
-    privileged: true
-    # 重启策略
-    restart: always
-    # 端口映射
-    ports:
-      - "8080:8080"
-      - "80:80"
-      - "443:443"
-    # 磁盘挂载
-    volumes:
-      - ./docker/dpanel/data:/dpanel:rw
-      - /var/run/docker.sock:/var/run/docker.sock
+  # dpanel-service:
+  #   image: dpanel/dpanel
+  #   container_name: dpanel
+  #   privileged: true
+  #   # 重启策略
+  #   restart: always
+  #   # 端口映射
+  #   ports:
+  #     - "8080:8080"
+  #     - "80:80"
+  #     - "443:443"
+  #   # 磁盘挂载
+  #   volumes:
+  #     - ./docker/dpanel/data:/dpanel:rw
+  #     - /var/run/docker.sock:/var/run/docker.sock
 
   # 定义一个名为 redis-service 的服务
   redis-service:
@@ -105,6 +104,9 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      no_cache: true
+      cache_from:
+        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "9000:9000"
@@ -164,6 +166,9 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      no_cache: true
+      cache_from:
+        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8761:8761"
@@ -217,6 +222,9 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      no_cache: true
+      cache_from:
+        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8762:8762"
