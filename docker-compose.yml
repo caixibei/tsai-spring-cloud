@@ -1,20 +1,20 @@
 services:
   # 定义一个名为 dpanel-service 的服务
-  # dpanel-service:
-  #   image: dpanel/dpanel
-  #   container_name: dpanel
-  #   privileged: true
-  #   # 重启策略
-  #   restart: always
-  #   # 端口映射
-  #   ports:
-  #     - "8080:8080"
-  #     - "80:80"
-  #     - "443:443"
-  #   # 磁盘挂载
-  #   volumes:
-  #     - ./docker/dpanel/data:/dpanel:rw
-  #     - /var/run/docker.sock:/var/run/docker.sock
+  dpanel-service:
+    image: dpanel/dpanel
+    container_name: dpanel
+    privileged: true
+    # 重启策略
+    restart: always
+    # 端口映射
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    # 磁盘挂载
+    volumes:
+      - ./docker/dpanel/data:/dpanel:rw
+      - /var/run/docker.sock:/var/run/docker.sock
 
   # 定义一个名为 redis-service 的服务
   redis-service:
@@ -87,7 +87,7 @@ services:
           memory: 512M
 
   # 定义一个名为 spring-cloud-oss-service 的服务
-  spring-cloud-oss-service:
+  oss-service:
     # 指定容器所使用的镜像名称为 spring-cloud-oss
     # image: spring-cloud-oss:latest
     # 指定容器的名称为 spring-cloud-oss
@@ -147,7 +147,7 @@ services:
           memory: 1024M
 
   # 定义一个名为 spring-cloud-eureka-master 的服务
-  spring-cloud-eureka-master:
+  eureka-service-master:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
     # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
@@ -201,7 +201,7 @@ services:
           memory: 1024M
 
   # 定义一个名为 spring-cloud-eureka-slave 的服务
-  spring-cloud-eureka-slave:
+  eureka-service-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
     # image: spring-cloud-eureka:latest
     # 指定容器的名称为 spring-cloud-eureka-master
@@ -255,7 +255,7 @@ services:
           memory: 1024M
 
   # 定义一个名为 spring-cloud-gateway-master 的服务
-  spring-cloud-gateway-master:
+  gateway-service-master:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
     # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-master
@@ -301,7 +301,7 @@ services:
           memory: 512M
 
   # 定义一个名为 spring-cloud-gateway-slave 的服务
-  spring-cloud-gateway-slave:
+  gateway-service-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
     # image: spring-cloud-gateway:latest
     # 指定容器的名称为 spring-cloud-gateway-slave
