@@ -3,10 +3,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class OssController {
-
     @PostMapping("/dashboard")
     public String dashboard() {
-        return "redirect:/dashbord.html";
+        return "redirect:/dashboard.html";
     }
 
     @PostMapping("/error")

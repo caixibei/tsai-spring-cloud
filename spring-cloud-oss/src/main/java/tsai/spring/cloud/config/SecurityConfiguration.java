@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index.html")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/dashbord")
+                .successForwardUrl("/dashboard")
                 .failureForwardUrl("/error")
                 .and()
                 .authorizeRequests()
