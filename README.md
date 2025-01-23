@@ -161,7 +161,7 @@ VALUES (
     3600,
     NULL, 
     NULL, 
-    'all'
+    'true'
 );
 
 create table `TSAI_USER`(
