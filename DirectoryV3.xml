@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/spring-cloud-eureka" title="    🛜Eureka     注册中心"/>
-     <tree path="/spring-cloud-gateway" title="   🧱Gateway    网关服务"/>
-     <tree path="/spring-cloud-system" title="    ℹ️System     系统组件"/>
-     <tree path="/spring-cloud-oss" title="       ✳️Oauth2+SSO 认证模块"/>
-     <tree path="/docker" title="                 ✳️Docker部署的服务配置文件"/>
+     <tree path="/docker"               title="🗃️Docker 部署文件"/>
+     <tree path="/spring-cloud-eureka"  title="🫀Eureka 注册中心"/>
+     <tree path="/spring-cloud-gateway" title="🧱Gateway 网关服务"/>
+     <tree path="/spring-cloud-oss"     title="🗂️oss 认证模块"/>
+     <tree path="/spring-cloud-system"  title="✳️System 系统组件"/>
  </trees>
