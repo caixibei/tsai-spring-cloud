@@ -104,7 +104,7 @@ services:
       dockerfile: ./spring-cloud-oss/Dockerfile
       # 参数
       args:
-        VERSION: 1.1.0
+        VERSION: 1.2.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "9000:9000"
@@ -163,7 +163,7 @@ services:
       dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
-        VERSION: 1.1.0
+        VERSION: 1.2.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8761:8761"
@@ -216,7 +216,7 @@ services:
       dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
-        VERSION: 1.1.0
+        VERSION: 1.2.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8762:8762"
@@ -268,7 +268,7 @@ services:
       dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
-        VERSION: 1.1.0
+        VERSION: 1.2.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "30000:30000"
@@ -314,7 +314,7 @@ services:
       dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
-        VERSION: 1.1.0
+        VERSION: 1.2.0
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "30001:30001"
