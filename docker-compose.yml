@@ -1,5 +1,6 @@
 services:
-  # 定义一个名为 dpanel-service 的服务
+
+  # DockerUI 管理工具
   dpanel-service:
     image: dpanel/dpanel
     container_name: dpanel
@@ -16,7 +17,7 @@ services:
       - ./docker/dpanel/data:/dpanel:rw
       - /var/run/docker.sock:/var/run/docker.sock
 
-  # 定义一个名为 redis-service 的服务
+  # Redis 服务
   redis-service:
     # 镜像版本
     image: redis:latest
@@ -51,7 +52,7 @@ services:
           cpus: 0.2
           memory: 512M
 
-  # 定义一个名为 mysql_service 的服务
+  # MySQL 服务
   mysql-service:
     # 镜像版本
     image: mysql:5.7
@@ -86,7 +87,7 @@ services:
           cpus: 0.2
           memory: 512M
 
-  # 定义一个名为 spring-cloud-oss-service 的服务
+  # 单点登录统一认证服务
   oss-service:
     # 指定容器所使用的镜像名称为 spring-cloud-oss
     # image: spring-cloud-oss:latest
@@ -104,6 +105,7 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
@@ -146,7 +148,7 @@ services:
           cpus: 0.5
           memory: 1024M
 
-  # 定义一个名为 spring-cloud-eureka-master 的服务
+  # Eureka 注册中心
   eureka-service-master:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
     # image: spring-cloud-eureka:latest
@@ -164,6 +166,7 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
@@ -200,7 +203,7 @@ services:
           cpus: 0.5
           memory: 1024M
 
-  # 定义一个名为 spring-cloud-eureka-slave 的服务
+  # Eureka 注册中心
   eureka-service-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-eureka
     # image: spring-cloud-eureka:latest
@@ -218,6 +221,7 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
@@ -254,7 +258,7 @@ services:
           cpus: 0.5
           memory: 1024M
 
-  # 定义一个名为 spring-cloud-gateway-master 的服务
+  # Gateway 网关服务
   gateway-service-master:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
     # image: spring-cloud-gateway:latest
@@ -271,6 +275,8 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      # 禁止缓存
+      no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "30000:30000"
@@ -300,7 +306,7 @@ services:
           cpus: 0.2
           memory: 512M
 
-  # 定义一个名为 spring-cloud-gateway-slave 的服务
+  # Gateway 网关服务
   gateway-service-slave:
     # 指定容器所使用的镜像名称为 spring-cloud-gateway
     # image: spring-cloud-gateway:latest
@@ -317,6 +323,8 @@ services:
       # 参数
       args:
         VERSION: 1.2.0
+      # 禁止缓存
+      no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "30001:30001"
