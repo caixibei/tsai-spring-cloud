@@ -105,8 +105,6 @@ services:
       args:
         VERSION: 1.2.0
       no_cache: true
-      cache_from:
-        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "9000:9000"
@@ -167,8 +165,6 @@ services:
       args:
         VERSION: 1.2.0
       no_cache: true
-      cache_from:
-        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8761:8761"
@@ -223,8 +219,6 @@ services:
       args:
         VERSION: 1.2.0
       no_cache: true
-      cache_from:
-        - type=none
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "8762:8762"
