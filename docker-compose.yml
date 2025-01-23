@@ -87,7 +87,7 @@ services:
           cpus: 0.2
           memory: 512M
 
-  # 定义一个名为 spring-cloud-oss 的服务
+  # 定义一个名为 spring-cloud-oss-service 的服务
   spring-cloud-oss-service:
     # 指定容器所使用的镜像名称为 spring-cloud-oss
     # image: spring-cloud-oss:latest
