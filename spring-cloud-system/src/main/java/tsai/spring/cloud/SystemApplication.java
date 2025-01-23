@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class SystemApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(SystemApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(SystemApplication.class);
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(SystemApplication.class, args);

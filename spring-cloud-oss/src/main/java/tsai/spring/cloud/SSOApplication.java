@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class SSOApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(SSOApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(SSOApplication.class);
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(SSOApplication.class, args);
