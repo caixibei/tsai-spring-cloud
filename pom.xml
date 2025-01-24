@@ -21,7 +21,7 @@
         <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
         <inject.version>1</inject.version>
         <jasypt.version>3.0.2</jasypt.version>
-        <tsai.version>2.0.1-SNAPSHOT</tsai.version>
+        <tsai.version>2.1.0-SNAPSHOT</tsai.version>
     </properties>
 
     <modules>

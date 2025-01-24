@@ -156,7 +156,21 @@ mpj:
 #       jwt:
 #         key-uri: ${oauth2-server-url}/oauth/token_key
 #         key-password: 123456
-        
+
+# 单点登录迁移后的配置
+oauth2:
+  enable: true
+  client:
+    server-url: http://localhost:9000
+    client-id: ${spring.application.name}
+    client-secret: 123456
+  resource:
+    id: ${spring.application.name}
+    server-url: http://localhost:9000
+    jwt:
+      server-url: http://localhost:9000
+      key-password: 123456
+
 feign:
   oauth2:
     # 开启Oauth支持，这样就会在请求头中携带Token了
