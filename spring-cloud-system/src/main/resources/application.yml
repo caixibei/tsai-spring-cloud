@@ -141,35 +141,21 @@ mpj:
     enable-injector: true
 
 # 单点登录（已迁移至开源库）
-# oauth2-server-url: http://localhost:9000
-# security:
-#   oauth2:
-#     client:
-#       client-id: ${spring.application.name}
-#       client-secret: 123456
-#       access-token-uri: ${oauth2-server-url}/oauth/token
-#       # 授权模式下，密码模式不需要
-#       user-authorization-uri: ${oauth2-server-url}/oauth/authorize
-#     resource:
-#       id: ${spring.application.name}
-#       check-token-url: ${oauth2-server-url}/oauth/check_token
-#       jwt:
-#         key-uri: ${oauth2-server-url}/oauth/token_key
-#         key-password: 123456
-
-# 单点登录迁移后的配置
-oauth2:
-  enable: true
-  client:
+security:
+  oauth2:
+    enable: true
     server-url: http://localhost:9000
-    client-id: ${spring.application.name}
-    client-secret: 123456
-  resource:
-    id: ${spring.application.name}
-    server-url: http://localhost:9000
-    jwt:
-      server-url: http://localhost:9000
-      key-password: 123456
+    client:
+      client-id: ${spring.application.name}
+      client-secret: 123456
+      access-token-uri: ${security.oauth2.server-url}/oauth/token
+      user-authorization-uri: ${security.oauth2.server-url}/oauth/authorize
+    resource:
+      id: ${spring.application.name}
+      check-token-url: ${security.oauth2.server-url}/oauth/check_token
+      jwt:
+        key-uri: ${security.oauth2.server-url}/oauth/token_key
+        key-password: 123456
 
 feign:
   oauth2:
