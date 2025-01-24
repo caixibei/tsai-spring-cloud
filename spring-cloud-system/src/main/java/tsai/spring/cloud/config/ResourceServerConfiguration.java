@@ -2,7 +2,6 @@ package tsai.spring.cloud.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -10,8 +9,11 @@ import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-
-@Configuration
+/**
+ * 资源服务器配置（已迁移至开源库）
+ * @author tsai
+ */
+@Deprecated
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Value("${security.oauth2.resource.check-token-url}")
@@ -36,12 +38,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 允许访问所有 Actuator 端点
-                //.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/system/**");
+                .antMatchers("/**");
     }
 
     @Bean
