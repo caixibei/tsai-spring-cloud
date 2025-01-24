@@ -14,6 +14,6 @@ WORKDIR /oss
 # 设置时区链接
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 将 jar 源文件拷贝到容器目标路径下
-COPY ./spring-cloud-eureka/target/spring-cloud-oss-${VERSION}.jar /oss
+COPY spring-cloud-eureka/target/spring-cloud-oss-${VERSION}.jar /oss
 # 启动
 ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /oss/spring-cloud-oss-${VERSION}.jar"]

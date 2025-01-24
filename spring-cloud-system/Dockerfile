@@ -1,24 +1,19 @@
-# 使用 openjdk 运行时作为基础镜像，版本 8
+# 使用 openjdk:8 作为基础构建镜像
 FROM openjdk:8
-
-# 指定维护人员信息
+# 声明维护人员信息
 MAINTAINER caixibei@139.com
-
-# 设置环境信息
+# 声明版本号
 ARG VERSION
 ENV VERSION=${VERSION}
+# 环境参数
 ENV JAVA_OPTS="-Xms256m -Xmx512m"
 ENV TZ=Asia/Shanghai
 ENV LANG C.UTF-8
-
-# 设置工作目录为 /app
-WORKDIR /app
-
-# 创建时区符号链接
+# 工作目录
+WORKDIR /system
+# 设置时区链接
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# 将当前目录下的 jar 包 文件添加到容器的 /app 目录下
-COPY ./spring-cloud-system/target/spring-cloud-system-${VERSION}.jar /app
-
-# 容器启动时命令
-ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /app/spring-cloud-system-${VERSION}.jar"]
+# 将 jar 源文件拷贝到容器目标路径下
+COPY spring-cloud-eureka/target/spring-cloud-system-${VERSION}.jar /system
+# 启动
+ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /system/spring-cloud-system-${VERSION}.jar"]
