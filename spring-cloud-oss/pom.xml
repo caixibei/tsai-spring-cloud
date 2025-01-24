@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>com.tsaiframework.boot</groupId>
-            <artifactId>mpj-spring-boot-starter</artifactId>
+            <artifactId>tsai-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
