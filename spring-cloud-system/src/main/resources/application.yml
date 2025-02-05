@@ -144,6 +144,7 @@ mpj:
 security:
   oauth2:
     enable: true
+    ant-matches: /system
     server-url: http://localhost:9000
     client:
       client-id: ${spring.application.name}
@@ -157,11 +158,12 @@ security:
         key-uri: ${security.oauth2.server-url}/oauth/token_key
         key-password: 123456
 
+# Feign配置
 feign:
   oauth2:
     # 开启Oauth支持，这样就会在请求头中携带Token了
     enabled: true
-    # 同时开启负载均衡支持
+    # 开启负载均衡支持
     load-balanced: true
 
 # actuator 相关配置
