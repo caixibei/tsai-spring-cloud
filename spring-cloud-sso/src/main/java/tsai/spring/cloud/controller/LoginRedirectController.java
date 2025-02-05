@@ -1,6 +1,9 @@
 package tsai.spring.cloud.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class LoginRedirectController {
     /**
@@ -17,7 +20,8 @@ public class LoginRedirectController {
      * @return 跳转地址
      */
     @PostMapping("/error")
-    public String error() {
+    public String error(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         return "redirect:/error.html";
     }
 }

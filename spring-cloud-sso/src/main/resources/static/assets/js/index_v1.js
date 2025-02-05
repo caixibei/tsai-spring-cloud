@@ -31,7 +31,8 @@ const app = createApp({
           post('/login', Qs.stringify(loginForm.value), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           }).then(res => {
-            window.location.href = res?.request?.responseURL
+            console.log(res,'1111')
+            // window.location.href = res?.request?.responseURL
           }).catch(error => {
             console.error(error)
           })

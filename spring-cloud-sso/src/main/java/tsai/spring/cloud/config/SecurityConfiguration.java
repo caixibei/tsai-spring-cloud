@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
                         "/**/*.woff2","/index_v1.html","/error",
+                        "/error.html",
                         // 登录请求、获取token请求放行、获取验证码放行
                         "/login","/oauth/**", "/sso/lineCaptcha")
                 .permitAll()
