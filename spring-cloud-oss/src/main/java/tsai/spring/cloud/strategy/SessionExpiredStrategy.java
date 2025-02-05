@@ -4,12 +4,16 @@ import org.springframework.security.web.session.SessionInformationExpiredStrateg
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+/**
+ * 多端登录Session过期策略
+ * @author tsai
+ */
 @Component
 public class SessionExpiredStrategy implements SessionInformationExpiredStrategy {
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
         HttpServletResponse response = event.getResponse();
-        response.getWriter().print("您的账号在别处登录，当前登录已失效！");
+        response.getWriter().print("您的账号在别处登录，当前登录失效！");
         response.flushBuffer();
     }
 }
