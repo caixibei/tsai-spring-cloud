@@ -134,7 +134,12 @@ keytool -genkey -alias jwt ^
 7. 基础建表语句
 
 ```sql
-CREATE TABLE `oauth_client_details`(
+-- 创建数据库
+create database `tsai-db`;
+-- 指定数据库
+use `tsai-db`;
+-- 创建 Oauth2 认证表
+CREATE TABLE `oauth_client_details` (
     `client_id`               varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
     `resource_ids`            varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
     `client_secret`           varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
@@ -148,29 +153,16 @@ CREATE TABLE `oauth_client_details`(
     `autoapprove`             varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
     PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-INSERT INTO `oauth_client_details` 
-VALUES (
-    'spring-cloud-system', 
-    'spring-cloud-system', 
-    '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 
-    'all',
-    'authorization_code,password,refresh_token',
-    'http://localhost:7080/login', 
-    NULL,
-    3600,
-    NULL, 
-    NULL, 
-    'true'
-);
-
+-- 接入应用信息
+INSERT INTO `oauth_client_details` VALUES ('spring-cloud-system', 'spring-cloud-system', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'authorization_code,password,refresh_token', 'http://localhost:7080/login',NULL,3600,NULL,NULL,'all');
+-- 创建用户信息表
 create table `TSAI_USER`(
-    ID varchar(128) not null primary key ,
-    USERNAME varchar(128) not null unique,
-    PASSWORD varchar(256) not null,
-    CREATE_TIME TIMESTAMP null ,
-    UPDATE_TIME TIMESTAMP null
+    ID          varchar(128) not null primary key,
+    USERNAME    varchar(128) not null unique,
+    PASSWORD    varchar(256) not null,
+    CREATE_TIME TIMESTAMP    null,
+    UPDATE_TIME TIMESTAMP    null
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
+-- 用户信息数据
 INSERT INTO `TSAI_USER` VALUES ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
 ```
