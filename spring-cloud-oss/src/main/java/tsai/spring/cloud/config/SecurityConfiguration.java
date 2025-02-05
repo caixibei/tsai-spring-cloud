@@ -40,13 +40,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .successForwardUrl("/dashboard")
                 .failureForwardUrl("/error")
-
                 .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2 放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/index.html","/login","/oauth/**","/error")
+                        "/index_v1.html","/login","/oauth/**","/error")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
