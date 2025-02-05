@@ -3,6 +3,7 @@ import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public void runtimeException(RuntimeException e, HttpServletResponse response) throws Exception{
+    public void exception(RuntimeException e, HttpServletResponse response) throws Exception{
+        handleException(e, response, e.getMessage());
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public void exception(InternalAuthenticationServiceException e, HttpServletResponse response) throws Exception{
         handleException(e, response, e.getMessage());
     }
 
