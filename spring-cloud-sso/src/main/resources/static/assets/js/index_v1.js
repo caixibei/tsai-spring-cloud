@@ -23,6 +23,7 @@ const app = createApp({
     })
     /**时间戳*/
     const timestamp = ref(0)
+    const username_copy = ref('')
     /**登录逻辑*/
     const login = () => {
       formRef.value.validate((valid) => {
@@ -39,6 +40,11 @@ const app = createApp({
     }
     /**更新时间戳，获取最新的验证码*/
     const refreshTimestamp = () => {
+      username_copy.value = loginForm.value?.username
+      if(!username_copy.value){
+        ElementPlus.ElMessage({ message: '请输入用户名', type: 'warning'})
+        return
+      }
       timestamp.value = new Date().getTime()
     }
     return {
@@ -46,6 +52,7 @@ const app = createApp({
       loginForm,
       rules,
       timestamp,
+      username_copy,
       login,
       refreshTimestamp
     }

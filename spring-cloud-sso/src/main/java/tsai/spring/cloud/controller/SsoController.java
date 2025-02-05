@@ -5,24 +5,35 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.tsaiframework.boot.constant.WarningsConstants;
+import com.tsaiframework.boot.util.ExceptionUtil;
+import com.tsaiframework.boot.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
 @Slf4j
 @RestController
 @RequestMapping("/sso")
+@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
 public class SsoController {
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 登录成功跳转
@@ -65,15 +76,27 @@ public class SsoController {
      * @param response 响应报文
      */
     @GetMapping("/lineCaptcha")
-    public void getLineCaptcha(HttpServletResponse response) {
-        //定义图形验证码的长、宽、验证码位数、干扰线数量
+    public void getLineCaptcha(HttpServletRequest request, HttpServletResponse response) {
+        // 定义图形验证码的长、宽、验证码位数、干扰线数量
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(150, 50,4,80);
-        //设置背景颜色
+        // 设置背景颜色
         lineCaptcha.setBackground(new Color(249, 251, 220));
-        //生成四位验证码
-        String code = RandomUtil.randomNumbers(4);
+        // 获取输入的账号，作为存储验证码的键（Redis）
+        String username = request.getParameter("username");
+        String code = "点击获取";
         Image image = lineCaptcha.createImage(code);
-        //返回验证码信息
+        if(StrUtil.isBlank(username)){
+            responseCode(response, code, image);
+            return;
+        }
+        // 生成四位验证码
+        code = RandomUtil.randomString("abcdefghijklmnopqrstuvwxyz1234567890",4);
+        image = lineCaptcha.createImage(code);
+        // 存储在 Redis 中，同时设置有效时长为3分钟
+        String key = "captcha_" + username;
+        redisUtil.set(key, code);
+        redisUtil.expire(key,3, TimeUnit.MINUTES);
+        // 返回验证码信息
         responseCode(response, code, image);
     }
 
@@ -100,7 +123,7 @@ public class SsoController {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         String uuid = UUID.randomUUID().toString().replace("-", "");
-        log.info("生成验证码======> uuid:{} \t code: {}",code,uuid);
+        log.info("生成验证码======> uuid:{} \t code: {}",uuid,code);
         try {
             BufferedImage bufferedImage = toBufferedImage(image);
             // 创建 ByteArrayOutputStream 用于存储图片数据

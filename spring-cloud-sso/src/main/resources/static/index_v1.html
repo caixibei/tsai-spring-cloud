@@ -48,7 +48,7 @@
                                 <el-icon class="iconfont icon-captcha"/>
                             </template>
                         </el-input>
-                        <img :src="'/sso/lineCaptcha?timestamp='+timestamp" @click="refreshTimestamp"/>
+                        <img :src="'/sso/lineCaptcha?username='+username_copy+'&timestamp='+timestamp" @click="refreshTimestamp"/>
                     </div>
                 </el-form-item>
                 <el-form-item class="login_btn">
