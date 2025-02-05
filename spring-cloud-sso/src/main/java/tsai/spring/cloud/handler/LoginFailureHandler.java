@@ -3,23 +3,18 @@ import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-/**
- * 无权访问处理器
- * @author tsai
- */
 @Component
 @SuppressWarnings(WarningsConstants.DUPLICATES)
-public class AccessDenyHandler implements AccessDeniedHandler {
+public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.reset();
         response.setContentType("application/json;charset=utf-8");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
@@ -28,10 +23,11 @@ public class AccessDenyHandler implements AccessDeniedHandler {
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
         response.setHeader("Access-Control-Allow-Origin", "*");
         JSONObject object = new JSONObject();
-        object.putOnce("code", HttpStatus.HTTP_FORBIDDEN);
+        object.putOnce("code", HttpStatus.HTTP_INTERNAL_ERROR);
         object.putOnce("success", false);
         object.putOnce("timestamp", System.currentTimeMillis());
-        object.putOnce("message", "权限不足，无法访问！");
+        object.putOnce("message", "登录失败！");
+        object.putOnce("details", exception.getMessage());
         response.getWriter().write(JSONUtil.toJsonStr(object));
         response.flushBuffer();
     }
