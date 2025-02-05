@@ -5,6 +5,8 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.tsaiframework.boot.constant.WarningsConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
+@Slf4j
 @RestController
 @RequestMapping("/sso")
 public class SsoController {
@@ -90,18 +94,21 @@ public class SsoController {
         responseCode(response, code, image);
     }
 
+    @SuppressWarnings(WarningsConstants.DEPRECATION)
     protected static void responseCode(HttpServletResponse response, String code, Image image) {
         response.setContentType("image/jpeg");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        log.info("生成验证码======> uuid:{} \t code: {}",code,uuid);
         try {
             BufferedImage bufferedImage = toBufferedImage(image);
             // 创建 ByteArrayOutputStream 用于存储图片数据
-            ByteArrayOutputStream outputStrem = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             // 写入图片数据到 ByteArrayOutputStream
-            ImageIO.write(bufferedImage, "jpeg", outputStrem);
+            ImageIO.write(bufferedImage, "jpeg", outputStream);
             // 将 ByteArrayOutputStream 转换为 ByteArrayInputStream
-            byte[] imageInBytes = outputStrem.toByteArray();
+            byte[] imageInBytes = outputStream.toByteArray();
             IoUtil.write(response.getOutputStream(), true, imageInBytes);
         } catch (IOException e) {
             throw new RuntimeException(e);
