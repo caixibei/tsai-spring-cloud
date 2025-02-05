@@ -7,7 +7,6 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.tsaiframework.boot.constant.WarningsConstants;
-import com.tsaiframework.boot.util.ExceptionUtil;
 import com.tsaiframework.boot.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
