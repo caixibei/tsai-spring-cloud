@@ -40,11 +40,11 @@ const app = createApp({
     }
     /**更新时间戳，获取最新的验证码*/
     const refreshTimestamp = () => {
-      username_copy.value = loginForm.value?.username
-      if(!username_copy.value){
+      if(!loginForm.value?.username){
         ElementPlus.ElMessage({ message: '请输入用户名', type: 'warning'})
         return
       }
+      username_copy.value = loginForm.value?.username
       timestamp.value = new Date().getTime()
     }
     return {

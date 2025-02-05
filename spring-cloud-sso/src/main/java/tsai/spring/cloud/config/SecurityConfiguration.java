@@ -37,8 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index_v1.html")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/sso/dashboard")
-                .failureForwardUrl("/sso/error")
+                .successForwardUrl("/dashboard")
+                .failureForwardUrl("/error")
                 .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2 放行
@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2","/index_v1.html","/sso/error",
+                        "/**/*.woff2","/index_v1.html","/error",
                         // 登录请求、获取token请求放行、获取验证码放行
                         "/login","/oauth/**", "/sso/lineCaptcha")
                 .permitAll()

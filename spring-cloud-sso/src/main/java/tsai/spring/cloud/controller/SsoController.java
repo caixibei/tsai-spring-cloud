@@ -11,7 +11,6 @@ import com.tsaiframework.boot.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.imageio.ImageIO;
@@ -23,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
 @Slf4j
 @RestController
@@ -33,24 +31,6 @@ public class SsoController {
 
     @Autowired
     private RedisUtil redisUtil;
-
-    /**
-     * 登录成功跳转
-     * @return 跳转地址
-     */
-    @PostMapping("/dashboard")
-    public String dashboard() {
-        return "redirect:/dashboard.html";
-    }
-
-    /**
-     * 登录失败跳转
-     * @return 跳转地址
-     */
-    @PostMapping("/error")
-    public String error() {
-        return "redirect:/error.html";
-    }
 
     /**
      * 获取扭曲干扰的验证码
