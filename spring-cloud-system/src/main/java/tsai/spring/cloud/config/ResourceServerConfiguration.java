@@ -43,7 +43,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/**");
+                .antMatchers("/system/**");
     }
 
     @Bean

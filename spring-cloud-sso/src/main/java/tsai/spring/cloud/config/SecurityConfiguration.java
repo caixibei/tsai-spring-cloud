@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tsai.spring.cloud.handler.AccessDenyHandler;
@@ -60,6 +61,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(accessDeniedHandler)
                 // 多人登录限制，强制下线
                 .and().sessionManagement()
+                    // 不使用 Session 去进行访问
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     // 最多允许登录端数量
                     .maximumSessions(1)
                     // 多端登录session失效的策略
