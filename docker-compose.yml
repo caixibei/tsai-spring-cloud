@@ -1,7 +1,7 @@
 services:
 
   # DockerUI 管理工具
-  dpanel-service:
+  docker-service:
     image: dpanel/dpanel
     container_name: dpanel
     privileged: true
@@ -62,8 +62,6 @@ services:
     # 启动环境参数配置
     environment:
       MYSQL_ROOT_PASSWORD: NJI(mko0
-      MYSQL_USER: scott
-      MYSQL_PASS: scott
     # 文件挂载
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
