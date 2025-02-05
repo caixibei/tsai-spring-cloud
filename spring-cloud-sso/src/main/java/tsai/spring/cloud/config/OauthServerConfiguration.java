@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -23,7 +24,9 @@ import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * Oauth 2 授权服务配置
@@ -89,11 +92,11 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        // List<TokenEnhancer> delegates = new ArrayList<>();
-        // delegates.add(tokenEnhancer());
-        // delegates.add(tokenConverter());
-        // enhancerChain.setTokenEnhancers(delegates);
+         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+         List<TokenEnhancer> delegates = new ArrayList<>();
+         delegates.add(tokenEnhancer());
+         delegates.add(tokenConverter());
+         enhancerChain.setTokenEnhancers(delegates);
         // 开启密码模式授权
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
