@@ -14,6 +14,10 @@ WORKDIR /oss
 # 设置时区链接
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 将 jar 源文件拷贝到容器目标路径下
-COPY spring-cloud-eureka/target/spring-cloud-oss-${VERSION}.jar /oss
+# COPY spring-cloud-eureka/target/spring-cloud-oss-${VERSION}.jar /oss
+COPY ./spring-cloud-eureka/ /oss
+# 列出目标目录内容，目前遇到的问题就是 window 本地部署 COPY 能够正确找到 target 下
+# 的 jar 文件并添加到目标目录，但是使用 Idea 远程部署会出问题，原因不祥
+RUN ls -l /oss
 # 启动
 ENTRYPOINT ["sh", "-c","java $JAVA_OPTS -jar /oss/spring-cloud-oss-${VERSION}.jar"]
