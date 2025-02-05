@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+import tsai.spring.cloud.strategy.SessionExpiredStrategy;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -26,6 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
+
+    @Autowired
+    private SessionExpiredStrategy sessionExpiredStrategy;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -51,7 +56,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(accessDeniedHandler)
                 // 多人登录限制，强制下线
                 .and().sessionManagement()
+                .invalidSessionStrategy(sessionExpiredStrategy)
                 .maximumSessions(1);
+
     }
 
     @Override
