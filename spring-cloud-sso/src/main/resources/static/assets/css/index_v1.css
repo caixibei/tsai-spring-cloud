@@ -70,50 +70,54 @@ body, #app {
     flex: 0 0 18%;
 }
 
-.login_body > div{
+.login_body > div {
     flex: 1;
 }
 
 .login_area {
-    background-color: rgba(48, 59, 62,.7);
+    background-color: rgba(48, 59, 62, .7);
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 3vh 1vw 3vh 1vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.14);
+    animation: ease;
+    transition: 1s;
 }
 
-.login_form{
+.login_form {
     width: 80%;
 }
 
-.login_form .el-form-item--small{
+.login_form .el-form-item--small {
     margin-bottom: 30px;
 }
 
-.login_form .el-form-item:nth-child(3) .el-input{
-    width: 70%;
+.login_form .el-form-item:nth-child(3) .el-input {
+    width: 80%;
 }
 
-.login_area *{
+.login_area * {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.login_form .el-form-item__label{
+.login_form .el-form-item__label {
     color: #fff;
 }
 
 /*错误提示信息右靠齐*/
-.login_form .el-form-item__error{
+.login_form .el-form-item__error {
     /*right: 0;*/
     /*left: unset;*/
 }
 
-.login_btn .el-form-item__content{
+.login_btn .el-form-item__content {
     margin-left: 0 !important;
     display: flex;
     justify-content: center;
@@ -136,12 +140,21 @@ body, #app {
     width: 99%;
 }
 
-@media(min-width:320px) and (max-width:480px){
+.captcha_cls {
+    display: flex;
+    gap: 3px;
+}
+
+.captcha_cls img {
+    height: 25px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
     .login_body > div:nth-child(2) {
         flex: 0 0 70%;
     }
 
-    .login_form{
+    .login_form {
         width: 90%;
     }
 

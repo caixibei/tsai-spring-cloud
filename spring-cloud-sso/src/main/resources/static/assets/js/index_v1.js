@@ -21,6 +21,8 @@ const app = createApp({
       password: [{required: true, trigger: 'blur', message: '密码不可为空'}],
       captcha: [{required: true, trigger: 'blur', message: '验证码不可为空'}],
     })
+    /**时间戳*/
+    const timestamp = ref(0)
     /**登录逻辑*/
     const login = () => {
       formRef.value.validate((valid) => {
@@ -35,7 +37,18 @@ const app = createApp({
         }
       })
     }
-    return {formRef,loginForm, login, rules}
+    /**更新时间戳，获取最新的验证码*/
+    const refreshTimestamp = () => {
+      timestamp.value = new Date().getTime()
+    }
+    return {
+      formRef,
+      loginForm,
+      rules,
+      timestamp,
+      login,
+      refreshTimestamp
+    }
   }
 })
 // 加载 vue-router
