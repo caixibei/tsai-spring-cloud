@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tsai.spring.cloud.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Security 自定义登录逻辑
  * @author tsai
