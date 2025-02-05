@@ -144,7 +144,7 @@ mpj:
 security:
   oauth2:
     enable: true
-    ant-matches: /system
+    ant-matches: /system/**
     server-url: http://localhost:9000
     client:
       client-id: ${spring.application.name}

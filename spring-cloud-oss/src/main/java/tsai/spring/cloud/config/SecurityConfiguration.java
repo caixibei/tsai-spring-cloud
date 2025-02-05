@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .successForwardUrl("/dashboard")
                 .failureForwardUrl("/error")
+
                 .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2 放行
@@ -47,7 +48,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 异常处理器
                 .and().exceptionHandling()
                     // 403：无权访问处理器
-                    .accessDeniedHandler(accessDeniedHandler);
+                    .accessDeniedHandler(accessDeniedHandler)
+                // 多人登录限制，强制下线
+                .and().sessionManagement()
+                .maximumSessions(1);
     }
 
     @Override

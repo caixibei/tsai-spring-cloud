@@ -23,7 +23,7 @@ public class SystemApplication {
         String defaultZone = environment.getProperty("eureka.client.service-url.defaultZone");
         String hostname = environment.getProperty("eureka.instance.hostname");
         String preferIpAddress = environment.getProperty("eureka.instance.prefer-ip-address");
-        logger.info("===================认证服务运行环境信息===================");
+        logger.info("===================系统服务运行环境信息===================");
         logger.info("服务端口：{}",port);
         logger.info("实例地址：{}",hostname);
         logger.info("是否从注册中心拉取服务：{}", fetchRegistry);
