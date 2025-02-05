@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tsai.spring.cloud.handler.AccessDenyHandler;
+import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
@@ -30,6 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AccessDenyHandler accessDeniedHandler;
 
     @Autowired
+    private LoginFailureHandler loginFailureHandler;
+
+    @Autowired
     private SessionExpiredStrategy sessionExpiredStrategy;
 
     @Override
@@ -40,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .successForwardUrl("/dashboard")
                 .failureForwardUrl("/error")
+                .failureHandler(loginFailureHandler)
                 .and()
                 .authorizeRequests()
                 // 对静态资源、Oauth2 放行
