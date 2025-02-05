@@ -56,10 +56,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(accessDeniedHandler)
                 // 多人登录限制，强制下线
                 .and().sessionManagement()
-                .maximumSessions(1)
-                .expiredSessionStrategy(sessionExpiredStrategy)
-                .maxSessionsPreventsLogin(false);
-
+                    // 最多允许登录端数量
+                    .maximumSessions(1)
+                    // 多端登录session失效的策略
+                    .expiredSessionStrategy(sessionExpiredStrategy)
+                    // 超过最大数量是否阻止新的登录
+                    .maxSessionsPreventsLogin(false);
     }
 
     @Override
