@@ -16,7 +16,7 @@ public class AccessDenyHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        response.setHeader("Content-Type","application/json;charset=utf-8");
+        response.setContentType("application/json; charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write("{\"status\":\"403\",\"message\":\"权限不足，无法访问!\"}");
         writer.flush();

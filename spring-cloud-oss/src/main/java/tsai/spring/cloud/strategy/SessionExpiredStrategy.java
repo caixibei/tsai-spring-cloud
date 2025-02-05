@@ -13,7 +13,9 @@ public class SessionExpiredStrategy implements SessionInformationExpiredStrategy
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
         HttpServletResponse response = event.getResponse();
-        response.getWriter().print("您的账号在别处登录，当前登录失效！");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().print("{\"status\":\"403\",\"message\":\"您的账号在别处登录，当前登录失效！\"}");
         response.flushBuffer();
     }
 }
