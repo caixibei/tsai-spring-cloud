@@ -69,7 +69,7 @@ public class SsoController {
             return;
         }
         // 生成四位验证码
-        code = RandomUtil.randomString("abcdefghijklmnopqrstuvwxyz1234567890",4);
+        code = RandomUtil.randomString("abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",4);
         image = lineCaptcha.createImage(code);
         // 存储在 Redis 中，同时设置有效时长为3分钟
         String key = "captcha_" + username;
