@@ -1,0 +1,139 @@
+server:
+  port: ${SERVER_PORT:9000}
+
+
+spring:
+  application:
+    name: ${APPLICATION_NAME:spring-cloud-oss}
+  redis:
+    host: ${REDIS_HOST:116.205.112.132}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:NJI(mko0}
+  datasource:
+    druid:
+      keep-alive: true
+      max-active: 20
+      initial-size: 1
+      min-idle: 1
+      max-wait: 360000
+      use-unfair-lock: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      max-evictable-idle-time-millis: 180000
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      phy-timeout-millis: 15000
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filter:
+        wall:
+          config:
+            multi-statement-allow: true
+            drop-table-allow: false
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /*.js,/*.gif,/*.jpg,/*.bmp,/*.png,/*.css,/*.ico,/druid/*
+        session-stat-enable: true
+        profile-enable: true
+      stat-view-servlet:
+        enabled: true
+        allow:
+        reset-enable: false
+        login-username: ENC(LJJZq5/m+BsKZm753vxChQ==)
+        login-password: ENC(8Wa/OwMogrS2z1vknfN3Fg==)
+        url-pattern: /druid/*
+    dynamic:
+      primary: mysql
+      strict: false
+      datasource:
+        #db2:
+        #  type: com.alibaba.druid.pool.DruidDataSource
+        #  driver-class-name: com.ibm.db2.jcc.DB2Driver
+        #  url: ENC(AWKzTaOZq0X6Nh7M0dZAmqITTDNW45oOrIu3txP9uOaEvVj9m6TOEL2nlApwTnu5/A+O5Sg2v9D8O6i5H9VIvOw0seTqJjst)
+        #  username: ENC(+qacedhy7A9LtB9emwRN6rLJ0amtDREn)
+        #  password: ENC(U6HdbxxyB1p6SghOL4NbR9mUkbHHkBxR)
+        #  druid:
+        #    initial-size: 1
+        #    max-active: 20
+        #    min-idle: 1
+        #    max-wait: 360000
+        #    use-unfair-lock: true
+        #    min-evictable-idle-time-millis: 30000
+        #    max-evictable-idle-time-millis: 180000
+        #    time-between-eviction-runs-millis: 60000
+        #    validation-query: select current date from sysibm.sysdummy1
+        #    validation-query-timeout: -1
+        #    test-on-borrow: false
+        #    test-on-return: false
+        #    test-while-idle: true
+        #    pool-prepared-statements: true
+        #    filters: stat,wall
+        #    share-prepared-statements: true
+        mysql:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_URL:ENC(/5xJ0XvV4wg87/M+IHPP6B/qu91ZLspRWzrYdDmz6HpKLzk6Kh5gUDcz/bjbdul5tiUjNLn8NE1lhOVc6UAHlEG6GY8UU8HflSRACjzU3aKy3R2EEZCKAaRN2nlzLaBg0awR2J4D2lbXLqd0lhvWFeIQv8YWy6B61YeDNLHZvz8781bsMSfl4sZk0UtIY3UgTnx2FG5tzfGzr1b8+0PDkbo4C99/tkic+RlRIE8seRCi6k/UEYkZH2GksvC6oQWX+kppBjKBYwOWkp4EvFeqPTFm3PT+rbYB)}
+          username: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_USERNAME:ENC(QkI0VPRiOCJR8EbbhdlIog==)}
+          password: ${SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_PASSWORD:ENC(0iRXcamB2YeKTq5XjQTsas1WC0K2SWx4)}
+          druid:
+            initial-size: 1
+            max-active: 20
+            min-idle: 1
+            max-wait: 360000
+            use-unfair-lock: true
+            min-evictable-idle-time-millis: 30000
+            max-evictable-idle-time-millis: 180000
+            time-between-eviction-runs-millis: 60000
+            validation-query: select 1
+            validation-query-timeout: -1
+            test-on-borrow: false
+            test-on-return: false
+            test-while-idle: true
+            pool-prepared-statements: true
+            filters: stat,wall
+            share-prepared-statements: true
+
+# Eureka 配置
+eureka:
+  instance:
+    hostname: ${HOSTNAME:${spring.application.name}}
+    prefer-ip-address: ${PREFER_IP_ADDRESS:true}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: ${LEASE_RENEWAL_INTERVAL_IN_SECONDS:30}
+  client:
+    fetch-registry: ${FETCH_REGISTRY:true}
+    register-with-eureka: ${REGISTER_WITH_EUREKA:true}
+    service-url:
+      defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
+
+# Jasypt 加密
+jasypt:
+  encryptor:
+    password: ${JSYPT_ENCRYPTOR_PASSWORD:DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7}
+    algorithm: ${JSYPT_ENCRYPTOR_ALGORITHM:PBEWithMD5AndDES}
+    string-output-type: ${JSYPT_ENCRYPTOR_STRING_OUTPUT_TYPE:base64}
+    iv-generator-classname: ${JSYPT_ENCRYPTOR_IV_GENERATOR_CLASSNAME:org.jasypt.iv.NoIvGenerator}
+
+# ORM 框架
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*-mapper.xml
+  global-config:
+    db-config:
+      id-type: assign_uuid
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mpj:
+  base-package: tsai.spring.cloud.**.mapper
+  defaults:
+    enable-meta-handler: true
+    enable-interceptor: true
+    enable-injector: true

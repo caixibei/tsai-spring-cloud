@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <script src="common/js/base.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="login_body">
+        <div></div>
+        <div class="login_area">
+            <div class="login_title">
+                <span>统</span>
+                <span>一</span>
+                <span>门</span>
+                <span>户</span>
+            </div>
+            <el-form class="login_form"
+                     ref="formRef"
+                     :model="loginForm"
+                     size="small"
+                     status-icon
+                     :rules="rules"
+                     scroll-to-error
+                     label-suffix=":"
+                     label-width="28%"
+                     label-position="right">
+                <el-form-item label="用户名" prop="username">
+                    <el-input v-model="loginForm.username" placeholder="请输入用户名...">
+                        <template #prefix>
+                            <el-icon class="iconfont icon-username"/>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                    <el-input type="password" v-model="loginForm.password" show-password placeholder="请输入密码...">
+                        <template #prefix>
+                            <el-icon class="iconfont icon-password"/>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="验证码" prop="captcha">
+                    <el-input v-model="loginForm.captcha" placeholder="请输入验证码...">
+                        <template #prefix>
+                            <el-icon class="iconfont icon-captcha"/>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item class="login_btn">
+                    <el-button type="primary" @click.prevent="login">登录</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div></div>
+    </div>
+</div>
+</body>
+<link type="text/css" rel="stylesheet" href="assets/css/index_v1.css">
+<script type="text/javascript" src="assets/js/index_v1.js"></script>
+</html>

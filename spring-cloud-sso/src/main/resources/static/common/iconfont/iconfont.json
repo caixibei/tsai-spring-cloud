@@ -1,0 +1,37 @@
+{
+  "id": "4820754",
+  "name": "tsai-spring-cloud",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "295977",
+      "name": "登录页-账户图标",
+      "font_class": "username",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "20266184",
+      "name": "登录页-密码图标",
+      "font_class": "password",
+      "unicode": "e6d7",
+      "unicode_decimal": 59095
+    },
+    {
+      "icon_id": "28690232",
+      "name": "登录页-验证码图标",
+      "font_class": "captcha",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "39692478",
+      "name": "登录页-账户图标",
+      "font_class": "account",
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
+    }
+  ]
+}
