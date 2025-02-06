@@ -110,7 +110,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // 暂时不重写这个 TokenService
+        // fixed 暂时不重写这个 TokenService，会导致 Session 排他登录失效
         // DefaultTokenServices tokenServices = new DefaultTokenServices();
         // // 基于 redis 令牌生成
         // tokenServices.setTokenStore(endpoints.getTokenStore());
