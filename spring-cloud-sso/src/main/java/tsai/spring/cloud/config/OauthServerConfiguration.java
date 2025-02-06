@@ -24,8 +24,6 @@ import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Oauth 2 授权服务配置
  *
