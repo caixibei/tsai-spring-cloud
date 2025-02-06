@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
@@ -53,10 +56,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2","/index_v1.html","/error",
+                        "/**/*.woff2", "/index_v1.html", "/error",
                         "/error.html",
                         // 登录请求、获取token请求放行、获取验证码放行
-                        "/login","/oauth/**", "/sso/lineCaptcha")
+                        "/login", "/oauth/**", "/sso/lineCaptcha")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
@@ -90,6 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * 配置一个全局统一共享的PasswordEncoder（密码编码器）
+     *
      * @return the {@link PasswordEncoder} to use
      */
     @Bean
@@ -99,6 +103,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * 二次封装的 Redis 工具
+     *
      * @param redisTemplate 基础操作模板
      * @return 实例
      */
