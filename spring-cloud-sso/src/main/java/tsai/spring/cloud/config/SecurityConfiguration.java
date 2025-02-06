@@ -1,5 +1,4 @@
 package tsai.spring.cloud.config;
-
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
