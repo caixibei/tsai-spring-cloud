@@ -38,9 +38,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private SessionExpiredStrategy sessionExpiredStrategy;
 
-    @Autowired
-    private ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -79,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 // 应用并发会话策略机制
-                //.sessionAuthenticationStrategy(concurrentSessionControlAuthenticationStrategy)
+                //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                 // 最多允许登录端数量
                 .maximumSessions(1)
                 // 多端登录session失效的策略
