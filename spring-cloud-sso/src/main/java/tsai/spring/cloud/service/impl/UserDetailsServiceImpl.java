@@ -1,4 +1,5 @@
 package tsai.spring.cloud.service.impl;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
@@ -71,7 +72,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             });
         }, () -> {
             object.putOnce("message", "登录失败！");
-            object.putOnce("details", "您所输入的用户名不存在！");
+            object.putOnce("details", "请输入用户名！");
             try {
                 response.getWriter().write(JSONUtil.toJsonStr(object));
                 response.flushBuffer();
@@ -80,6 +81,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         });
         tsai.spring.cloud.pojo.User user = userService.findByUserName(username);
+        BranchUtil.branchHandler(ObjectUtil.isNull(user),()->{
+            object.putOnce("message", "登录失败！");
+            object.putOnce("details", "您所输入的用户名不存在！");
+            try {
+                response.getWriter().write(JSONUtil.toJsonStr(object));
+                response.flushBuffer();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return new User(user.getUsername(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 
