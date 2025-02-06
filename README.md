@@ -154,7 +154,7 @@ CREATE TABLE `oauth_client_details` (
     PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 -- 接入应用信息
-INSERT INTO `oauth_client_details` VALUES ('spring-cloud-system', 'spring-cloud-system', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'authorization_code,refresh_token', 'http://localhost:7080/login',NULL,300,3600,NULL,'all');
+INSERT INTO `oauth_client_details` VALUES ('spring-cloud-system', 'spring-cloud-system', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'password,refresh_token,authorization_code', 'http://localhost:7080/login',NULL,300,3600,NULL,'all');
 -- 创建用户信息表
 create table `TSAI_USER`(
     ID          varchar(128) not null primary key,
