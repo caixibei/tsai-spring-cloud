@@ -1,5 +1,4 @@
 package tsai.spring.cloud.handler;
-
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -11,13 +10,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-
-import javax.security.auth.login.AccountLockedException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 @Component
 @SuppressWarnings(WarningsConstants.DUPLICATES)
 public class LoginFailureHandler implements AuthenticationFailureHandler {

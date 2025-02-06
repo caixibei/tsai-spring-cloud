@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -50,6 +51,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

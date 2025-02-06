@@ -13,8 +13,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
@@ -37,46 +39,69 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private SessionExpiredStrategy sessionExpiredStrategy;
 
+    @Autowired
+    private ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().disable()
-                .csrf().disable()
-                .httpBasic().disable()
-                .formLogin()
-                .loginPage("/index_v1.html")
-                .loginProcessingUrl("/login")
-                .successForwardUrl("/dashboard")
-                .failureForwardUrl("/error")
-                .failureHandler(loginFailureHandler)
-                .and()
-                .authorizeRequests()
-                // 对静态资源、Oauth2 放行
-                .antMatchers(
-                        // 静态资源放行
-                        "/**/*.css", "/**/*.js", "/**/*.jpg",
-                        "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/index_v1.html", "/error",
-                        "/error.html",
-                        // 登录请求、获取token请求放行、获取验证码放行
-                        "/login", "/oauth/**", "/sso/lineCaptcha")
-                .permitAll()
-                // 其他所有请求必须通过认证后才能访问
-                .anyRequest().authenticated()
-                // 异常处理器
-                .and().exceptionHandling()
-                    // 403：无权访问处理器
-                    .accessDeniedHandler(accessDeniedHandler)
-                // 多人登录限制，强制下线
-                .and().sessionManagement()
-                    // 不使用 Session 去进行访问（禁用session认证）
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    // 最多允许登录端数量
-                    .maximumSessions(1)
-                    // 多端登录session失效的策略
-                    .expiredSessionStrategy(sessionExpiredStrategy)
-                    // 超过最大数量是否阻止新的登录
-                    .maxSessionsPreventsLogin(false);
+        http.csrf().disable()
+            .formLogin()
+            // 自定义的登录页
+            .loginPage("/index_v1.html")
+            // 必须和前端表单请求地址相同
+            .loginProcessingUrl("/login")
+            // 登录成功跳转页面
+            .successForwardUrl("/dashboard")
+            // 登录失败不跳转页面，根据实际需求
+            //.failureForwardUrl("/error")
+            // 登录失败处理器
+            .failureHandler(loginFailureHandler)
+            .and()
+            .authorizeRequests()
+            // 对静态资源、Oauth2 放行
+            .antMatchers(
+                    // 静态资源放行
+                    "/**/*.css", "/**/*.js", "/**/*.jpg",
+                    "/**/*.png", "/**/*.gif", "/**/*.ico",
+                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
+                    "/**/*.woff2", "/index_v1.html", "/error",
+                    "/error.html",
+                    // 登录请求、获取token请求放行、获取验证码放行
+                    "/login", "/oauth/**", "/sso/lineCaptcha")
+            .permitAll()
+            // 其他所有请求必须通过认证后才能访问
+            .anyRequest().authenticated()
+            // 异常处理器
+            .and().exceptionHandling()
+                // 403：无权访问处理器
+                .accessDeniedHandler(accessDeniedHandler)
+            // 多人登录限制，强制下线
+            .and().sessionManagement()
+                // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                // 应用会话策略机制
+                .sessionAuthenticationStrategy(concurrentSessionControlAuthenticationStrategy)
+                // 最多允许登录端数量
+                .maximumSessions(1)
+                // 多端登录session失效的策略
+                .expiredSessionStrategy(sessionExpiredStrategy)
+                // 超过最大数量是否阻止新的登录
+                .maxSessionsPreventsLogin(false);
+    }
+
+    @Bean
+    public SessionRegistryImpl sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public ConcurrentSessionControlAuthenticationStrategy sessionAuthenticationStrategy() {
+        ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+        // 限制每个用户只能有一个会话
+        strategy.setMaximumSessions(1);
+        // 超过最大会话数时抛出异常
+        strategy.setExceptionIfMaximumExceeded(true);
+        return strategy;
     }
 
     @Override
