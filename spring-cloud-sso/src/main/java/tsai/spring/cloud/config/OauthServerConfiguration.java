@@ -112,31 +112,35 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        // 基于 redis 令牌生成
-        tokenServices.setTokenStore(endpoints.getTokenStore());
-        // 是否支持刷新令牌
-        tokenServices.setSupportRefreshToken(true);
-        // 是否重复使用刷新令牌（直到过期）
-        tokenServices.setReuseRefreshToken(false);
-        // 设置客户端信息
-        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
-        // 用来控制令牌存储增强策略
-        // tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenServices.setTokenEnhancer(tokenEnhancer());
-        // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
-        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(15));
-        // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
-        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(7));
-        // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
+        // 暂时不重写这个 TokenService
+        // DefaultTokenServices tokenServices = new DefaultTokenServices();
+        // // 基于 redis 令牌生成
+        // tokenServices.setTokenStore(endpoints.getTokenStore());
+        // // 是否支持刷新令牌
+        // tokenServices.setSupportRefreshToken(true);
+        // // 是否重复使用刷新令牌（直到过期）
+        // tokenServices.setReuseRefreshToken(false);
+        // // 设置客户端信息
+        // tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        // // 用来控制令牌存储增强策略
+        // // tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+        // tokenServices.setTokenEnhancer(tokenEnhancer());
+        // // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
+        // tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(15));
+        // // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
+        // tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(7));
+        // // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
         endpoints.authenticationManager(authenticationManager)
+                // 自定义的 TokenService
+                // .tokenServices(tokenServices)
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
                 // token 解析器
                 .accessTokenConverter(tokenConverter())
+                // token 增强
+                .tokenEnhancer(tokenEnhancer())
                 // 以 redis 存储 token
-                .tokenStore(tokenStore)
-                .tokenServices(tokenServices);
+                .tokenStore(tokenStore);
     }
 
     /**
