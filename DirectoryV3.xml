@@ -5,4 +5,8 @@
      <tree path="/spring-cloud-gateway" title="🧱Gateway 网关服务"/>
      <tree path="/spring-cloud-sso"     title="🗂️sso 统一认证模块"/>
      <tree path="/spring-cloud-system"  title="✳️System 系统组件"/>
- </trees>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/OauthServerConfiguration.java" title="OAuth2 授权服务配置"/>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/SecurityConfiguration.java" title="Security 认证配置"/>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/LoginRedirectController.java" title="控制器-页面跳转"/>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/SsoController.java" title="控制器-验证码服务"/>
+</trees>
