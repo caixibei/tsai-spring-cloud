@@ -14,9 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -24,10 +22,8 @@ import tsai.spring.cloud.pojo.User;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -92,17 +88,40 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-         List<TokenEnhancer> delegates = new ArrayList<>();
-         delegates.add(tokenEnhancer());
-         delegates.add(tokenConverter());
-         enhancerChain.setTokenEnhancers(delegates);
+        // token 增强
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> delegates = new ArrayList<>();
+        delegates.add(tokenEnhancer());
+        delegates.add(tokenConverter());
+        enhancerChain.setTokenEnhancers(delegates);
         // 开启密码模式授权
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
-                .accessTokenConverter(tokenConverter())
+                .tokenEnhancer(enhancerChain)
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
+    }
+
+    /**
+     * 不基于JDBC模式存储（不推荐）
+     * @return {@link AuthorizationServerTokenServices}
+     */
+    @Deprecated
+    public AuthorizationServerTokenServices tokenServices(){
+        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        // 客户端详情,从容器中获取
+        // tokenServices.setClientDetailsService(clientDetailsService);
+        tokenServices.setTokenStore(tokenStore);
+        //支持刷新令牌
+        tokenServices.setSupportRefreshToken(true);
+        //token的有效期
+        tokenServices.setAccessTokenValiditySeconds(7200);
+        //刷新token的有效期
+        tokenServices.setRefreshTokenValiditySeconds(7200);
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(tokenConverter()));
+        tokenServices.setTokenEnhancer(tokenEnhancerChain);
+        return tokenServices;
     }
 
     @Bean
