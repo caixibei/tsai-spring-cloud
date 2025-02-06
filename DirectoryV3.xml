@@ -9,4 +9,10 @@
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/SecurityConfiguration.java" title="Security 认证配置"/>
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/LoginRedirectController.java" title="控制器-页面跳转"/>
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/SsoController.java" title="控制器-验证码服务"/>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/handler/AccessDenyHandler.java" title="无权访问处理器"/>
+     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/handler/LoginFailureHandler.java" title="登录失败处理器"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/provider/OAuthProvider.java" title="自定义认证管理"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/UserDetailsServiceImpl.java" title="自定义登录逻辑"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/strategy/SessionExpiredStrategy.java" title="应用会话过期策略"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/PermissionServiceImpl.java" title="权限控制服务"/>
 </trees>
