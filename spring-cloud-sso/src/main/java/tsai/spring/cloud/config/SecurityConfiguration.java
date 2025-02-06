@@ -43,49 +43,50 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .formLogin()
-                // 自定义的登录页
-                .loginPage("/index_v1.html")
-                // 必须和前端表单请求地址相同
-                .loginProcessingUrl("/login")
-                // 登录成功跳转页面
-                .successForwardUrl("/dashboard")
-                // 登录失败跳转页面
-                .failureForwardUrl("/error")
-                // 登录失败处理器
-                .failureHandler(loginFailureHandler)
-                .and()
-                .authorizeRequests()
-                // 对静态资源、Oauth2 放行
-                .antMatchers(
-                        // 静态资源放行
-                        "/**/*.css", "/**/*.js", "/**/*.jpg",
-                        "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/index_v1.html", "/error",
-                        "/error.html",
-                        // 登录请求、获取token请求放行、获取验证码放行
-                        "/login", "/oauth/**", "/sso/lineCaptcha")
-                .permitAll()
-                // 其他所有请求必须通过认证后才能访问
-                .anyRequest().authenticated()
-                // 异常处理器
-                .and().exceptionHandling()
-                // 403：无权访问处理器
-                .accessDeniedHandler(accessDeniedHandler)
-                // 多人登录限制，强制下线
-                .and().sessionManagement()
-                    // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
-                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                    // 应用并发会话策略机制
-                    //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-                    // 最多允许登录端数量
-                    .maximumSessions(1)
-                    // 多端登录session失效的策略
-                    .expiredSessionStrategy(sessionExpiredStrategy)
-                    // 超过最大数量是否阻止新的登录
-                    .maxSessionsPreventsLogin(false);
+        http.csrf()
+            .and()
+            .formLogin()
+            // 自定义的登录页
+            .loginPage("/index_v1.html")
+            // 必须和前端表单请求地址相同
+            .loginProcessingUrl("/login")
+            // 登录成功跳转页面
+            .successForwardUrl("/dashboard")
+            // 登录失败跳转页面
+            .failureForwardUrl("/error")
+            // 登录失败处理器
+            .failureHandler(loginFailureHandler)
+            .and()
+            .authorizeRequests()
+            // 对静态资源、Oauth2 放行
+            .antMatchers(
+                    // 静态资源放行
+                    "/**/*.css", "/**/*.js", "/**/*.jpg",
+                    "/**/*.png", "/**/*.gif", "/**/*.ico",
+                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
+                    "/**/*.woff2", "/index_v1.html", "/error",
+                    "/error.html",
+                    // 登录请求、获取token请求放行、获取验证码放行
+                    "/login", "/oauth/**", "/sso/lineCaptcha")
+            .permitAll()
+            // 其他所有请求必须通过认证后才能访问
+            .anyRequest().authenticated()
+            // 异常处理器
+            .and().exceptionHandling()
+            // 403：无权访问处理器
+            .accessDeniedHandler(accessDeniedHandler)
+            // 多人登录限制，强制下线
+            .and().sessionManagement()
+                // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                // 应用并发会话策略机制
+                //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+                // 最多允许登录端数量
+                .maximumSessions(1)
+                // 多端登录session失效的策略
+                .expiredSessionStrategy(sessionExpiredStrategy)
+                // 超过最大数量是否阻止新的登录
+                .maxSessionsPreventsLogin(false);
     }
 
     public SessionRegistryImpl sessionRegistry() {
