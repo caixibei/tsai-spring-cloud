@@ -49,8 +49,11 @@ body, #app {
     width: 100vw;
     padding: 0;
     margin: 0;
-    background: #F2F2F2;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../image/login_bg_v3.png");
+    background-size: cover;
 }
 
 .login_body {
@@ -59,8 +62,6 @@ body, #app {
     padding: 0;
     margin: 0;
     overflow: hidden;
-    background-image: url("../image/login_bg_v3.png");
-    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,9 +84,10 @@ body, #app {
     flex-direction: column;
     padding: 3vh 1vw 3vh 1vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-                0 6px 20px 0 rgba(0, 0, 0, 0.14);
+    0 6px 20px 0 rgba(0, 0, 0, 0.14);
     animation: ease;
     transition: 1s;
+    overflow: hidden;
 }
 
 .login_form {
@@ -97,7 +99,8 @@ body, #app {
 }
 
 .login_form .el-form-item:nth-child(3) .el-input {
-    width: 80%;
+    width: 60%;
+    flex: 0 0 60%;
 }
 
 .login_area * {
@@ -143,10 +146,24 @@ body, #app {
 .captcha_cls {
     display: flex;
     gap: 3px;
+    overflow: hidden;
+    width: 100%;
 }
 
-.captcha_cls img {
+.captcha_cls .img {
     height: 25px;
+    flex: 1 1 35%;
+    border-radius: 2px;
+}
+
+.captcha_cls .img img {
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.captcha_cls .img:hover {
+    cursor: pointer;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -162,4 +179,26 @@ body, #app {
         font-size: 3vh;
         padding: 1vh 0 3vh 0;
     }
+}
+
+.index-footer {
+    width: 100vw;
+    background-color: rgba(48, 59, 62, .3);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255);
+    font-size: 10px;
+    gap: 4px;
+    padding: 3px 0;
+    height: 5%;
+    margin: 0;
+}
+
+.index-footer div {
+    color: rgba(239, 229, 207);
 }

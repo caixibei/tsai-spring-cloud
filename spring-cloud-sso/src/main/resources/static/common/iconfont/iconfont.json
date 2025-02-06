@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8912653",
+      "name": "登录页-账户图标",
+      "font_class": "username3",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "12663958",
+      "name": "登录页-账户图标",
+      "font_class": "username4",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "35882936",
+      "name": "登录页-验证码",
+      "font_class": "verify-code",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
       "icon_id": "295977",
       "name": "登录页-账户图标",
       "font_class": "username",
