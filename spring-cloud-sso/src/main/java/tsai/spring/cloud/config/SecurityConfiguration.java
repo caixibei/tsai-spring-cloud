@@ -18,16 +18,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
+import tsai.spring.cloud.provider.OAuthProvider;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
+@SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION,WarningsConstants.UNUSED})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private OAuthProvider oAuthProvider;
 
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
@@ -74,7 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 多人登录限制，强制下线
             .and().sessionManagement()
                 // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // 应用并发会话策略机制
                 //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                 // 最多允许登录端数量
@@ -102,8 +106,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(oAuthProvider);
+            // 自定义的 provider 中已经配置了，这里无需再配置了
+            //.userDetailsService(userDetailsService)
+            //.passwordEncoder(passwordEncoder());
     }
 
     @Bean

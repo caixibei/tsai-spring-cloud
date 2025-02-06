@@ -51,6 +51,12 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * 对于每个客户端应用，授权服务器会为其分配一个唯一的客户端ID和客户端密钥，并定义其授权范围和访问权限。
+     * <p>用于配置客户端详细信息服务，这个服务用来定义哪些客户端可以访问授权服务器以及客户端的配置信息。
+     * @param clients the client details configurer
+     * @throws Exception 异常
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 1.基于JDBC模式的密码认证
@@ -71,33 +77,44 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         //         .refreshTokenValiditySeconds(86400);
     }
 
-
-
+    /**
+     * 用于配置授权服务器的安全性，如 /oauth/token、/oauth/authorize 等端点的安全性配置。
+     * @param security a fluent configurer for security features
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        // OSS 单点登录
-        security.allowFormAuthenticationForClients()
-                .tokenKeyAccess("isAuthenticated()")
-                .checkTokenAccess("permitAll()");
         // 非单点登录
         // security.allowFormAuthenticationForClients()
         //         // 需通过认证后才能访问 /oauth/token_key 获取 token 加密公钥
         //         .tokenKeyAccess("permitAll()")
         //         // 开放 /oauth/check_token
         //         .checkTokenAccess("permitAll()");
+        // OSS 单点登录，允许客户端表单身份验证
+        security.allowFormAuthenticationForClients()
+                // 仅允许认证后的用户访问密钥端点
+                .tokenKeyAccess("isAuthenticated()")
+                // 允许所有人访问令牌验证端点
+                .checkTokenAccess("permitAll()");
     }
 
+    /**
+     * 用于配置授权和令牌的端点，以及令牌服务、令牌存储、用户认证等相关配置。
+     * @param endpoints the endpoints configurer
+     * @throws Exception 异常
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // token 增强
+        // Token 增强配置
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> delegates = new ArrayList<>();
         delegates.add(tokenEnhancer());
         delegates.add(tokenConverter());
         enhancerChain.setTokenEnhancers(delegates);
-        // 开启密码模式授权
+        // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
         endpoints.authenticationManager(authenticationManager)
+                // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
+                // token 增强
                 .tokenEnhancer(enhancerChain)
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
@@ -105,6 +122,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 不基于JDBC模式存储（不推荐）
+     * @deprecated 不推荐使用，请使用基于 JDBC 模式的存储
      * @return {@link AuthorizationServerTokenServices}
      */
     @Deprecated
@@ -155,7 +173,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
             Map<String, Object> map = new HashMap<>(1);
             User user = (User) oAuth2Authentication.getPrincipal();
             map.put("username", user.getUsername());
-            // 其他信息可以自行添加
+            // ...其他信息可以自行添加
             ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(map);
             return oAuth2AccessToken;
         };
