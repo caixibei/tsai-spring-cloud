@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,11 @@ import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.provider.OAuthProvider;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION,WarningsConstants.UNUSED})
+@SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.UNUSED})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -45,38 +47,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-            .formLogin()
-            // 自定义的登录页
-            .loginPage("/index_v1.html")
-            // 必须和前端表单请求地址相同
-            .loginProcessingUrl("/login")
-            // 登录成功跳转页面
-            .successForwardUrl("/dashboard")
-            // 登录失败跳转页面
-            .failureForwardUrl("/error")
-            // 登录失败处理器
-            .failureHandler(loginFailureHandler)
-            .and()
-            .authorizeRequests()
-            // 对静态资源、Oauth2 放行
-            .antMatchers(
-                    // 静态资源放行
-                    "/**/*.css", "/**/*.js", "/**/*.jpg",
-                    "/**/*.png", "/**/*.gif", "/**/*.ico",
-                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                    "/**/*.woff2", "/index_v1.html", "/error",
-                    "/error.html",
-                    // 登录请求、获取token请求放行、获取验证码放行
-                    "/login", "/oauth/**", "/sso/lineCaptcha")
-            .permitAll()
-            // 其他所有请求必须通过认证后才能访问
-            .anyRequest().authenticated()
-            // 异常处理器
-            .and().exceptionHandling()
+                .formLogin()
+                // 自定义的登录页
+                .loginPage("/index_v1.html")
+                // 必须和前端表单请求地址相同
+                .loginProcessingUrl("/login")
+                // 登录成功跳转页面
+                .successForwardUrl("/dashboard")
+                // 登录失败跳转页面
+                .failureForwardUrl("/error")
+                // 登录失败处理器
+                .failureHandler(loginFailureHandler)
+                .and()
+                .authorizeRequests()
+                // 对静态资源、Oauth2 放行
+                .antMatchers(
+                        // 静态资源放行
+                        "/**/*.css", "/**/*.js", "/**/*.jpg",
+                        "/**/*.png", "/**/*.gif", "/**/*.ico",
+                        "/**/*.json", "/**/*.ttf", "/**/*.woff",
+                        "/**/*.woff2", "/index_v1.html", "/error",
+                        "/error.html",
+                        // 登录请求、获取token请求放行、获取验证码放行
+                        "/login", "/oauth/**", "/sso/lineCaptcha")
+                .permitAll()
+                // 其他所有请求必须通过认证后才能访问
+                .anyRequest().authenticated()
+                // 异常处理器
+                .and().exceptionHandling()
                 // 403：无权访问处理器
                 .accessDeniedHandler(accessDeniedHandler)
-            // 多人登录限制，强制下线
-            .and().sessionManagement()
+                // 多人登录限制，强制下线
+                .and().sessionManagement()
                 // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 // 应用并发会话策略机制
@@ -106,10 +108,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(oAuthProvider);
-            // 自定义的 provider 中已经配置了，这里无需再配置了
-            //.userDetailsService(userDetailsService)
-            //.passwordEncoder(passwordEncoder());
+        // 使用自定义的 AuthenticationProvider 进行认证
+        // auth.authenticationProvider(oAuthProvider);
+        // 如果自定义的 provider 中已经配置了，这里无需再配置了
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean

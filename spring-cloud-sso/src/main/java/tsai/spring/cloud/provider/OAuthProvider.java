@@ -46,6 +46,7 @@ public class OAuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
+        // 确保该 Provider 支持 UsernamePasswordAuthenticationToken 类型的认证
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }
