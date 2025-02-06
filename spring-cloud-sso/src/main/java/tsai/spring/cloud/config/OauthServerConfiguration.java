@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -23,6 +24,8 @@ import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -51,6 +54,13 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Autowired
     private DataSource dataSource;
 
+    @Bean
+    public ClientDetailsService clientDetails(){
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        return jdbcClientDetailsService;
+    }
+
     /**
      * 对于每个客户端应用，授权服务器会为其分配一个唯一的客户端ID和客户端密钥，并定义其授权范围和访问权限。
      * <p>用于配置客户端详细信息服务，这个服务用来定义哪些客户端可以访问授权服务器以及客户端的配置信息。
@@ -60,9 +70,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 1.基于JDBC模式的密码认证
-        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        clientDetailsService.setPasswordEncoder(passwordEncoder);
-        clients.withClientDetails(clientDetailsService);
+        clients.withClientDetails(clientDetails());
         // 2.以内存方式存储（不推荐）
         // 或 .autoApprove(true) 开启所有
         // clients.inMemory()
@@ -104,20 +112,31 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // Token 增强配置
-        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        List<TokenEnhancer> delegates = new ArrayList<>();
-        delegates.add(tokenEnhancer());
-        delegates.add(tokenConverter());
-        enhancerChain.setTokenEnhancers(delegates);
+        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        // 基于 redis 令牌生成
+        tokenServices.setTokenStore(endpoints.getTokenStore());
+        // 是否支持刷新令牌
+        tokenServices.setSupportRefreshToken(true);
+        // 是否重复使用刷新令牌（直到过期）
+        tokenServices.setReuseRefreshToken(true);
+        // 设置客户端信息
+        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        // 用来控制令牌存储增强策略
+        // tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+        tokenServices.setTokenEnhancer(tokenEnhancer());
+        // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
+        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(1));
+        // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
+        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(3));
         // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
         endpoints.authenticationManager(authenticationManager)
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
-                // token 增强
-                .tokenEnhancer(enhancerChain)
+                // token 解析器
+                .accessTokenConverter(tokenConverter())
                 // 以 redis 存储 token
-                .tokenStore(tokenStore);
+                .tokenStore(tokenStore)
+                .tokenServices(tokenServices);
     }
 
     /**
@@ -145,6 +164,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     @Bean
     public TokenStore redisTokenStore() {
+        // 存储在数据库中
+        // return new JdbcTokenStore(dataSource);
+        // 存储在 Redis 中
         return new RedisTokenStore(redisConnectionFactory);
     }
 
