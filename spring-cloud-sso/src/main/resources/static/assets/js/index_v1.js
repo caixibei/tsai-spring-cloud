@@ -34,7 +34,7 @@ const app = createApp({
             if( res?.data?.code === 500){
               ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
             }else{
-              window.location.href = res?.request?.responseURL
+              //window.location.href = res?.request?.responseURL
             }
           }).catch(error => {
             console.error(error)
