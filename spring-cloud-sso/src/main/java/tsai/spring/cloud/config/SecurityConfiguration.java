@@ -1,5 +1,4 @@
 package tsai.spring.cloud.config;
-
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.provider.OAuthProvider;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -90,12 +88,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .maxSessionsPreventsLogin(false);
     }
 
-    @Bean
     public SessionRegistryImpl sessionRegistry() {
         return new SessionRegistryImpl();
     }
 
-    @Bean
     public ConcurrentSessionControlAuthenticationStrategy sessionAuthenticationStrategy() {
         ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
         // 限制每个用户只能有一个会话
