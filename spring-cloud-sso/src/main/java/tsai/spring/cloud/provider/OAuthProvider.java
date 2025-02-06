@@ -27,11 +27,8 @@ import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
  * </pre>
  * 注意：如果配置了AuthenticationProvider，就不需要再配置UserDetailsService了。
  */
-@Component
-@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
 public class OAuthProvider implements AuthenticationProvider {
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     @Override
