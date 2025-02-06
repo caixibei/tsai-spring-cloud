@@ -51,8 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
             .successForwardUrl("/dashboard")
-            // 登录失败不跳转页面，根据实际需求
-            //.failureForwardUrl("/error")
+            // 登录失败跳转页面
+            .failureForwardUrl("/error")
             // 登录失败处理器
             .failureHandler(loginFailureHandler)
             .and()
@@ -78,8 +78,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and().sessionManagement()
                 // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                // 应用会话策略机制
-                .sessionAuthenticationStrategy(concurrentSessionControlAuthenticationStrategy)
+                // 应用并发会话策略机制
+                //.sessionAuthenticationStrategy(concurrentSessionControlAuthenticationStrategy)
                 // 最多允许登录端数量
                 .maximumSessions(1)
                 // 多端登录session失效的策略
