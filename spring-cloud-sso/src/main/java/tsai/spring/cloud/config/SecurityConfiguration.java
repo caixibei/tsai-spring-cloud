@@ -15,8 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
@@ -41,7 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().disable()
+                .csrf().disable()
+                .httpBasic().disable()
                 .formLogin()
                 .loginPage("/index_v1.html")
                 .loginProcessingUrl("/login")
@@ -69,8 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(accessDeniedHandler)
                 // 多人登录限制，强制下线
                 .and().sessionManagement()
-                    // 不使用 Session 去进行访问
-                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    // 不使用 Session 去进行访问（禁用session认证）
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     // 最多允许登录端数量
                     .maximumSessions(1)
                     // 多端登录session失效的策略

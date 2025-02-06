@@ -71,6 +71,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         //         .refreshTokenValiditySeconds(86400);
     }
 
+
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
         // OSS 单点登录
