@@ -121,13 +121,13 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
         endpoints.authenticationManager(authenticationManager)
                 // 自定义的 TokenService
-                .tokenServices(tokenServices(endpoints.getClientDetailsService()))
+                // .tokenServices(tokenServices(endpoints.getClientDetailsService()))
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
                 // token 解析器
-                //.accessTokenConverter(tokenConverter())
+                .accessTokenConverter(tokenConverter())
                 // token 增强
-                //.tokenEnhancer(tokenEnhancer())
+                .tokenEnhancer(tokenEnhancer())
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
     }
@@ -140,7 +140,6 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Bean
     public DefaultTokenServices tokenServices(ClientDetailsService clientDetailsService) {
-        //
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         // 基于 redis 令牌生成
         tokenServices.setTokenStore(tokenStore);
