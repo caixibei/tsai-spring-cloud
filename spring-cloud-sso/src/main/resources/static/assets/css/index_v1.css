@@ -200,5 +200,11 @@ body, #app {
 }
 
 .index-footer div {
-    color: rgba(239, 229, 207);
+    color: rgb(217 217 217);
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    line-height: 15px;
 }

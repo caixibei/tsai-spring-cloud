@@ -1,10 +1,73 @@
 {
   "id": "4820754",
   "name": "tsai-spring-cloud",
-  "font_family": "iconfont",
+  "font_family": "tsaifont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "1764066",
+      "name": "小猫",
+      "font_class": "xiaomao",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "14557228",
+      "name": "猫",
+      "font_class": "pets_max",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "32851204",
+      "name": "黑五活动页面-12",
+      "font_class": "heiwuhuodongyemian-12",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "41810447",
+      "name": "填充小猫",
+      "font_class": "a-ziyuan2",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "41810448",
+      "name": "线条小猫",
+      "font_class": "a-ziyuan1",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "23281609",
+      "name": "IP备案",
+      "font_class": "ip-record",
+      "unicode": "e6ae",
+      "unicode_decimal": 59054
+    },
+    {
+      "icon_id": "39644953",
+      "name": "警察徽章",
+      "font_class": "a-jingchahuizhangzhiangongan",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    },
+    {
+      "icon_id": "40870795",
+      "name": "警察徽章",
+      "font_class": "a-appround25",
+      "unicode": "e93d",
+      "unicode_decimal": 59709
+    },
+    {
+      "icon_id": "24928462",
+      "name": "登录页-公安标志",
+      "font_class": "security",
+      "unicode": "e6f7",
+      "unicode_decimal": 59127
+    },
     {
       "icon_id": "8912653",
       "name": "登录页-账户图标",
