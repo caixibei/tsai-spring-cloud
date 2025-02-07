@@ -1,6 +1,7 @@
+document.write('<link type="images/x-icon" href="assets/image/favicon.ico"/>')
 document.write('<link rel="stylesheet" href="common/css/element-plus.css"/>')
 document.write('<link rel="stylesheet" href="common/iconfont/iconfont.css"/>')
-document.write('<script src="iconfont/iconfont.js"></script>')
+document.write('<script src="common/iconfont/iconfont.js"></script>')
 document.write('<script src="common/js/vue3.js"></script>')
 document.write('<script src="common/js/element-plus.js"></script>')
 document.write('<script src="common/js/vue-router.js"></script>')
