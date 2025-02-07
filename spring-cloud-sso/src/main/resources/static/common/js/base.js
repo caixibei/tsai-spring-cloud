@@ -1,4 +1,3 @@
-document.write('<link rel="icon" href="assets/image/favicon.ico" type="image/x-icon">')
 document.write('<link rel="stylesheet" href="common/css/element-plus.css"/>')
 document.write('<link rel="stylesheet" href="common/iconfont/iconfont.css"/>')
 document.write('<script src="iconfont/iconfont.js"></script>')
