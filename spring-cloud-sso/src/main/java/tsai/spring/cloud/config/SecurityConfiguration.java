@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
-import tsai.spring.cloud.provider.OAuthProvider;
+import tsai.spring.cloud.provider.DaoOAuthProvider;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private OAuthProvider oAuthProvider;
+    private DaoOAuthProvider oAuthProvider;
 
     @Autowired
     private AccessDenyHandler accessDeniedHandler;

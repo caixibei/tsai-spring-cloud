@@ -1,12 +1,9 @@
 package tsai.spring.cloud.provider;
-import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 /**
  * AuthenticationProvider 的作用
@@ -27,7 +24,7 @@ import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
  * </pre>
  * 注意：如果配置了AuthenticationProvider，就不需要再配置UserDetailsService了。
  */
-public class OAuthProvider implements AuthenticationProvider {
+public class DaoOAuthProvider implements AuthenticationProvider {
 
     private UserDetailsServiceImpl userDetailsService;
 
