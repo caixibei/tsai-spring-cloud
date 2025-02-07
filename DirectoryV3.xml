@@ -15,4 +15,5 @@
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/UserDetailsServiceImpl.java" title="自定义登录逻辑"/>
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/strategy/SessionExpiredStrategy.java" title="应用会话过期策略"/>
      <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/PermissionServiceImpl.java" title="权限控制服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/TokenConfig.java" title="JWT 配置"/>
 </trees>

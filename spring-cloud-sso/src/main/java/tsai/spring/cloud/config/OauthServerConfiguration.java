@@ -1,15 +1,10 @@
 package tsai.spring.cloud.config;
-
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,18 +12,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
-
 import javax.sql.DataSource;
-import java.security.KeyPair;
-import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 /**
  * Oauth 2 授权服务配置
  *
@@ -45,8 +37,6 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
     private TokenStore tokenStore;
@@ -57,11 +47,23 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private JwtAccessTokenConverter tokenConverter;
+
     @Bean
     public ClientDetailsService clientDetails() {
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
         jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
         return jdbcClientDetailsService;
+    }
+
+    /**
+     * 授权码模式-授权码存储服务
+     * @return {@link AuthorizationCodeServices}
+     */
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices () {
+        return new JdbcAuthorizationCodeServices(dataSource);
     }
 
     /**
@@ -121,25 +123,25 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
         endpoints.authenticationManager(authenticationManager)
                 // 自定义的 TokenService
-                // .tokenServices(tokenServices(endpoints.getClientDetailsService()))
+                .tokenServices(tokenServices())
+                // 授权码服务
+                .authorizationCodeServices(authorizationCodeServices())
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
                 // token 解析器
-                .accessTokenConverter(tokenConverter())
+                // .accessTokenConverter(jwtAccessTokenConverter)
                 // token 增强
-                .tokenEnhancer(tokenEnhancer())
+                // .tokenEnhancer(tokenEnhancer)
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
     }
 
     /**
-     * 基于 TokenService 存储
-     * <p>
-     * 当使用有状态的登录的时候，会导致 Session 排他登录失效，具体原因暂时没搞懂！
+     * 基于 AuthorizationServerTokenServices 存储
      * @return {@link DefaultTokenServices}
      */
     @Bean
-    public DefaultTokenServices tokenServices(ClientDetailsService clientDetailsService) {
+    public AuthorizationServerTokenServices tokenServices() {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         // 基于 redis 令牌生成
         tokenServices.setTokenStore(tokenStore);
@@ -148,58 +150,17 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 是否重复使用刷新令牌（直到过期）
         tokenServices.setReuseRefreshToken(true);
         // 设置客户端信息
-        tokenServices.setClientDetailsService(clientDetailsService);
+        tokenServices.setClientDetailsService(clientDetails());
         // 用来控制令牌存储增强策略
-        tokenServices.setTokenEnhancer(tokenEnhancer());
+        tokenServices.setTokenEnhancer(tokenConverter);
         // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(15));
         // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
         tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
         // 设置 token 增强
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(tokenConverter()));
-        tokenServices.setTokenEnhancer(tokenEnhancerChain);
+        // TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        // tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(tokenConverter()));
+        // tokenServices.setTokenEnhancer(tokenEnhancerChain);
         return tokenServices;
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        // JWT 模式
-        // return new JwtTokenStore(tokenConverter());
-        // 存储在数据库中
-        // return new JdbcTokenStore(dataSource);
-        // 存储在 Redis 中
-        return new RedisTokenStore(redisConnectionFactory);
-    }
-
-    /**
-     * 使用非对称加密算法对 Token 签名
-     *
-     * @return {@link JwtAccessTokenConverter}
-     */
-    @Bean
-    public JwtAccessTokenConverter tokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyPair());
-        return converter;
-    }
-
-    @Bean
-    public KeyPair keyPair() {
-        // 从证书文件 jwt.jks 中获取秘钥对
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7".toCharArray());
-    }
-
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-        return (oAuth2AccessToken, oAuth2Authentication) -> {
-            Map<String, Object> map = new HashMap<>(1);
-            User user = (User) oAuth2Authentication.getPrincipal();
-            map.put("username", user.getUsername());
-            // ...其他信息可以自行添加
-            ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(map);
-            return oAuth2AccessToken;
-        };
     }
 }

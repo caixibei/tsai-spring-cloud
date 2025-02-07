@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler(accessDeniedHandler)
             // 多人登录限制，强制下线
             .and().sessionManagement()
-                // 不使用 Session 去进行访问（不禁用session认证，有状态的登录）
+                // 不使用 Session 会话管理（禁用session认证，无状态的登录）
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 // 应用并发会话策略机制
                 //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
