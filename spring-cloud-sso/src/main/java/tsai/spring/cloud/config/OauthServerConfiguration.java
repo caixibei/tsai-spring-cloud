@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -66,10 +65,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     }
 
     /**
-     * 授权码模式-授权码存储服务
+     * 授权码模式通过 {@code @Bean} 注解开启-授权码存储服务
      * @return {@link AuthorizationCodeServices}
      */
-    @Bean
     public AuthorizationCodeServices authorizationCodeServices () {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
@@ -97,8 +95,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 允许客户端表单身份验证
         security.allowFormAuthenticationForClients()
                 // 仅允许认证后的用户访问密钥端点
-                // .tokenKeyAccess("isAuthenticated()")
-                .tokenKeyAccess("permitAll()")
+                // .tokenKeyAccess("permitAll()")
+                .tokenKeyAccess("isAuthenticated()")
                 // 允许所有人访问令牌验证端点
                 .checkTokenAccess("permitAll()");
     }
@@ -119,13 +117,11 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
                 .userDetailsService(userDetailsService)
                 // token 解析器
                 .accessTokenConverter(tokenConverter())
-                // 配置 token 增强
+                // token 扩展器
                 .tokenEnhancer(tokenEnhancer())
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
     }
-
-
 
     @Bean
     public TokenStore tokenStore() {
