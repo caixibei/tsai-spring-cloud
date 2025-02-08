@@ -26,9 +26,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 /**
  * Oauth 2 授权服务配置
@@ -37,25 +35,29 @@ import java.util.Map;
  */
 @Configuration
 @EnableAuthorizationServer
-@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
 public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapter {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private TokenStore tokenStore;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
-    @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+
+    public OauthServerConfiguration(AuthenticationManager authenticationManager,
+                                    UserDetailsServiceImpl userDetailsService,
+                                    RedisConnectionFactory redisConnectionFactory,
+                                    PasswordEncoder passwordEncoder,
+                                    DataSource dataSource){
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.redisConnectionFactory = redisConnectionFactory;
+        this.passwordEncoder = passwordEncoder;
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public ClientDetailsService clientDetails() {
@@ -120,7 +122,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
                 // token 扩展器
                 .tokenEnhancer(tokenEnhancer())
                 // 以 redis 存储 token
-                .tokenStore(tokenStore);
+                .tokenStore(tokenStore());
     }
 
     @Bean
