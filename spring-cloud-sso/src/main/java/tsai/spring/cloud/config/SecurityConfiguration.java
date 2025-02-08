@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -58,20 +57,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .failureHandler(loginFailureHandler)
             .and()
             .authorizeRequests()
-            // 对静态资源放行
-            .antMatchers(HttpMethod.GET,
-                    "/**/*.css", "/**/*.js", "/**/*.jpg",
+            // 对静态资源、登录请求、获取token请求放行、获取验证码放行
+            .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                     "/**/*.png", "/**/*.gif", "/**/*.ico",
                     "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                    "/**/*.woff2", "/index_v1.html","/error.html")
+                    "/**/*.woff2", "/index_v1.html","/error.html",
+                    "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
             .permitAll()
-            // 登录请求、获取token请求放行、获取验证码放行
-            .antMatchers(
-                    "/error",
-                    "/login",
-                    "/oauth/**",
-                    "/sso/lineCaptcha")
-            .anonymous()
             // 其他所有请求必须通过认证后才能访问
             .anyRequest().authenticated()
             // 异常处理器

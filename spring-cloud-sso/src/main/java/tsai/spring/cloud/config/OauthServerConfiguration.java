@@ -14,13 +14,14 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Oauth 2 授权服务配置
  *
@@ -50,6 +51,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     @Autowired
     private JwtAccessTokenConverter tokenConverter;
 
+    @Autowired
+    private TokenEnhancer tokenEnhancer;
+
     @Bean
     public ClientDetailsService clientDetails() {
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
@@ -75,20 +79,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // 1.基于JDBC模式的密码认证
+        // 使用基于JDBC模式的密码认证
         clients.withClientDetails(clientDetails());
-        // 2.以内存方式存储（不推荐）
-        // 或 .autoApprove(true) 开启所有
-        // clients.inMemory()
-        //         .withClient("spring-cloud-system")
-        //         .autoApprove("all")
-        //         .secret("$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi")
-        //         .authorizedGrantTypes("authorization_code", "password", "refresh_token")
-        //         .scopes("all")
-        //         .redirectUris("http://localhost:7080/login")
-        //         .accessTokenValiditySeconds(3600)
-        //         // 刷新 token 的长 token 有效期 24 hours
-        //         .refreshTokenValiditySeconds(86400);
     }
 
     /**
@@ -98,13 +90,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        // 允许客户端表单认证
-        // security.allowFormAuthenticationForClients()
-        //         // 需通过认证后才能访问 /oauth/token_key 获取 token 加密公钥
-        //         .tokenKeyAccess("permitAll()")
-        //         // 开放 /oauth/check_token
-        //         .checkTokenAccess("permitAll()");
-        // OSS 单点登录，允许客户端表单身份验证
+        // 允许客户端表单身份验证
         security.allowFormAuthenticationForClients()
                 // 仅允许认证后的用户访问密钥端点
                 .tokenKeyAccess("isAuthenticated()")
@@ -120,47 +106,21 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // 开启密码模式授权，配置用于密码模式的 AuthenticationManager
+        // 配置 Token 增强
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> delegates = new ArrayList<>();
+        delegates.add(tokenEnhancer);
+        delegates.add(tokenConverter);
+        enhancerChain.setTokenEnhancers(delegates);
+        // 配置用于密码模式的认证管理器
         endpoints.authenticationManager(authenticationManager)
-                // 自定义的 TokenService
-                .tokenServices(tokenServices())
                 // 授权码服务
                 .authorizationCodeServices(authorizationCodeServices())
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
                 // token 解析器
-                .accessTokenConverter(tokenConverter)
-                // token 增强
-                // .tokenEnhancer(tokenEnhancer)
+                .tokenEnhancer(enhancerChain)
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
-    }
-
-    /**
-     * 基于 AuthorizationServerTokenServices 存储
-     * @return {@link DefaultTokenServices}
-     */
-    @Bean
-    public AuthorizationServerTokenServices tokenServices() {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        // 基于 redis 令牌生成
-        tokenServices.setTokenStore(tokenStore);
-        // 是否支持刷新令牌
-        tokenServices.setSupportRefreshToken(true);
-        // 是否重复使用刷新令牌（直到过期）
-        tokenServices.setReuseRefreshToken(true);
-        // 设置客户端信息
-        tokenServices.setClientDetailsService(clientDetails());
-        // 用来控制令牌存储增强策略
-        tokenServices.setTokenEnhancer(tokenConverter);
-        // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
-        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(3));
-        // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
-        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(3));
-        // 设置 token 增强
-        // TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        // tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(tokenConverter()));
-        // tokenServices.setTokenEnhancer(tokenEnhancerChain);
-        return tokenServices;
     }
 }
