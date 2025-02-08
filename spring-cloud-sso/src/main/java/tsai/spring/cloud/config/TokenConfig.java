@@ -51,8 +51,10 @@ public class TokenConfig {
     @Bean
     public KeyPair keyPair() {
         // 从证书文件 jwt.jks 中获取秘钥对
+        // 密钥删除命令：keytool -delete -alias jwt -keystore jwt.jks
+        // 密钥生成命令：keytool -genkey -alias jwt -keyalg RSA -keypass 123456 -keystore jwt.jks -storepass 123456
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7".toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
     }
 
     @Bean

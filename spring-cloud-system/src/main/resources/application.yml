@@ -6,7 +6,7 @@ server:
         name: ${spring.application.name}
 spring:
   application:
-    name: ${APPLICATION_NAME:spring-cloud-system}
+    name: ${APPLICATION_NAME:SPRING-CLOUD-SYSTEM}
   redis:
     host: ${REDIS_HOST:116.205.112.132}
     port: ${REDIS_PORT:6379}

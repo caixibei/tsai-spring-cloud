@@ -1,9 +1,13 @@
 server:
   port: ${SERVER_PORT:9000}
+  # servlet:
+  #   session:
+  #     cookie:
+  #       name: ${spring.application.name}
 
 spring:
   application:
-    name: ${APPLICATION_NAME:spring-cloud-oss}
+    name: ${APPLICATION_NAME:SPRING-CLOUD-OSS}
   redis:
     host: ${REDIS_HOST:116.205.112.132}
     port: ${REDIS_PORT:6379}

@@ -72,16 +72,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler(accessDeniedHandler)
             // 开启 session 会话管理
             .and().sessionManagement()
-                // session 创建策略（无状态会话）
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                // 应用并发会话策略机制（暂不开启）
-                //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-                // 最多允许登录端数量
-                .maximumSessions(1)
-                // 多端登录session失效的策略
-                .expiredSessionStrategy(sessionExpiredStrategy)
-                // 超过最大数量是否阻止新的登录
-                .maxSessionsPreventsLogin(false);
+                 // session 创建策略（无状态会话）
+                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                 // 应用并发会话策略机制（暂不开启）
+                 //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+                 // 最多允许登录端数量
+                 .maximumSessions(1)
+                 // 多端登录session失效的策略
+                 .expiredSessionStrategy(sessionExpiredStrategy)
+                 // 超过最大数量是否阻止新的登录
+                 .maxSessionsPreventsLogin(false);
     }
 
     public SessionRegistryImpl sessionRegistry() {

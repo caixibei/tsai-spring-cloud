@@ -93,7 +93,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 允许客户端表单身份验证
         security.allowFormAuthenticationForClients()
                 // 仅允许认证后的用户访问密钥端点
-                .tokenKeyAccess("isAuthenticated()")
+                // .tokenKeyAccess("isAuthenticated()")
+                .tokenKeyAccess("permitAll()")
                 // 允许所有人访问令牌验证端点
                 .checkTokenAccess("permitAll()");
     }
@@ -114,9 +115,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         enhancerChain.setTokenEnhancers(delegates);
         // 配置用于密码模式的认证管理器
         endpoints.authenticationManager(authenticationManager)
-                // 授权码服务
-                .authorizationCodeServices(authorizationCodeServices())
-                // 在刷新令牌时使用此服务加载用户信息。
+                // 授权码模式服务
+                // .authorizationCodeServices(authorizationCodeServices())
+                // 在刷新令牌时使用此服务加载用户信息
                 .userDetailsService(userDetailsService)
                 // token 解析器
                 .tokenEnhancer(enhancerChain)
