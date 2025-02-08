@@ -140,12 +140,3 @@ mpj:
     enable-meta-handler: true
     enable-interceptor: true
     enable-injector: true
-
-security:
-  oauth2:
-    client:
-      client-id: DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7
-      client-secret: 123456
-    resource:
-      jwt:
-        key-password: 123456

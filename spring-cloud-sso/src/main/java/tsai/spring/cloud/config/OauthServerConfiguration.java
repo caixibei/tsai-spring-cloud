@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Oauth 2 授权服务配置
  *
@@ -57,10 +56,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     private DataSource dataSource;
 
     @Autowired
-    private JwtAccessTokenConverter tokenConverter;
-
-    @Autowired
-    private TokenEnhancer tokenEnhancer;
+    private RedisConnectionFactory redisConnectionFactory;
 
     @Bean
     public ClientDetailsService clientDetails() {
@@ -73,7 +69,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      * 授权码模式-授权码存储服务
      * @return {@link AuthorizationCodeServices}
      */
-    @Deprecated
+    @Bean
     public AuthorizationCodeServices authorizationCodeServices () {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
@@ -115,12 +111,6 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // 配置 Token 增强
-        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        List<TokenEnhancer> delegates = new ArrayList<>();
-        delegates.add(tokenEnhancer);
-        delegates.add(tokenConverter);
-        enhancerChain.setTokenEnhancers(delegates);
         // 配置用于密码模式的认证管理器
         endpoints.authenticationManager(authenticationManager)
                 // 授权码模式服务
@@ -130,13 +120,12 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
                 // token 解析器
                 .accessTokenConverter(tokenConverter())
                 // 配置 token 增强
-                // .tokenEnhancer(enhancerChain)
+                .tokenEnhancer(tokenEnhancer())
                 // 以 redis 存储 token
                 .tokenStore(tokenStore);
     }
 
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+
 
     @Bean
     public TokenStore tokenStore() {

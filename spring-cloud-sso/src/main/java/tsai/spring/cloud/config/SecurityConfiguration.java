@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,18 +18,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
-import tsai.spring.cloud.provider.DaoOAuthProvider;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.UNUSED})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    private DaoOAuthProvider oAuthProvider;
 
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
@@ -71,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 开启 session 会话管理
             .and().sessionManagement()
                  // session 创建策略（无状态会话）
-                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                  // 应用并发会话策略机制（暂不开启）
                  //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                  // 最多允许登录端数量

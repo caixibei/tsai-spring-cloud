@@ -149,7 +149,7 @@ security:
     # authorization:
     #   check-token-access: ${security.oauth2.server-url}/oauth/check_token
     client:
-      client-id: DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7
+      client-id: ${spring.application.name}
       client-secret: 123456
       user-authorization-uri: ${security.oauth2.server-url}/oauth/authorize
       access-token-uri: ${security.oauth2.server-url}/oauth/token
