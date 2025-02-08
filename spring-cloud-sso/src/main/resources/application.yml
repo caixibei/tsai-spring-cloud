@@ -140,7 +140,3 @@ mpj:
     enable-meta-handler: true
     enable-interceptor: true
     enable-injector: true
-
-security:
-  oauth2:
-    enable: false
