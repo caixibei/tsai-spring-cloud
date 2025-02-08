@@ -129,7 +129,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
                 // 在刷新令牌时使用此服务加载用户信息。
                 .userDetailsService(userDetailsService)
                 // token 解析器
-                // .accessTokenConverter(jwtAccessTokenConverter)
+                .accessTokenConverter(tokenConverter)
                 // token 增强
                 // .tokenEnhancer(tokenEnhancer)
                 // 以 redis 存储 token
@@ -154,9 +154,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 用来控制令牌存储增强策略
         tokenServices.setTokenEnhancer(tokenConverter);
         // 访问令牌的默认有效期（以秒为单位）。过期的令牌为零或负数。
-        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(15));
+        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(3));
         // 刷新令牌的有效性（以秒为单位）。如果小于或等于零，则令牌将不会过期。
-        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
+        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(3));
         // 设置 token 增强
         // TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         // tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(tokenConverter()));
