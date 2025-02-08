@@ -144,7 +144,7 @@ mpj:
 security:
   oauth2:
     client:
-      client-id: ${spring.application.name}
+      client-id: DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7
       client-secret: 123456
     resource:
       jwt:

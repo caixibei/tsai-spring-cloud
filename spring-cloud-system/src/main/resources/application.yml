@@ -146,17 +146,16 @@ security:
     enable: true
     ant-matches: /system/**
     server-url: http://localhost:9000
-    authorization:
-      check-token-access: ${security.oauth2.server-url}/oauth/check_token
+    # authorization:
+    #   check-token-access: ${security.oauth2.server-url}/oauth/check_token
     client:
-      client-id: ${spring.application.name}
+      client-id: DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7
       client-secret: 123456
-      access-token-uri: ${security.oauth2.server-url}/oauth/token
       user-authorization-uri: ${security.oauth2.server-url}/oauth/authorize
+      access-token-uri: ${security.oauth2.server-url}/oauth/token
     resource:
       id: ${spring.application.name}
-      token-info-uri: ${security.oauth2.server-url}/oauth/check_token
-      prefer-token-info: true
+      check-token-url: ${security.oauth2.server-url}/oauth/check_token
       jwt:
         key-uri: ${security.oauth2.server-url}/oauth/token_key
         key-password: 123456
