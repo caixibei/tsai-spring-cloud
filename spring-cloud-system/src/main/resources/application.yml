@@ -144,7 +144,7 @@ mpj:
 security:
   oauth2:
     enable: true
-    ant-matches: /**
+    ant-matches: /system/**
     server-url: http://localhost:9000
     # 授权模式，必须开启
     authorization:
