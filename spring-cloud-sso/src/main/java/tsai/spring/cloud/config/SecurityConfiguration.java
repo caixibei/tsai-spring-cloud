@@ -79,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 开启 session 会话管理
             .and().sessionManagement()
                  // session 创建策略（无状态会话）
-                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                  // 应用并发会话策略机制（暂不开启）
                  //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                  // 最多允许登录端数量
