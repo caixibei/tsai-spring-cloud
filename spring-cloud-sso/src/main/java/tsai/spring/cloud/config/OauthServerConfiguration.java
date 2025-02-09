@@ -1,6 +1,5 @@
 package tsai.spring.cloud.config;
 import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -35,6 +34,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableAuthorizationServer
+@SuppressWarnings(WarningsConstants.UNUSED)
 public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
@@ -45,7 +45,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     private final DataSource dataSource;
 
-    private RedisConnectionFactory redisConnectionFactory;
+    private final RedisConnectionFactory redisConnectionFactory;
 
     public OauthServerConfiguration(AuthenticationManager authenticationManager,
                                     UserDetailsServiceImpl userDetailsService,
@@ -70,6 +70,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
      * 授权码模式通过 {@code @Bean} 注解开启-授权码存储服务
      * @return {@link AuthorizationCodeServices}
      */
+    @Bean
     public AuthorizationCodeServices authorizationCodeServices () {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
@@ -114,7 +115,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 配置用于密码模式的认证管理器
         endpoints.authenticationManager(authenticationManager)
                 // 授权码模式服务
-                // .authorizationCodeServices(authorizationCodeServices())
+                .authorizationCodeServices(authorizationCodeServices())
                 // 在刷新令牌时使用此服务加载用户信息
                 .userDetailsService(userDetailsService)
                 // token 解析器

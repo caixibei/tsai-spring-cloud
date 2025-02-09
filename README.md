@@ -154,19 +154,25 @@ CREATE TABLE `oauth_client_details` (
     PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 -- 接入应用信息
-INSERT INTO `oauth_client_details` VALUES ('spring-cloud-system', 'spring-cloud-system', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'password,refresh_token,authorization_code', 'http://localhost:7080/login',NULL,300,3600,NULL,'all');
+INSERT INTO `tsai-db`.oauth_client_details 
+    (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, 
+     authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) 
+VALUES ('SPRING-CLOUD-SYSTEM', 'SPRING-CLOUD-SYSTEM', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 
+        'password,refresh_token,authorization_code', null, null, 120, 240, null, null);
 -- 授权码记录信息
 CREATE TABLE `oauth_code`(
     `code`           varchar(256) DEFAULT NULL,
     `authentication` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 创建用户信息表
-create table `TSAI_USER`(
-    ID          varchar(128) not null primary key,
-    USERNAME    varchar(128) not null unique,
-    PASSWORD    varchar(256) not null,
-    CREATE_TIME TIMESTAMP    null,
-    UPDATE_TIME TIMESTAMP    null
+CREATE TABLE TSAI_USER
+(
+    ID          VARCHAR(128) NOT NULL PRIMARY KEY,
+    USERNAME    VARCHAR(128) NOT NULL,
+    PASSWORD    VARCHAR(256) NOT NULL,
+    CREATE_TIME TIMESTAMP    NULL,
+    UPDATE_TIME TIMESTAMP    NULL,
+    CONSTRAINT USERNAME UNIQUE (USERNAME)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 -- 用户信息数据
 INSERT INTO `TSAI_USER` VALUES ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
