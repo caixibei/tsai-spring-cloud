@@ -73,8 +73,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
-            // 校验 Bearer Token 是否正确
-            // .and().addFilterAfter(new BearerTokenAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
             // 异常处理器
             .and().exceptionHandling()
                 // 403：无权访问处理器
