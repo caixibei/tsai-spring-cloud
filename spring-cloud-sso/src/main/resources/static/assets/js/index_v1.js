@@ -31,6 +31,7 @@ const app = createApp({
           post('/login', Qs.stringify(loginForm.value), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           }).then(res => {
+            console.log(res,'-------')
             if( res?.data?.code === 500){
               ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
             }else{

@@ -39,16 +39,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 使用无状态的登录方式
-        // http.cors().disable()
-        //         .csrf().disable()
-        //         .formLogin().disable()
-        //         .httpBasic().disable()
-        //         .logout().disable()
+        // http.csrf().disable()
+        //         .formLogin()
+        //         // 自定义的登录页
+        //         .loginPage("/index_v1.html")
+        //         // 必须和前端表单请求地址相同
+        //         .loginProcessingUrl("/login")
+        //         // 登录成功跳转页面
+        //         .successForwardUrl("/dashboard")
+        //         // 登录失败跳转页面
+        //         .failureForwardUrl("/error")
+        //         // 登录失败处理器
+        //         .failureHandler(loginFailureHandler)
+        //         .and()
         //         .authorizeRequests()
-        //         .antMatchers("/oauth/**","/sso/lineCaptcha")
+        //         // 对静态资源、登录请求、获取token请求放行、获取验证码放行
+        //         .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
+        //                 "/**/*.png", "/**/*.gif", "/**/*.ico",
+        //                 "/**/*.json", "/**/*.ttf", "/**/*.woff",
+        //                 "/**/*.woff2", "/index_v1.html", "/error.html",
+        //                 "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
         //         .permitAll()
-        //         .anyRequest().authenticated();
-        // 使用有状态的会话管理
+        //         // 其他所有请求必须通过认证后才能访问
+        //         .anyRequest().authenticated()
+        //         // 异常处理器
+        //         .and().exceptionHandling()
+        //         // 403：无权访问处理器
+        //         .accessDeniedHandler(accessDeniedHandler)
+        //         .and().sessionManagement().disable();
+        // 使用有状态的会话管理，资源服务器要关闭 @EnableResourceServer 的注解
         http.csrf().disable()
             .formLogin()
             // 自定义的登录页
