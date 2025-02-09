@@ -1,4 +1,5 @@
 package tsai.spring.cloud.core.controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/system/menu")
 public class MenuController {
 
-    @PostMapping("/getMenu")
+    @GetMapping("/getMenu")
     public String test () {
         return "xxxx";
     }
