@@ -146,8 +146,8 @@ security:
     enable: true
     ant-matches: /system/**
     server-url: http://localhost:9000
-    # authorization:
-    #   check-token-access: ${security.oauth2.server-url}/oauth/check_token
+    authorization:
+      check-token-access: ${security.oauth2.server-url}/oauth/check_token
     client:
       client-id: ${spring.application.name}
       client-secret: 123456
