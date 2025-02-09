@@ -8,7 +8,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-
 @EnableOAuth2Sso
 @EnableResourceServer
 @EnableFeignClients
