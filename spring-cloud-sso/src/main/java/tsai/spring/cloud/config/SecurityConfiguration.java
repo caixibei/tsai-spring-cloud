@@ -62,20 +62,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 登录失败处理器
             .failureHandler(loginFailureHandler)
             .and()
-            .authorizeRequests()
-            // 对静态资源、登录请求、获取token请求放行、获取验证码放行
-            .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
-                    "/**/*.png", "/**/*.gif", "/**/*.ico",
-                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                    "/**/*.woff2", "/index_v1.html","/error.html",
-                    "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
-            .permitAll()
-            // 其他所有请求必须通过认证后才能访问
-            .anyRequest().authenticated()
+                .authorizeRequests()
+                // 对静态资源、登录请求、获取token请求放行、获取验证码放行
+                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
+                        "/**/*.png", "/**/*.gif", "/**/*.ico",
+                        "/**/*.json", "/**/*.ttf", "/**/*.woff",
+                        "/**/*.woff2", "/index_v1.html","/error.html",
+                        "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
+                .permitAll()
+                // 其他所有请求必须通过认证后才能访问
+                .anyRequest().authenticated()
             // 异常处理器
             .and().exceptionHandling()
-            // 403：无权访问处理器
-            .accessDeniedHandler(accessDeniedHandler)
+                // 403：无权访问处理器
+                .accessDeniedHandler(accessDeniedHandler)
             // 开启 session 会话管理
             .and().sessionManagement()
                  // session 创建策略（无状态会话）
