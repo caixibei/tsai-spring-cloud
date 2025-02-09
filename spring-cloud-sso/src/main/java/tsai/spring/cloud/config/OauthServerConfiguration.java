@@ -97,9 +97,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     public void configure(AuthorizationServerSecurityConfigurer security) {
         // 允许客户端表单身份验证
         security.allowFormAuthenticationForClients()
-                // 仅允许认证后的用户访问密钥端点
-                .tokenKeyAccess("permitAll()")
-                //.tokenKeyAccess("isAuthenticated()")
+                // 仅允许认证后的用户访问密钥端点（单点登录必须，如果是无状态的，请改为 permitAll() ）
+                // .tokenKeyAccess("permitAll()")
+                .tokenKeyAccess("isAuthenticated()")
                 // 允许所有人访问令牌验证端点
                 .checkTokenAccess("permitAll()");
     }
