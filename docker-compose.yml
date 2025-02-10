@@ -87,19 +87,19 @@ services:
 
   # 单点登录统一认证服务
   oss-service:
-    # 指定容器所使用的镜像名称为 spring-cloud-oss
-    # image: spring-cloud-oss:latest
-    # 指定容器的名称为 spring-cloud-oss
-    container_name: spring-cloud-oss
+    # 指定容器所使用的镜像名称为 spring-cloud-sso
+    # image: spring-cloud-sso:latest
+    # 指定容器的名称为 spring-cloud-sso
+    container_name: spring-cloud-sso
     privileged: true
     # 设置容器的自动重启策略为 always，即容器总是重新启动
     restart: unless-stopped
     build:
       # 指定构建该服务的上下文路径，即 Dockerfile 所在的目录
-      # context: spring-cloud-oss
+      # context: spring-cloud-sso
       context: .
       # 指定 Dockerfile 文件路径
-      dockerfile: ./spring-cloud-oss/Dockerfile
+      dockerfile: ./spring-cloud-sso/Dockerfile
       # 参数
       args:
         VERSION: 1.2.0
@@ -111,14 +111,14 @@ services:
     # 启动环境参数配置
     environment:
       - SERVER_PORT=9000
-      - APPLICATION_NAME=spring-cloud-oss
+      - APPLICATION_NAME=spring-cloud-sso
       - REDIS_HOST=116.205.112.132
       - REDIS_PORT=6379
       - REDIS_PASSWORD=NJI(mko0
       - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_URL=ENC(/5xJ0XvV4wg87/M+IHPP6B/qu91ZLspRWzrYdDmz6HpKLzk6Kh5gUDcz/bjbdul5tiUjNLn8NE1lhOVc6UAHlEG6GY8UU8HflSRACjzU3aKy3R2EEZCKAaRN2nlzLaBg0awR2J4D2lbXLqd0lhvWFeIQv8YWy6B61YeDNLHZvz8781bsMSfl4sZk0UtIY3UgTnx2FG5tzfGzr1b8+0PDkbo4C99/tkic+RlRIE8seRCi6k/UEYkZH2GksvC6oQWX+kppBjKBYwOWkp4EvFeqPTFm3PT+rbYB)
       - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_USERNAME=ENC(QkI0VPRiOCJR8EbbhdlIog==)
       - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MYSQL_PASSWORD=ENC(0iRXcamB2YeKTq5XjQTsas1WC0K2SWx4)
-      - HOSTNAME=spring-cloud-oss
+      - HOSTNAME=spring-cloud-sso
       - PREFER_IP_ADDRESS=true
       - LEASE_RENEWAL_INTERVAL_IN_SECONDS=30
       - FETCH_REGISTRY=true
