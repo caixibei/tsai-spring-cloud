@@ -98,7 +98,7 @@ body, #app {
 
 .login_form .el-form-item:nth-child(3) .el-input {
     width: 60%;
-    flex: 0 0 60%;
+    flex: 0 1 60%;
 }
 
 .login_form .el-form-item:nth-child(4) .span {
