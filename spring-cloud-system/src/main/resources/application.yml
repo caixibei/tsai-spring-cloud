@@ -143,7 +143,7 @@ mpj:
 # 单点登录（已迁移至开源库）
 security:
   oauth2:
-    enable: true
+    sso-enable: true
     ant-matches: /system/**
     server-url: http://localhost:9000
     # 授权模式，必须开启
