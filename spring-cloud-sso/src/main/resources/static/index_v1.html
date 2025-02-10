@@ -58,7 +58,9 @@
                             </template>
                         </el-input>
                         <div class="img">
-                            <img :src="'/sso/lineCaptcha?username='+username_copy+'&timestamp='+timestamp" @click="refreshTimestamp"/>
+                            <img v-if="showCaptcha" :src="'/sso/lineCaptcha?username='+username_copy+'&timestamp='+timestamp" @click="refreshTimestamp"/>
+                            <el-button v-else type="info" @click="getCaptcha">点击获取</el-button>
+                            <div class="captcha-tip">{{captchaTipMessage}}</div>
                         </div>
                     </div>
                 </el-form-item>

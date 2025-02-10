@@ -12,9 +12,14 @@ const router = createRouter({
 const app = createApp({
   components: {},
   setup() {
+    /**表单 ref 实例*/
     const formRef = ref()
     /**表单数据*/
     const loginForm = ref({})
+    /**验证码倒计时信息*/
+    const captchaTipMessage = ref()
+    /**是否显示验证码*/
+    const showCaptcha = ref(false)
     /**表单校验规则*/
     const rules = ref({
       username: [{required: true, trigger: 'blur', message: '用户名不可为空'}],
@@ -31,10 +36,9 @@ const app = createApp({
           post('/login', Qs.stringify(loginForm.value), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           }).then(res => {
-            console.log(res,'-------')
-            if( res?.data?.code === 500){
+            if( res?.data?.code !== 200){
               ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
-            }else{
+            } else if(res?.data?.code === 200) {
               window.location.href = res?.request?.responseURL
             }
           }).catch(error => {
@@ -45,12 +49,16 @@ const app = createApp({
     }
     /**更新时间戳，获取最新的验证码*/
     const refreshTimestamp = () => {
+      username_copy.value = loginForm.value?.username
+      timestamp.value = new Date().getTime()
+    }
+    /**获取验证码，校验用户*/
+    const getCaptcha = () => {
       if(!loginForm.value?.username){
         ElementPlus.ElMessage({ message: '请输入用户名', type: 'warning'})
         return
       }
-      username_copy.value = loginForm.value?.username
-      timestamp.value = new Date().getTime()
+      showCaptcha.value = true
     }
     return {
       formRef,
@@ -58,8 +66,11 @@ const app = createApp({
       rules,
       timestamp,
       username_copy,
+      showCaptcha,
+      captchaTipMessage,
       login,
-      refreshTimestamp
+      refreshTimestamp,
+      getCaptcha
     }
   }
 })
