@@ -60,9 +60,11 @@ const app = createApp({
       showCaptcha.value = true
       total_seconds.value = 179
       const interval = setInterval(()=>{
-        if(total_seconds.value===1){
+        if(total_seconds.value===0){
           showCaptcha.value = false
+          captchaTipMessage.value = ''
           clearInterval(interval)
+          return
         }
         captchaTipMessage.value = (total_seconds.value--) + 's'
       },1000)
