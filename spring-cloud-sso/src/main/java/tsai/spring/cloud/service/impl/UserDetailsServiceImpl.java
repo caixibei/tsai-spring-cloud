@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 判断输入的用户名是否为空
         BranchUtil.branchHandler(StrUtil.isNotBlank(username), () -> {
             String captcha = request.getParameter("captcha");
-            String key = "captcha_" + username;
+            String key = "access_captcha:" + username;
             BranchUtil.branchHandler(redisUtil.hasKey(key), () -> {
                 String verifyCode = redisUtil.get(key);
                 BranchUtil.branchHandler(!StrUtil.equals(verifyCode, captcha),()->{
@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 });
             }, () -> {
                 object.putOnce("message", "登录失败！");
-                object.putOnce("details", "无效的验证码，请重新生成验证码！");
+                object.putOnce("details", "验证码已过期，请重新生成验证码！");
                 try {
                     response.getWriter().write(JSONUtil.toJsonStr(object));
                     response.flushBuffer();

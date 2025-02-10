@@ -72,7 +72,7 @@ public class SsoController {
         code = RandomUtil.randomString("abcdefghijkmnpqrstuvwxyz234567890ABCDEFGHIJKLMNPQRSTUVWXYZ",5);
         image = lineCaptcha.createImage(code);
         // 存储在 Redis 中，同时设置有效时长为3分钟
-        String key = "captcha_" + username;
+        String key = "access_captcha:" + username;
         redisUtil.set(key, code);
         redisUtil.expire(key,3, TimeUnit.MINUTES);
         // 返回验证码信息

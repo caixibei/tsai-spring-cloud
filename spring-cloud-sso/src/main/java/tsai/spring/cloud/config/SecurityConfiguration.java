@@ -85,6 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行
                 .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
+                        "/**/*.mp4", "/**/*.webm",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
                         "/**/*.woff2", "/index_v1.html","/error.html",
                         "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
