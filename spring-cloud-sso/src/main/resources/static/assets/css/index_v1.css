@@ -97,7 +97,7 @@ body, #app {
 }
 
 .login_form .el-form-item:nth-child(3) .el-input {
-    flex: 1 1 75%;
+    flex: 1 1 72%;
 }
 
 .login_form .el-form-item:nth-child(4) .span {
@@ -108,7 +108,7 @@ body, #app {
 
 }
 
-.login_form .el-form-item:nth-child(4) .span span{
+.login_form .el-form-item:nth-child(4) .span span {
     font-size: 10px;
     color: rgb(202, 203, 204)
 }
@@ -121,7 +121,7 @@ body, #app {
     margin-bottom: 5px;
 }
 
-.login_area * {
+.login_area *, .index-footer * {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -164,7 +164,7 @@ body, #app {
 
 .captcha_cls .img {
     height: 25px;
-    flex: 1 1 24%;
+    flex: 1 1 28%;
     border-radius: 2px;
     display: flex;
     justify-content: flex-end;
@@ -178,7 +178,7 @@ body, #app {
 }
 
 .captcha_cls .img:hover {
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
 @media screen and (min-width: 768px) and (max-width: 900px) {
@@ -191,11 +191,11 @@ body, #app {
     }
 
     .login_form .el-form-item:nth-child(3) .el-input {
-        flex: 1 1 78%;
+        flex: 1 1 74%;
     }
 
     .captcha_cls .img {
-        flex: 1 1 19%;
+        flex: 1 1 24%;
     }
 
     .captcha_cls {
@@ -218,11 +218,11 @@ body, #app {
     }
 
     .login_form .el-form-item:nth-child(3) .el-input {
-        flex: 1 1 75%;
+        flex: 1 1 74%;
     }
 
     .captcha_cls .img {
-        flex: 1 1 23%;
+        flex: 1 1 25%;
     }
 
     .captcha_cls {
