@@ -2,9 +2,9 @@
   font-family: "tsaifont"; /* Project id 4820754 */
   /* Color fonts */
   src: 
-       url('iconfont.woff2?t=1738917510886') format('woff2'),
-       url('iconfont.woff?t=1738917510886') format('woff'),
-       url('iconfont.ttf?t=1738917510886') format('truetype');
+       url('iconfont.woff2?t=1739162291856') format('woff2'),
+       url('iconfont.woff?t=1739162291856') format('woff'),
+       url('iconfont.ttf?t=1739162291856') format('truetype');
 }
 
 .tsaifont {
@@ -15,67 +15,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-xiaomao:before {
-  content: "\e60b";
-}
-
-.icon-pets_max:before {
-  content: "\e62f";
-}
-
-.icon-heiwuhuodongyemian-12:before {
-  content: "\e602";
-}
-
-.icon-a-ziyuan2:before {
-  content: "\e605";
-}
-
-.icon-a-ziyuan1:before {
-  content: "\e606";
-}
-
-.icon-ip-record:before {
-  content: "\e6ae";
-}
-
-.icon-a-jingchahuizhangzhiangongan:before {
-  content: "\e6a4";
-}
-
-.icon-a-appround25:before {
-  content: "\e93d";
-}
-
-.icon-security:before {
-  content: "\e6f7";
-}
-
-.icon-username3:before {
-  content: "\e638";
-}
-
-.icon-username4:before {
-  content: "\e600";
-}
-
-.icon-verify-code:before {
-  content: "\e625";
-}
-
-.icon-username:before {
-  content: "\e64e";
-}
-
-.icon-password:before {
-  content: "\e6d7";
+.icon-web-record:before {
+  content: "\e66f";
 }
 
 .icon-captcha:before {
-  content: "\e6c9";
+  content: "\e714";
 }
 
-.icon-account:before {
-  content: "\e7ae";
+.icon-password:before {
+  content: "\e65d";
+}
+
+.icon-username:before {
+  content: "\e9f5";
 }
 

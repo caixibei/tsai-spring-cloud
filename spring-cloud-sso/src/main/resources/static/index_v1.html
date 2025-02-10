@@ -10,7 +10,7 @@
 <body>
 <div id="app">
     <div class="video_container">
-        <video class="video" autoplay loop muted playbackRate="0.75">
+        <video class="video" autoplay loop muted playbackRate="0.5">
             <source src="assets/video/bg_video.mp4" type="video/mp4"/>
             浏览器不支持 video 标签，建议升级浏览器。
             <source src="assets/video/bg_video.webm" type="video/webm"/>
@@ -39,14 +39,14 @@
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="loginForm.username" placeholder="填写用户名...">
                         <template #prefix>
-                            <el-icon class="tsaifont icon-a-ziyuan2"/>
+                            <el-icon class="tsaifont icon-username"/>
                         </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="loginForm.password" show-password placeholder="填写密码...">
                         <template #prefix>
-                            <el-icon class="tsaifont icon-account"/>
+                            <el-icon class="tsaifont icon-password"/>
                         </template>
                     </el-input>
                 </el-form-item>
@@ -71,7 +71,7 @@
     </div>
     <div class="index-footer">
         <div>Copyright 2025 蔡熙贝 版权所有.</div>
-        <div><span class="tsaifont icon-a-appround25"></span>京公网安备: 000000000000000000号 | 京ICP备000000000号-0 </div>
+        <div><span class="tsaifont icon-web-record"></span>京公网安备: 000000000000000000号 | 京ICP备000000000号-0 </div>
     </div>
 </div>
 </body>
