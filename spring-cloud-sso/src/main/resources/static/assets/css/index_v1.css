@@ -52,8 +52,6 @@ body, #app {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /*background-image: url("../image/login_bg_v3.png");
-    background-size: cover;*/
 }
 
 .login_body {
@@ -101,6 +99,27 @@ body, #app {
 .login_form .el-form-item:nth-child(3) .el-input {
     width: 60%;
     flex: 0 0 60%;
+}
+
+.login_form .el-form-item:nth-child(4) .span {
+    width: 100%;
+    display: flex;
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+
+}
+
+.login_form .el-form-item:nth-child(4) .span span{
+    font-size: 10px;
+    color: rgb(202, 203, 204)
+}
+
+.login_form .el-form-item:nth-child(3) {
+    margin-bottom: 2px;
+}
+
+.login_form .el-form-item:nth-child(4) {
+    margin-bottom: 5px;
 }
 
 .login_area * {
@@ -154,6 +173,9 @@ body, #app {
     height: 25px;
     flex: 1 1 35%;
     border-radius: 2px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .captcha_cls .img img {
@@ -185,7 +207,7 @@ body, #app {
     width: 100vw;
     background-color: rgba(48, 59, 62, .3);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.14);
+    0 6px 20px 0 rgba(0, 0, 0, 0.14);
     border-radius: 0 0 4px 4px;
     display: flex;
     flex-direction: column;
@@ -209,7 +231,7 @@ body, #app {
     line-height: 15px;
 }
 
-.video_container{
+.video_container {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -217,7 +239,7 @@ body, #app {
     z-index: -100;
 }
 
-.video_container:before{
+.video_container:before {
     content: "";
     position: absolute;
     width: 100%;
@@ -226,11 +248,11 @@ body, #app {
     z-index: -1;
     top: 0;
     left: 0;
-    background: rgba(25,29,34,.65);
+    background: rgba(25, 29, 34, .65);
     background-size: cover;
 }
 
-.video_container .video{
+.video_container .video {
     width: 100vw;
     height: 100vh;
     object-fit: fill

@@ -58,10 +58,15 @@
                             </template>
                         </el-input>
                         <div class="img">
-                            <img v-if="showCaptcha" :src="'/sso/lineCaptcha?username='+username_copy+'&timestamp='+timestamp" @click="refreshTimestamp"/>
-                            <el-button v-else type="info" @click="getCaptcha">点击获取</el-button>
-                            <div class="captcha-tip">{{captchaTipMessage}}</div>
+                            <img v-show="showCaptcha" :src="'/sso/lineCaptcha?username='+username_copy+'&timestamp='+timestamp"/>
+                            <el-button v-show="!showCaptcha" type="info" @click="getCaptcha">点击获取</el-button>
                         </div>
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <div class="span">
+                        <span v-if="captchaTipMessage">{{captchaTipMessage}}</span>
+                        <span v-else>&nbsp;</span>
                     </div>
                 </el-form-item>
                 <el-form-item class="login_btn">

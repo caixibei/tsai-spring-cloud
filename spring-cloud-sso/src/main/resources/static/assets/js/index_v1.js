@@ -18,6 +18,8 @@ const app = createApp({
     const loginForm = ref({})
     /**验证码倒计时信息*/
     const captchaTipMessage = ref()
+    /**验证码倒计时 180s */
+    const total_seconds = ref(179)
     /**是否显示验证码*/
     const showCaptcha = ref(false)
     /**表单校验规则*/
@@ -47,18 +49,23 @@ const app = createApp({
         }
       })
     }
-    /**更新时间戳，获取最新的验证码*/
-    const refreshTimestamp = () => {
-      username_copy.value = loginForm.value?.username
-      timestamp.value = new Date().getTime()
-    }
     /**获取验证码，校验用户*/
     const getCaptcha = () => {
       if(!loginForm.value?.username){
         ElementPlus.ElMessage({ message: '请输入用户名', type: 'warning'})
         return
       }
+      timestamp.value = new Date().getTime()
+      username_copy.value = loginForm.value?.username
       showCaptcha.value = true
+      total_seconds.value = 179
+      const interval = setInterval(()=>{
+        if(total_seconds.value===1){
+          showCaptcha.value = false
+          clearInterval(interval)
+        }
+        captchaTipMessage.value = (total_seconds.value--) + 's'
+      },1000)
     }
     return {
       formRef,
@@ -69,7 +76,6 @@ const app = createApp({
       showCaptcha,
       captchaTipMessage,
       login,
-      refreshTimestamp,
       getCaptcha
     }
   }
