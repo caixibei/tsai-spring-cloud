@@ -66,7 +66,7 @@ body, #app {
 }
 
 .login_body > div:nth-child(2) {
-    flex: 0 0 18%;
+    flex: 0 1 20%;
 }
 
 .login_body > div {
@@ -97,8 +97,7 @@ body, #app {
 }
 
 .login_form .el-form-item:nth-child(3) .el-input {
-    width: 60%;
-    flex: 0 1 60%;
+    flex: 1 1 75%;
 }
 
 .login_form .el-form-item:nth-child(4) .span {
@@ -165,7 +164,7 @@ body, #app {
 
 .captcha_cls .img {
     height: 25px;
-    flex: 1 1 35%;
+    flex: 1 1 24%;
     border-radius: 2px;
     display: flex;
     justify-content: flex-end;
@@ -182,13 +181,52 @@ body, #app {
     cursor: pointer;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media screen and (min-width: 768px) and (max-width: 900px) {
     .login_body > div:nth-child(2) {
         flex: 1 1 70%;
     }
 
     .login_form {
         width: 90%;
+    }
+
+    .login_form .el-form-item:nth-child(3) .el-input {
+        flex: 1 1 78%;
+    }
+
+    .captcha_cls .img {
+        flex: 1 1 19%;
+    }
+
+    .captcha_cls {
+        gap: 1px;
+    }
+
+    .login_title {
+        font-size: 3vh;
+        padding: 1vh 0 3vh 0;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    .login_body > div:nth-child(2) {
+        flex: 1 1 70%;
+    }
+
+    .login_form {
+        width: 90%;
+    }
+
+    .login_form .el-form-item:nth-child(3) .el-input {
+        flex: 1 1 75%;
+    }
+
+    .captcha_cls .img {
+        flex: 1 1 23%;
+    }
+
+    .captcha_cls {
+        gap: 3px;
     }
 
     .login_title {
