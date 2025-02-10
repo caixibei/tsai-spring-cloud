@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
-@EnableFeignClients
 @EnableOAuth2Sso
+@EnableFeignClients
 @SpringBootApplication
 public class SystemApplication {
 
