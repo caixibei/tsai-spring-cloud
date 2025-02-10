@@ -38,9 +38,9 @@ const app = createApp({
           post('/login', Qs.stringify(loginForm.value), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           }).then(res => {
-            if( res?.data?.code !== 200){
+            if(res?.data?.code === 500 || res?.data?.code === 400){
               ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
-            } else if(res?.data?.code === 200) {
+            } else {
               window.location.href = res?.request?.responseURL
             }
           }).catch(error => {
