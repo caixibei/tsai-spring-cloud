@@ -19,4 +19,12 @@
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/UserDetailsServiceImpl.java" title="自定义登录逻辑"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/strategy/SessionExpiredStrategy.java" title="应用会话过期策略"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/PermissionServiceImpl.java" title="权限控制服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/UserServiceImpl.java" title="用户管理服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/PermissionService.java" title="权限管理服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/UserService.java" title="用户管理服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/SSOApplication.java" title="授权服务器启动类"/>
+    <tree path="/spring-cloud-sso/src/main/resources/mapper/user-mapper.xml" title="用户管理服务 mapper代理"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/mapper/UserMapper.java" title="用户管理服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/pojo/User.java" title="用户实体"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/provider/DaoOAuthProvider.java" title="自定义身份认证-暂未使用"/>
 </trees>
