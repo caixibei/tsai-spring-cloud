@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <trees>
+    <!--Docker文件说明-->
     <tree path="/docker" title="🗃️Docker编排文件"/>
     <tree path="/docker/mysql" title="mysql编排配置文件"/>
     <tree path="/docker/redis" title="redis编排配置文件"/>
     <tree path="/docker/dpanel" title="dpanel编排配置文件"/>
+    <!--注册中心文件说明-->
     <tree path="/spring-cloud-eureka" title="🫀Eureka 注册中心"/>
+    <!--网关服务文件说明-->
     <tree path="/spring-cloud-gateway" title="🧱Gateway 网关服务"/>
+    <!--授权服务器文件说明-->
     <tree path="/spring-cloud-sso" title="🗂️sso 统一认证模块"/>
-    <tree path="/spring-cloud-system" title="✳️System 系统组件"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/TokenConfig.java" title="JWT 配置"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/OauthServerConfiguration.java" title="OAuth2 授权服务配置"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/SecurityConfiguration.java" title="Security 认证配置"/>
@@ -27,4 +30,6 @@
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/mapper/UserMapper.java" title="用户管理服务"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/pojo/User.java" title="用户实体"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/provider/DaoOAuthProvider.java" title="自定义身份认证-暂未使用"/>
+    <!--系统服务文件说明-->
+    <tree path="/spring-cloud-system" title="✳️System 系统组件"/>
 </trees>
