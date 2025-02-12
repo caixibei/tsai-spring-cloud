@@ -15,7 +15,11 @@ const app = createApp({
     /**表单 ref 实例*/
     const formRef = ref()
     /**表单数据*/
-    const loginForm = ref({})
+    const loginForm = ref({
+      username: undefined,
+      password: undefined,
+      captcha: undefined
+    })
     /**验证码倒计时信息*/
     const captchaTipMessage = ref()
     /**验证码倒计时 180s */
