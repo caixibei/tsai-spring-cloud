@@ -52,7 +52,7 @@
                 </el-form-item>
                 <el-form-item label="验证码" prop="captcha">
                     <div class="captcha_cls">
-                        <el-input v-model="loginForm.captcha" placeholder="填写验证码...">
+                        <el-input v-model="loginForm.captcha" placeholder="填写验证码..." maxlength="5">
                             <template #prefix>
                                 <el-icon class="tsaifont icon-captcha"/>
                             </template>
@@ -77,8 +77,8 @@
         <div></div>
     </div>
     <div class="index-footer">
-        <div>© Copyright 2025 蔡熙贝 版权所有.</div>
-        <div><span class="tsaifont icon-web-record"></span>京公网安备: 000000000000000000号 | 京ICP备000000000号-0 </div>
+        <div>Copyright © 2025 蔡熙贝 版权所有.</div>
+        <div><span class="tsaifont icon-web-record"></span>京公网安备: 000000000000000000号 | 京ICP备000000000号</div>
     </div>
 </div>
 </body>

@@ -16,8 +16,8 @@ const app = createApp({
     const formRef = ref()
     /**表单数据*/
     const loginForm = ref({
-      username: undefined,
-      password: undefined,
+      username: 'caixibei',
+      password: '123456',
       captcha: undefined
     })
     /**验证码倒计时信息*/
