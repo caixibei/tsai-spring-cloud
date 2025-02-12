@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // http.csrf().disable()
         //         .formLogin()
         //         // 自定义的登录页
-        //         .loginPage("/index_v1.html")
+        //         .loginPage("/login.html")
         //         // 必须和前端表单请求地址相同
         //         .loginProcessingUrl("/login")
         //         // 登录成功跳转页面
@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //         .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
         //                 "/**/*.png", "/**/*.gif", "/**/*.ico",
         //                 "/**/*.json", "/**/*.ttf", "/**/*.woff",
-        //                 "/**/*.woff2", "/index_v1.html", "/error.html",
+        //                 "/**/*.woff2", "/login.html", "/403.html",
         //                 "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
         //         .permitAll()
         //         // 其他所有请求必须通过认证后才能访问
@@ -71,11 +71,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
             .formLogin()
             // 自定义的登录页
-            .loginPage("/index_v1.html")
+            .loginPage("/login.html")
             // 必须和前端表单请求地址相同
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
-            .successForwardUrl("/dashboard")
+            .successForwardUrl("/index")
             // 登录失败跳转页面
             .failureForwardUrl("/error")
             // 登录失败处理器
@@ -87,7 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/**/*.mp4", "/**/*.webm",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/index_v1.html","/error.html",
+                        "/**/*.woff2", "/login.html","/error/error.html",
                         "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问

@@ -10,9 +10,9 @@ public class LoginRedirectController {
      * 登录成功跳转
      * @return 跳转地址
      */
-    @PostMapping("/dashboard")
+    @PostMapping("/index")
     public String dashboard() {
-        return "redirect:/dashboard.html";
+        return "redirect:/index.html";
     }
 
     /**
@@ -22,6 +22,6 @@ public class LoginRedirectController {
     @PostMapping("/error")
     public String error(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return "redirect:/error.html";
+        return "redirect:/error/403.html";
     }
 }
