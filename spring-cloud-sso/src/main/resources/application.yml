@@ -8,7 +8,7 @@ spring:
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
-    add-mappings: false
+    add-mappings: true
   application:
     name: ${APPLICATION_NAME:SPRING-CLOUD-SSO}
   redis:
