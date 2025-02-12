@@ -38,36 +38,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 使用无状态的登录方式
-        // http.csrf().disable()
-        //         .formLogin()
-        //         // 自定义的登录页
-        //         .loginPage("/login.html")
-        //         // 必须和前端表单请求地址相同
-        //         .loginProcessingUrl("/login")
-        //         // 登录成功跳转页面
-        //         .successForwardUrl("/dashboard")
-        //         // 登录失败跳转页面
-        //         .failureForwardUrl("/error")
-        //         // 登录失败处理器
-        //         .failureHandler(loginFailureHandler)
-        //         .and()
-        //         .authorizeRequests()
-        //         // 对静态资源、登录请求、获取token请求放行、获取验证码放行
-        //         .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
-        //                 "/**/*.png", "/**/*.gif", "/**/*.ico",
-        //                 "/**/*.json", "/**/*.ttf", "/**/*.woff",
-        //                 "/**/*.woff2", "/login.html", "/403.html",
-        //                 "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
-        //         .permitAll()
-        //         // 其他所有请求必须通过认证后才能访问
-        //         .anyRequest().authenticated()
-        //         // 异常处理器
-        //         .and().exceptionHandling()
-        //         // 403：无权访问处理器
-        //         .accessDeniedHandler(accessDeniedHandler)
-        //         .and().sessionManagement().disable();
-        // 使用有状态的会话管理，资源服务器要关闭 @EnableResourceServer 的注解
         http.csrf().disable()
             .formLogin()
             // 自定义的登录页
@@ -87,13 +57,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/**/*.gif", "/**/*.ico",
                         "/**/*.mp4", "/**/*.webm",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/login.html","/error/error.html",
+                        "/**/*.woff2", "/login.html","/error/403.html",
                         "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
-            // fixed 校验 Bearer Token 是否正确，暂时没有使用
-            // .and().addFilterAfter(new BearerTokenAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
             // 异常处理器
             .and().exceptionHandling()
                 // 403：无权访问处理器
