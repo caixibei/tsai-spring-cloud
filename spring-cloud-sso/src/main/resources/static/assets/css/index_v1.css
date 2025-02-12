@@ -52,8 +52,6 @@ body, #app {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-image: url("../image/bg_video.gif");
-    background-size: cover;
 }
 
 .login_body {
