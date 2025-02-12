@@ -30,6 +30,11 @@
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/mapper/UserMapper.java" title="用户管理服务"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/pojo/User.java" title="用户实体"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/provider/DaoOAuthProvider.java" title="自定义身份认证-暂未使用"/>
-    <!--系统服务文件说明-->
+    <!--模块-系统服务-->
     <tree path="/spring-cloud-system" title="✳️System 系统组件"/>
+    <!--模块-青衫影院-->
+    <tree path="/spring-cloud-sso/src/main/resources/static/comics" title="模块-青衫影院"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/assets/image/comics" title="模块-青衫影院"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/assets/css/comics" title="模块-青衫影院"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/assets/js/comics" title="模块-青衫影院"/>
 </trees>
