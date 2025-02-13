@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tsai.spring.cloud.constant.RedisConstant;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -97,9 +98,8 @@ public class SsoController {
             String code = RandomUtil.randomString("abcdefghijkmnpqrstuvwxyz234567890ABCDEFGHJKLMNPQRSTUVWXYZ", 5);
             Image image = lineCaptcha.createImage(code);
             // 存储在 Redis 中，同时设置有效时长为3分钟
-            String key = "access_captcha:" + username;
-            redisUtil.set(key, code);
-            redisUtil.expire(key, 3, TimeUnit.MINUTES);
+            String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, username);
+            redisUtil.setEx(key, code, 3, TimeUnit.MINUTES);
             // 以图片形式返回验证码信息
             responseCode(response, code, image);
         });
