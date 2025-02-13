@@ -1,0 +1,12 @@
+document.write('<link type="images/x-icon" href="assets/image/favicon.ico"/>')
+document.write('<link rel="stylesheet" href="common/css/element-plus.css"/>')
+document.write('<link rel="stylesheet" href="common/iconfont/iconfont.css"/>')
+document.write('<script src="common/iconfont/iconfont.js"></script>')
+document.write('<script src="common/js/vue3.js"></script>')
+document.write('<script src="common/js/element-plus.js"></script>')
+document.write('<script src="common/js/vue-router.js"></script>')
+document.write('<script src="common/js/zh-cn.js"></script>')
+document.write('<script src="common/js/axios.js"></script>')
+document.write('<script src="common/js/qs.js"></script>')
+document.write('<script src="common/js/request.js"></script>')
+

@@ -26,6 +26,7 @@
         <module>spring-cloud-gateway</module>
         <module>spring-cloud-sso</module>
         <module>spring-cloud-system</module>
+        <module>spring-cloud-comic</module>
     </modules>
 
     <dependencyManagement>
