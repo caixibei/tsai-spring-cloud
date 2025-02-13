@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import tsai.spring.cloud.constant.RedisConstant;
 import tsai.spring.cloud.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,10 +45,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         object.putOnce("code", HttpStatus.HTTP_INTERNAL_ERROR);
         object.putOnce("success", false);
         object.putOnce("timestamp", System.currentTimeMillis());
+        String uuid = (String) request.getSession().getAttribute("Captcha");
+        String captcha = request.getParameter("captcha");
+        String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, uuid);
         // 判断输入的用户名是否为空
         BranchUtil.branchHandler(StrUtil.isNotBlank(username), () -> {
-            String captcha = request.getParameter("captcha");
-            String key = "access_captcha:" + username;
             BranchUtil.branchHandler(redisUtil.hasKey(key), () -> {
                 String verifyCode = redisUtil.get(key);
                 BranchUtil.branchHandler(!StrUtil.equals(verifyCode, captcha),()->{
@@ -80,6 +82,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 throw new RuntimeException(e);
             }
         });
+        // 删除验证码，验证码只能使用一次
+        redisUtil.delete(key);
         tsai.spring.cloud.pojo.User user = userService.findByUserName(username);
         BranchUtil.branchHandler(ObjectUtil.isNull(user),()->{
             object.putOnce("message", "登录失败！");

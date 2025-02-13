@@ -1,10 +1,10 @@
 package tsai.spring.cloud.controller;
-
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tsai.spring.cloud.constant.RedisConstant;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,13 +96,15 @@ public class SsoController {
             // 生成四位验证码
             String code = RandomUtil.randomString("abcdefghijkmnpqrstuvwxyz234567890ABCDEFGHJKLMNPQRSTUVWXYZ", 5);
             Image image = lineCaptcha.createImage(code);
+            String uuid = IdUtil.fastSimpleUUID();
             // 存储在 Redis 中，同时设置有效时长为3分钟
-            String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, username);
+            String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, uuid);
             redisUtil.setEx(key, code, 3, TimeUnit.MINUTES);
-            // 以图片形式返回验证码信息
+            log.info("生成验证码======> uuid:{} \t code: {}", uuid, code);
+            // 设置验证码图片的key，同时以图片形式返回验证码信息
+            request.getSession().setAttribute("Captcha", uuid);
             responseCode(response, code, image);
         });
-
     }
 
     /**
@@ -129,8 +130,6 @@ public class SsoController {
         response.setContentType("image/jpeg");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        log.info("生成验证码======> uuid:{} \t code: {}", uuid, code);
         try {
             BufferedImage bufferedImage = toBufferedImage(image);
             // 创建 ByteArrayOutputStream 用于存储图片数据
