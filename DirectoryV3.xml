@@ -5,6 +5,7 @@
     <tree path="/docker/mysql" title="mysql编排配置文件"/>
     <tree path="/docker/redis" title="redis编排配置文件"/>
     <tree path="/docker/dpanel" title="dpanel编排配置文件"/>
+    <tree path="/docker/minio" title="minio对象存储服务"/>
     <!--注册中心文件说明-->
     <tree path="/spring-cloud-eureka" title="🫀Eureka 注册中心"/>
     <!--网关服务文件说明-->
@@ -42,5 +43,4 @@
     <tree path="/spring-cloud-sso/src/main/resources/static/error" title="错误页"/>
     <tree path="/spring-cloud-sso/src/main/resources/static/login.html" title="登录页"/>
     <tree path="/spring-cloud-sso/src/main/resources/mapper" title="mapper代理文件"/>
-    <tree path="/docker/minio" title="minio对象存储服务"/>
 </trees>
