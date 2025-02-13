@@ -82,8 +82,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 throw new RuntimeException(e);
             }
         });
-        // 删除验证码，验证码只能使用一次
-        redisUtil.delete(key);
         tsai.spring.cloud.pojo.User user = userService.findByUserName(username);
         BranchUtil.branchHandler(ObjectUtil.isNull(user),()->{
             object.putOnce("message", "登录失败！");
