@@ -14,7 +14,7 @@ public class LoginRedirectController {
      */
     @PostMapping("/index")
     public String dashboard() {
-        return "redirect:/comics/index.html";
+        return "redirect:/index.html";
     }
 
     /**
