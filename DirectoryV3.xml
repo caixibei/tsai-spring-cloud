@@ -37,4 +37,9 @@
     <tree path="/spring-cloud-sso/src/main/resources/static/assets/image/comics" title="模块-青衫影院"/>
     <tree path="/spring-cloud-sso/src/main/resources/static/assets/css/comics" title="模块-青衫影院"/>
     <tree path="/spring-cloud-sso/src/main/resources/static/assets/js/comics" title="模块-青衫影院"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/assets" title="资源文件"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/common" title="公共组件"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/error" title="错误页"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/login.html" title="登录页"/>
+    <tree path="/spring-cloud-sso/src/main/resources/mapper" title="mapper代理文件"/>
 </trees>
