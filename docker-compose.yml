@@ -3,7 +3,7 @@ services:
   # DockerUI 管理工具
   docker-service:
     image: dpanel/dpanel
-    container_name: dpanel
+    container_name: docker-panel
     privileged: true
     # 重启策略
     restart: always
