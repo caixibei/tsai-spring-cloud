@@ -1,9 +1,11 @@
 package tsai.spring.cloud.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * 登录跳转处理器
+ * @author tsai
+ */
 @Controller
 public class LoginRedirectController {
     /**

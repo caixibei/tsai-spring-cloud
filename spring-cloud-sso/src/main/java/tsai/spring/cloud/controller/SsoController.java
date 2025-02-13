@@ -26,11 +26,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
-
+/**
+ * 验证码处理器
+ * @author tsai
+ */
 @Slf4j
 @RestController
 @RequestMapping("/sso")

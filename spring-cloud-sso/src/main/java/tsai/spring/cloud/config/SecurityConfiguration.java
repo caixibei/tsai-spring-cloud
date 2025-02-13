@@ -19,6 +19,10 @@ import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
+/**
+ * Spring Security 核心配置
+ * @author tsai
+ */
 @Configuration
 @EnableWebSecurity
 @SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.UNUSED})
