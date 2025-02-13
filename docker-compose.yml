@@ -17,6 +17,34 @@ services:
       - ./docker/dpanel/data:/dpanel:rw
       - /var/run/docker.sock:/var/run/docker.sock
 
+  # minio 对象存储服务
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9090:9000"
+      - "9099:9009"
+    restart: always
+    command: server /data --console-address ":9009"
+    environment:
+      MINIO_ACCESS_KEY: admin
+      MINIO_SECRET_KEY: NJI(mko0
+    logging:
+      options:
+        max-size: "500M"
+        max-file: "10"
+      driver: json-file
+    volumes:
+      - ./docker/minio/data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 512M
+        reservations:
+          cpus: '0.2'
+          memory: 512M
+
   # Redis 服务
   redis-service:
     # 镜像版本
