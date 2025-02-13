@@ -14,7 +14,7 @@ public class LoginRedirectController {
      */
     @PostMapping("/index")
     public String dashboard() {
-        return "redirect:/index.html";
+        return "redirect:http://localhost:7090/index.html";
     }
 
     /**
