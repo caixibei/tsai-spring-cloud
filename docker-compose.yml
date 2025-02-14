@@ -27,8 +27,8 @@ services:
     restart: always
     command: server /data --console-address ":9009"
     environment:
-      MINIO_ACCESS_KEY: admin
-      MINIO_SECRET_KEY: NJI(mko0
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: NJI(mko0
     logging:
       options:
         max-size: "500M"
