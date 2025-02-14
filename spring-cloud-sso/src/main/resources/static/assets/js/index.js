@@ -11,7 +11,6 @@ const router = createRouter({
 // 应用挂载
 const app = createApp({
   setup() {
-    window.location.href = 'http://localhost:7090/index.html'
     return {}
   }
 })

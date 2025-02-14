@@ -45,4 +45,5 @@
     <tree path="/spring-cloud-sso/src/main/resources/static/login.html" title="登录页"/>
     <tree path="/spring-cloud-sso/src/main/resources/mapper" title="mapper代理文件"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/constant/RedisConstant.java" title="Redis常量类"/>
+    <tree path="/spring-cloud-sso/src/main/resources/static/index.html" title="统一门户页"/>
 </trees>
