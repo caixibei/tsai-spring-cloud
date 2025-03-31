@@ -135,7 +135,7 @@ keytool -genkey -alias jwt ^
 
 ```sql
 -- 创建数据库
-create database `tsai-db`;
+create database `tsai-db` character set utf8mb4;
 -- 指定数据库
 use `tsai-db`;
 -- 创建 Oauth2 认证表
