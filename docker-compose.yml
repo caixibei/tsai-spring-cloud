@@ -96,7 +96,7 @@ services:
       - /g/tsai-spring-cloud/docker/mysql/conf/:/etc/mysql/conf.d/
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
-      - "3306:3306"
+      - "33016:33016"
     # 网络设置
     networks:
       - tsai-spring-cloud
