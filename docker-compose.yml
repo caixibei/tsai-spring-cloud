@@ -14,7 +14,7 @@ services:
       - "443:443"
     # 磁盘挂载
     volumes:
-      - ./docker/dpanel/data:/dpanel:rw
+      - /g/tsai-spring-cloud/docker/dpanel/data:/dpanel:rw
       - /var/run/docker.sock:/var/run/docker.sock
 
   # minio 对象存储服务
@@ -35,7 +35,7 @@ services:
         max-file: "10"
       driver: json-file
     volumes:
-      - ./docker/minio/data:/data
+      - /g/tsai-spring-cloud/docker/minio/data:/data
     deploy:
       resources:
         limits:
@@ -59,8 +59,8 @@ services:
       - "6379:6379"
     # 磁盘挂载
     volumes:
-      - ./docker/redis/conf/redis.conf:/etc/redis/redis.conf:rw
-      - ./docker/redis/data/:/data/
+      - /g/tsai-spring-cloud/docker/redis/conf/redis.conf:/etc/redis/redis.conf:rw
+      - /g/tsai-spring-cloud/docker/redis/data/:/data/
     # 启动命令
     command:
       redis-server /etc/redis/redis.conf --appendonly yes
@@ -92,8 +92,8 @@ services:
       MYSQL_ROOT_PASSWORD: NJI(mko0
     # 文件挂载
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql
-      - ./docker/mysql/conf/my.cnf:/etc/my.cnf
+      - /g/tsai-spring-cloud/docker/mysql/data:/var/lib/mysql
+      - /g/tsai-spring-cloud/docker/mysql/conf/my.cnf:/etc/my.cnf
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "3306:3306"
