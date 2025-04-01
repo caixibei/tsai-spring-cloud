@@ -65,16 +65,16 @@ algorithm=PBEWithMD5AndDES
 
 2. 数据库链接地址加密命令
 
-明文（输入）：jdbc:mysql://116.205.112.132:3306/tsai-db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+明文（输入）：jdbc:mysql://116.205.112.132:33016/tsai-db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
 
 ```shell
 java -cp ./jasypt-1.9.3.jar ^
 org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI ^
-input="jdbc:mysql://116.205.112.132:3306/tsai-db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true" ^
+input="jdbc:mysql://116.205.112.132:33016/tsai-db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true" ^
 password=DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7 algorithm=PBEWithMD5AndDES
 ```
 
-密文（输出）：/5xJ0XvV4wg87/M+IHPP6B/qu91ZLspRWzrYdDmz6HpKLzk6Kh5gUDcz/bjbdul5tiUjNLn8NE1lhOVc6UAHlEG6GY8UU8HflSRACjzU3aKy3R2EEZCKAaRN2nlzLaBg0awR2J4D2lbXLqd0lhvWFeIQv8YWy6B61YeDNLHZvz8781bsMSfl4sZk0UtIY3UgTnx2FG5tzfGzr1b8+0PDkbo4C99/tkic+RlRIE8seRCi6k/UEYkZH2GksvC6oQWX+kppBjKBYwOWkp4EvFeqPTFm3PT+rbYB
+密文（输出）：JUPM62+FP6fL27IHYJGmdQ/UeyezFBDPPuy37ySgVe7IVZOgnxAOMW85Q2/kiaQnTgXGEuku7Jbkg1YgWbRJGpDbB3hVeYBGCJSkxDRIyxhZGbKu7CfE5UDz6y90gaJHsjbcyHwcFJ9nDHq/KFOi1tCpb6fcvrs2P/bfSffKblGkqI88/0/+RO1pbYt1njTzVusaRGuMnfL8izVU87OORUuSJut9yWWY7fi6qnCR8MVbPHexn/aVFR0le5JGoVMTDAGRNolisDNS8ELYTmFDVtE6VllTHnn4
 
 3. 数据库口令加密命令：
 
