@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "TSAI_USER")
+@TableName(value = "tsai_user")
 public class User extends TsaiPOJO implements Serializable {
     @TableField(value = "USERNAME")
     @JsonInclude(JsonInclude.Include.NON_NULL)

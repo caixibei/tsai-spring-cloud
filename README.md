@@ -165,7 +165,7 @@ CREATE TABLE `oauth_code`(
     `authentication` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 创建用户信息表
-CREATE TABLE TSAI_USER
+CREATE TABLE tsai_user
 (
     ID          VARCHAR(128) NOT NULL PRIMARY KEY,
     USERNAME    VARCHAR(128) NOT NULL,
@@ -175,5 +175,5 @@ CREATE TABLE TSAI_USER
     CONSTRAINT USERNAME UNIQUE (USERNAME)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 -- 用户信息数据
-INSERT INTO `TSAI_USER` VALUES ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
+INSERT INTO `tsai_user` VALUES ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
 ```

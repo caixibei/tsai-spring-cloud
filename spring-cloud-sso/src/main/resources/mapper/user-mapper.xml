@@ -7,7 +7,7 @@
         select ID,
                USERNAME,
                PASSWORD
-        from TSAI_USER
+        from tsai_user
         where USERNAME = #{username}
     </select>
 
