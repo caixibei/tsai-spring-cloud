@@ -130,7 +130,7 @@ services:
       dockerfile: ./spring-cloud-sso/Dockerfile
       # 参数
       args:
-        VERSION: 1.2.0
+        VERSION: ${PROJECT_VERSION}
       # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
@@ -191,7 +191,7 @@ services:
       dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
-        VERSION: 1.2.0
+        VERSION: ${PROJECT_VERSION}
       # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
@@ -246,7 +246,7 @@ services:
       dockerfile: ./spring-cloud-eureka/Dockerfile
       # 参数
       args:
-        VERSION: 1.2.0
+        VERSION: ${PROJECT_VERSION}
       # 禁用缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
@@ -300,7 +300,7 @@ services:
       dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
-        VERSION: 1.2.0
+        VERSION: ${PROJECT_VERSION}
       # 禁止缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
@@ -348,7 +348,7 @@ services:
       dockerfile: ./spring-cloud-gateway/Dockerfile
       # 参数
       args:
-        VERSION: 1.2.0
+        VERSION: ${PROJECT_VERSION}
       # 禁止缓存
       no_cache: true
     # 暴露容器的端口映射，将容器的端口映射到主机端口
