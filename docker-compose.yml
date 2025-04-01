@@ -59,8 +59,8 @@ services:
       - "6379:6379"
     # 磁盘挂载
     volumes:
-      - ${DOCKER_ROOT_PATH}/redis/conf/redis.conf:/etc/redis/redis.conf:rw
       - ${DOCKER_ROOT_PATH}/redis/data/:/data/
+      - ${DOCKER_ROOT_PATH}/redis/conf:/etc/redis
     # 启动命令
     command:
       redis-server /etc/redis/redis.conf --appendonly yes
