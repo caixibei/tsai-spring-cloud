@@ -14,7 +14,7 @@ services:
       - "443:443"
     # 磁盘挂载
     volumes:
-      - /g/tsai-spring-cloud/docker/dpanel/data:/dpanel:rw
+      - ${DOCKER_ROOT_PATH}/dpanel/data:/dpanel:rw
       - /var/run/docker.sock:/var/run/docker.sock
 
   # minio 对象存储服务
@@ -35,7 +35,7 @@ services:
         max-file: "10"
       driver: json-file
     volumes:
-      - /g/tsai-spring-cloud/docker/minio/data:/data
+      - ${DOCKER_ROOT_PATH}/minio/data:/data
     deploy:
       resources:
         limits:
@@ -59,8 +59,8 @@ services:
       - "6379:6379"
     # 磁盘挂载
     volumes:
-      - /g/tsai-spring-cloud/docker/redis/conf/redis.conf:/etc/redis/redis.conf:rw
-      - /g/tsai-spring-cloud/docker/redis/data/:/data/
+      - ${DOCKER_ROOT_PATH}/redis/conf/redis.conf:/etc/redis/redis.conf:rw
+      - ${DOCKER_ROOT_PATH}/redis/data/:/data/
     # 启动命令
     command:
       redis-server /etc/redis/redis.conf --appendonly yes
@@ -92,13 +92,11 @@ services:
       MYSQL_ROOT_PASSWORD: NJI(mko0
     # 文件挂载
     volumes:
-      - /g/tsai-spring-cloud/docker/mysql/data:/var/lib/mysql/
-      - /g/tsai-spring-cloud/docker/mysql/conf/:/etc/
+      - ${DOCKER_ROOT_PATH}/mysql/conf/:/etc/mysql/mysql.conf.d/:rw
+      - ${DOCKER_ROOT_PATH}/mysql/data:/var/lib/mysql/
     # 暴露容器的端口映射，将容器的端口映射到主机端口
     ports:
       - "33016:33016"
-    command:
-      touch /etc/mysql/mysql.conf.d/mysqld.cnf
     # 网络设置
     networks:
       - tsai-spring-cloud

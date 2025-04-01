@@ -1,7 +1,12 @@
 [mysqld]
-
-# 是否启用大小写敏感
+# 是否启用大小写敏感 0=敏感, 1=不敏感（表名小写存储）, 2=不敏感（表名大小写存储但比较时不区分）
 lower_case_table_names=1
+
+# 服务器的字符集
+character-set-server=utf8mb4
+
+# 服务器的字符排序规则
+collation-server=utf8mb4_general_ci
 
 # 服务器的端口，默认是3306
 port=33016
