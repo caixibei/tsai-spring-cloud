@@ -120,7 +120,7 @@ eureka:
     service-url:
       defaultZone: ${DEFAULT_ZONE:http://admin:123456@spring-cloud-eureka-master:8761/eureka/,http://admin:123456@spring-cloud-eureka-slave:8762/eureka/}
 
-# Jasypt 加密
+# jasypt 加密
 jasypt:
   encryptor:
     password: ${JSYPT_ENCRYPTOR_PASSWORD:DdNwDFt2D5v5OVstBTr4h565ZRGVnSO7}
@@ -128,7 +128,7 @@ jasypt:
     string-output-type: ${JSYPT_ENCRYPTOR_STRING_OUTPUT_TYPE:base64}
     iv-generator-classname: ${JSYPT_ENCRYPTOR_IV_GENERATOR_CLASSNAME:org.jasypt.iv.NoIvGenerator}
 
-# ORM 框架
+# orm 框架
 mybatis-plus:
   mapper-locations: classpath:/mapper/*-mapper.xml
   global-config:
@@ -137,6 +137,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# tsai-spring-boot
 mpj:
   base-package: tsai.spring.cloud.**.mapper
   defaults:
