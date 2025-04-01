@@ -60,7 +60,7 @@ services:
     # 磁盘挂载
     volumes:
       - ./docker/redis/conf/redis.conf:/etc/redis/redis.conf:rw
-      - ./docker/redis/data/:/data:rw
+      - ./docker/redis/data/:/data/
     # 启动命令
     command:
       redis-server /etc/redis/redis.conf --appendonly yes
