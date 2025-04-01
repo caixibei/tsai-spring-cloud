@@ -134,46 +134,61 @@ keytool -genkey -alias jwt ^
 7. 基础建表语句
 
 ```sql
+-- 重建数据库
+drop database if exists `tsai-db`;
+
 -- 创建数据库
 create database `tsai-db` character set utf8mb4;
+
 -- 指定数据库
 use `tsai-db`;
+
 -- 创建 Oauth2 认证表
-CREATE TABLE `oauth_client_details` (
-    `client_id`               varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
-    `resource_ids`            varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `client_secret`           varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `scope`                   varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `authorized_grant_types`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `web_server_redirect_uri` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `authorities`             varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `access_token_validity`   int(11)                                                  NULL DEFAULT NULL,
-    `refresh_token_validity`  int(11)                                                  NULL DEFAULT NULL,
-    `additional_information`  varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-    `autoapprove`             varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    PRIMARY KEY (`client_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+create table oauth_client_details (
+      client_id                varchar(256) character set utf8 collate utf8_general_ci  not null,
+      resource_ids             varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      client_secret            varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      scope                    varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      authorized_grant_types   varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      web_server_redirect_uri  varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      authorities              varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      access_token_validity    int(11)                                                  null default null,
+      refresh_token_validity   int(11)                                                  null default null,
+      additional_information   varchar(4096) character set utf8 collate utf8_general_ci null default null,
+      autoapprove              varchar(256) character set utf8 collate utf8_general_ci  null default null,
+      primary key (client_id) using btree
+) engine = innodb character set = utf8mb4 collate = utf8mb4_general_ci row_format = dynamic;
+
 -- 接入应用信息
-INSERT INTO `tsai-db`.oauth_client_details 
-    (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, 
-     authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) 
-VALUES ('SPRING-CLOUD-SYSTEM', 'SPRING-CLOUD-SYSTEM', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 
-        'password,refresh_token,authorization_code', null, null, 120, 240, null, null);
+insert into oauth_client_details (client_id,
+                                resource_ids,
+                                client_secret,
+                                scope,
+                                authorized_grant_types,
+                                web_server_redirect_uri,
+                                authorities,
+                                access_token_validity,
+                                refresh_token_validity,
+                                additional_information,
+                                autoapprove)
+values ('SPRING-CLOUD-SYSTEM', 'SPRING-CLOUD-SYSTEM', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'password,refresh_token,authorization_code', null, null, 120, 240, null, null);
+
 -- 授权码记录信息
-CREATE TABLE `oauth_code`(
-    `code`           varchar(256) DEFAULT NULL,
-    `authentication` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create table oauth_code (
+    code           varchar(256) default null,
+    authentication blob
+) engine=innodb default charset=utf8;
+
 -- 创建用户信息表
-CREATE TABLE tsai_user
-(
-    ID          VARCHAR(128) NOT NULL PRIMARY KEY,
-    USERNAME    VARCHAR(128) NOT NULL,
-    PASSWORD    VARCHAR(256) NOT NULL,
-    CREATE_TIME TIMESTAMP    NULL,
-    UPDATE_TIME TIMESTAMP    NULL,
-    CONSTRAINT USERNAME UNIQUE (USERNAME)
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+create table tsai_user(
+    id          varchar(128) not null primary key,
+    username    varchar(128) not null,
+    password    varchar(256) not null,
+    create_time timestamp    null,
+    update_time timestamp    null,
+    constraint username unique (username)
+) engine = innodb character set = utf8mb4 collate = utf8mb4_general_ci row_format = dynamic;
+
 -- 用户信息数据
-INSERT INTO `tsai_user` VALUES ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
+insert into `tsai_user` values ('001', 'admin', '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', NULL, NULL);
 ```
