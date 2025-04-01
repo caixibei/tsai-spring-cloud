@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,15 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
+
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -51,7 +57,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
                                     UserDetailsServiceImpl userDetailsService,
                                     RedisConnectionFactory redisConnectionFactory,
                                     PasswordEncoder passwordEncoder,
-                                    DataSource dataSource){
+                                    DataSource dataSource) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.redisConnectionFactory = redisConnectionFactory;
@@ -68,10 +74,11 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 授权码模式通过 {@code @Bean} 注解开启-授权码存储服务
+     *
      * @return {@link AuthorizationCodeServices}
      */
     @Bean
-    public AuthorizationCodeServices authorizationCodeServices () {
+    public AuthorizationCodeServices authorizationCodeServices() {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
 
@@ -137,6 +144,7 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 使用非对称加密算法对 Token 签名
+     *
      * @return {@link JwtAccessTokenConverter}
      */
     @Bean
@@ -151,8 +159,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 从证书文件 jwt.jks 中获取秘钥对
         // 密钥删除命令：keytool -delete -alias jwt -keystore jwt.jks
         // 密钥生成命令：keytool -genkey -alias jwt -keyalg RSA -keypass 123456 -keystore jwt.jks -storepass 123456
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456" .toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", "123456" .toCharArray());
     }
 
     @Bean
@@ -161,6 +169,9 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
             Map<String, Object> map = new HashMap<>(1);
             User user = (User) oAuth2Authentication.getPrincipal();
             map.put("username", user.getUsername());
+            map.put("authorities", user.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList()));
             // ...其他信息可以自行添加
             ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(map);
             return oAuth2AccessToken;

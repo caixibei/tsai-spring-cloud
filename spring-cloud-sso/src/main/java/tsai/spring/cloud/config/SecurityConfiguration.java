@@ -14,9 +14,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
+import tsai.spring.cloud.handler.LoginSuccessHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 /**
@@ -38,7 +41,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private LoginFailureHandler loginFailureHandler;
 
     @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
+
+    @Autowired
     private SessionExpiredStrategy sessionExpiredStrategy;
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -54,6 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .failureForwardUrl("/error")
             // 登录失败处理器
             .failureHandler(loginFailureHandler)
+            // TODO 暂不适用目前设计理念
+            // .successHandler(loginSuccessHandler)
             .and()
                 .authorizeRequests()
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行
@@ -70,8 +82,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and().exceptionHandling()
                 // 403：无权访问处理器
                 .accessDeniedHandler(accessDeniedHandler)
+            .and()
+                // TODO 暂不适用目前设计理念
+                // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             // 开启 session 会话管理
-            .and().sessionManagement()
+            .sessionManagement()
                  // session 创建策略（无状态会话）
                  .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                  // 应用并发会话策略机制（暂不开启）
