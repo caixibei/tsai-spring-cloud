@@ -1,6 +1,6 @@
 [mysqld]
-# 是否启用大小写敏感 0=敏感, 1=不敏感（表名小写存储）, 2=不敏感（表名大小写存储但比较时不区分）
-lower_case_table_names=1
+# 是否启用大小写敏感 0=敏感, 1=不敏感（表名小写存储）, 2=不敏感（表名大小写存储但比较时不区分，跨设备兼容）
+lower_case_table_names=2
 
 # 服务器的字符集
 character-set-server=utf8mb4
