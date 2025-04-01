@@ -34,9 +34,9 @@ import static cn.hutool.core.img.ImgUtil.toBufferedImage;
  */
 @Slf4j
 @RestController
-@RequestMapping("/sso")
+@RequestMapping("/captcha")
 @SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.DUPLICATES})
-public class SsoController {
+public class CaptchaController {
 
     @Autowired
     private RedisUtil redisUtil;
@@ -46,7 +46,7 @@ public class SsoController {
      *
      * @param response 响应报文
      */
-    @GetMapping("/shearCaptcha")
+    @GetMapping("/shear")
     public void getShearCaptcha(HttpServletResponse response) {
         //定义图形验证码的长、宽、验证码字符数、干扰线宽度
         ShearCaptcha shearCaptcha = CaptchaUtil.createShearCaptcha(150, 50, 4, 3);
@@ -65,7 +65,7 @@ public class SsoController {
      *
      * @param response 响应报文
      */
-    @GetMapping("/lineCaptcha")
+    @GetMapping("/line")
     public void getLineCaptcha(HttpServletRequest request, HttpServletResponse response) {
         // 定义图形验证码的长、宽、验证码位数、干扰线数量
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(150, 50, 4, 60);
@@ -113,7 +113,7 @@ public class SsoController {
      *
      * @param response 响应报文
      */
-    @GetMapping("/circleCaptcha")
+    @GetMapping("/circle")
     public void getCircleCaptcha(HttpServletResponse response) {
         // 定义图形验证码的长、宽、验证码位数、干扰圈圈数量
         CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 50, 4, 30);

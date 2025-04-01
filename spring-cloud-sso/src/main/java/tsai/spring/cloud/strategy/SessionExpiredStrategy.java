@@ -15,7 +15,6 @@ import java.io.IOException;
 @Component
 @SuppressWarnings(WarningsConstants.DUPLICATES)
 public class SessionExpiredStrategy implements SessionInformationExpiredStrategy {
-
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
         HttpServletResponse response = getHttpServletResponse(event);

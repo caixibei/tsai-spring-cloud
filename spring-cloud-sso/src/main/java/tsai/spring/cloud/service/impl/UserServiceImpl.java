@@ -1,5 +1,4 @@
 package tsai.spring.cloud.service.impl;
-
 import cn.hutool.core.util.StrUtil;
 import com.github.yulichang.base.MPJBaseServiceImpl;
 import com.tsaiframework.boot.constant.WarningsConstants;

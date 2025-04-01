@@ -1,5 +1,4 @@
 package tsai.spring.cloud.config;
-
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,15 +23,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
-
 import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
-
 /**
  * Oauth 2 授权服务配置
  *

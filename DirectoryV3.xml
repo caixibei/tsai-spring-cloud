@@ -46,4 +46,10 @@
     <tree path="/spring-cloud-sso/src/main/resources/mapper" title="mapper代理文件"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/constant/RedisConstant.java" title="Redis常量类"/>
     <tree path="/spring-cloud-sso/src/main/resources/static/index.html" title="统一门户页"/>
+	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/handler/LoginSuccessHandler.java"
+	      title="登录成功处理器"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/filter/JwtAuthenticationFilter.java"
+          title="认证过滤器"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/CaptchaController.java"
+          title="验证码生成工具"/>
 </trees>
