@@ -1,12 +1,11 @@
 package tsai.spring.cloud.config;
 import com.google.common.annotations.Beta;
-import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
@@ -17,19 +16,19 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 @Configuration
 @EnableRedisHttpSession
-@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
 public class RedisSessionConfiguration {
-
-    @Autowired
-    private RedisIndexedSessionRepository sessionRepository;
-
     @Bean
-    public SpringSessionBackedSessionRegistry<? extends Session> sessionRegistry() {
+    public SpringSessionBackedSessionRegistry<? extends Session> sessionRegistry(RedisIndexedSessionRepository sessionRepository) {
         return new SpringSessionBackedSessionRegistry<>(sessionRepository);
     }
 
+    @Bean
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer();
+    }
+
     @Beta
-    protected SessionRegistryImpl sessionRegistryImpl() {
+    protected SessionRegistryImpl sessionRegistry() {
         return new SessionRegistryImpl();
     }
 

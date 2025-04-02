@@ -2,6 +2,7 @@ package tsai.spring.cloud.handler;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.BranchUtil;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -14,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Component
+@Beta
 @SuppressWarnings(WarningsConstants.DUPLICATES)
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override

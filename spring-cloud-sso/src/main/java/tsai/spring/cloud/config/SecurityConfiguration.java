@@ -37,7 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
 
-    @Autowired
     private LoginFailureHandler loginFailureHandler;
 
     private LoginSuccessHandler loginSuccessHandler;
@@ -79,13 +78,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 开启 session 会话管理（有状态的 session 登录可以使用）
         http.sessionManagement()
             // session 创建策略（无状态会话）
-            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            // .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             // 最多允许登录端数量
             .maximumSessions(1)
             // 超过最大数量是否阻止新的登录
-            .maxSessionsPreventsLogin(false)
+            // .maxSessionsPreventsLogin(false)
             // 会话过期策略
-            .expiredSessionStrategy(sessionExpiredStrategy)
+            // .expiredSessionStrategy(sessionExpiredStrategy)
             // 会话注册表
             .sessionRegistry(sessionRegistry);
         // 开启表单登录（有状态的 session 登录可以使用）
@@ -96,12 +95,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
             .successForwardUrl("/index")
-            // 登录失败跳转页面
-            .failureForwardUrl("/error")
             // 登录失败处理器
-            .failureHandler(loginFailureHandler);
+            // .failureHandler(loginFailureHandler);
             // 登录成功处理器（无状态 JWT 使用，用于返回 token ）
-            // .successHandler(loginSuccessHandler);
+            // .successHandler(loginSuccessHandler)
+            // 登录失败跳转页面
+            .failureForwardUrl("/error");
     }
 
     @Override
