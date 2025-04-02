@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
@@ -54,9 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 禁用 csrf
         http.csrf().disable();
         // 头部安全配置
-        http.headers()
-            .frameOptions().sameOrigin()
-            .xssProtection().block(true);
+        // http.headers()
+        //     .frameOptions().sameOrigin()
+        //     .xssProtection().block(true);
         // 认证拦截
         http.authorizeRequests()
             // 对静态资源、登录请求、获取token请求放行、获取验证码放行
@@ -78,13 +81,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 开启 session 会话管理（有状态的 session 登录可以使用）
         http.sessionManagement()
             // session 创建策略（无状态会话）
-            // .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             // 最多允许登录端数量
             .maximumSessions(1)
             // 超过最大数量是否阻止新的登录
-            // .maxSessionsPreventsLogin(false)
+            .maxSessionsPreventsLogin(false)
             // 会话过期策略
-            // .expiredSessionStrategy(sessionExpiredStrategy)
+            .expiredSessionStrategy(sessionExpiredStrategy)
             // 会话注册表
             .sessionRegistry(sessionRegistry);
         // 开启表单登录（有状态的 session 登录可以使用）
@@ -94,13 +97,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 必须和前端表单请求地址相同
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
-            .successForwardUrl("/index")
+            .defaultSuccessUrl("/index")
             // 登录失败处理器
             // .failureHandler(loginFailureHandler);
             // 登录成功处理器（无状态 JWT 使用，用于返回 token ）
             // .successHandler(loginSuccessHandler)
             // 登录失败跳转页面
             .failureForwardUrl("/error");
+    }
+
+    @Bean
+    protected SessionRegistryImpl sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Beta
+    protected ConcurrentSessionControlAuthenticationStrategy sessionAuthenticationStrategy() {
+        ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+        // 每个用户最多允许一个会话
+        strategy.setMaximumSessions(1);
+        // 不阻止新登录，而是使旧会话失效
+        strategy.setExceptionIfMaximumExceeded(false);
+        return strategy;
     }
 
     @Override

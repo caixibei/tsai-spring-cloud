@@ -14,5 +14,9 @@ public class RedisConstant {
      * token 前缀
      */
     public static final String OAUTH2_TOKEN_PREFIX = "oauth2_token:";
+
+    /**
+     * spring session 前缀
+     */
     public static final String SPRING_SESSION_PREFIX = "spring:session:sso";
 }

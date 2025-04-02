@@ -19,12 +19,15 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: true
+  # 分布式 session 配置
   session:
-    timeout: 30m
+    store-type: redis
+    timeout: 10m
     redis:
       namespace: spring:session:sso
       flush-mode: on-save
       cleanup-cron: 0 * * * * *
+      configure-action: none
   redis:
     host: ${REDIS_HOST:116.205.112.132}
     port: ${REDIS_PORT:6379}
