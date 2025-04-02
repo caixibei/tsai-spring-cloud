@@ -85,6 +85,7 @@ public class UserDetailsServiceImpl implements  UserDetailsService {
                 throw new RuntimeException(e);
             }
         });
+        // 查询用户
         tsai.spring.cloud.pojo.User user = userService.findByUserName(username);
         BranchUtil.branchHandler(ObjectUtil.isNull(user),()->{
             object.putOnce("message", "登录失败！");
@@ -96,9 +97,15 @@ public class UserDetailsServiceImpl implements  UserDetailsService {
                 throw new RuntimeException(e);
             }
         });
+        // 删除验证码
+        redisUtil.delete(key);
         return new User(user.getUsername(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 
+    /**
+     * 获取HttpServletResponse
+     * @return {@link HttpServletResponse}
+     */
     protected static HttpServletResponse getHttpServletResponse() {
         HttpServletResponse response = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getResponse();
         assert response != null;
