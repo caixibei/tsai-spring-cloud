@@ -1,6 +1,13 @@
 server:
   port: ${SERVER_PORT:9000}
   servlet:
+    session:
+      timeout: 30m  # 设置 Session 超时时间为 30 分钟
+      cookie:
+        name: SESSIONID  # 自定义 Session Cookie 名称
+        http-only: true  # 防止 XSS 攻击
+        secure: true     # 只在 HTTPS 下传输
+        same-site: strict  # 防止 CSRF 攻击
     encoding:
       enabled: true
       charset: UTF-8

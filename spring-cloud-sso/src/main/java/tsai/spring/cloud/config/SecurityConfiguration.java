@@ -5,6 +5,7 @@ import com.tsaiframework.boot.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +17,9 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.session.data.redis.RedisIndexedSessionRepository;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import tsai.spring.cloud.constant.RedisConstant;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
@@ -53,6 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用 csrf
         http.csrf().disable();
+        // 头部安全配置
+        http.headers()
+                .frameOptions().sameOrigin()
+                .xssProtection().block(true);
         // 认证拦截
         http.authorizeRequests()
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行
@@ -67,8 +75,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         // 异常处理器
         http.exceptionHandling()
-            // 403：无权访问处理器
-            .accessDeniedHandler(accessDeniedHandler);
+                // 403：无权访问处理器
+                .accessDeniedHandler(accessDeniedHandler);
         // 自定义的认证校验（无状态 JWT 使用）
         // http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         // 开启 session 会话管理（有状态的 session 登录可以使用）
@@ -79,8 +87,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                 // 最多允许登录端数量
                 .maximumSessions(1)
-                // 多端登录session失效的策略
-                .expiredSessionStrategy(sessionExpiredStrategy)
                 // 超过最大数量是否阻止新的登录
                 .maxSessionsPreventsLogin(false);
         // 开启表单登录（有状态的 session 登录可以使用）
@@ -103,13 +109,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SessionRegistryImpl();
     }
 
+    /**
+     * 并发session控制
+     *
+     * @return {@link ConcurrentSessionControlAuthenticationStrategy}
+     */
     public ConcurrentSessionControlAuthenticationStrategy sessionAuthenticationStrategy() {
         ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
-        // 限制每个用户只能有一个会话
+        // 每个用户最多允许一个会话
         strategy.setMaximumSessions(1);
-        // 超过最大会话数时抛出异常
-        strategy.setExceptionIfMaximumExceeded(true);
+        // 不阻止新登录，而是使旧会话失效
+        strategy.setExceptionIfMaximumExceeded(false);
         return strategy;
+    }
+
+    /**
+     * spring 分布式session，也可以通过 @EnableRedisHttpSession 注解开启
+     * @param redisTemplate redisTemplate
+     * @return {@link RedisIndexedSessionRepository}
+     */
+    @Bean
+    public RedisIndexedSessionRepository sessionRepository(RedisTemplate<Object, Object> redisTemplate) {
+        RedisIndexedSessionRepository repository = new RedisIndexedSessionRepository(redisTemplate);
+        repository.setDefaultMaxInactiveInterval(900);
+        repository.setRedisKeyNamespace(RedisConstant.SPRING_SESSION_PREFIX);
+        return repository;
     }
 
     @Override

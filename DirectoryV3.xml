@@ -52,4 +52,6 @@
           title="认证过滤器"/>
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/CaptchaController.java"
           title="验证码生成工具"/>
+	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/RedisConfiguration.java"
+	      title="Redis配置类（SpringSession）"/>
 </trees>
