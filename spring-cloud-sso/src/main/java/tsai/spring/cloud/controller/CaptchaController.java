@@ -11,6 +11,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.BranchUtil;
 import com.tsaiframework.boot.util.RedisUtil;
@@ -51,6 +52,7 @@ public class CaptchaController {
      *
      * @param response 响应报文
      */
+    @Beta
     @GetMapping("/shear")
     public void getShearCaptcha(HttpServletResponse response) {
         //定义图形验证码的长、宽、验证码字符数、干扰线宽度
@@ -118,6 +120,7 @@ public class CaptchaController {
      *
      * @param response 响应报文
      */
+    @Beta
     @GetMapping("/circle")
     public void getCircleCaptcha(HttpServletResponse response) {
         // 定义图形验证码的长、宽、验证码位数、干扰圈圈数量

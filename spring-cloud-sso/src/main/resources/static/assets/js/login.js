@@ -59,7 +59,7 @@ const app = createApp({
               }
             }
           }).catch(error => {
-            console.error(error)
+            console.error(error,'---')
           })
         }
       })

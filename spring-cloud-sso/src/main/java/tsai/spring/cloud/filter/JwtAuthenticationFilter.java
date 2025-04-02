@@ -1,15 +1,14 @@
 package tsai.spring.cloud.filter;
 import cn.hutool.core.util.StrUtil;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.lang.NonNull;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +19,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-@Component
-@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
+@Beta
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
     private TokenStore tokenStore;
 
     @Override

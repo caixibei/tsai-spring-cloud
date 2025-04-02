@@ -1,4 +1,5 @@
 package tsai.spring.cloud.provider;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +34,7 @@ import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
  * }</pre>
  * <p>注意：如果配置了AuthenticationProvider，就不需要再配置UserDetailsService了。</p>
  */
+@Beta
 @SuppressWarnings(WarningsConstants.UNUSED)
 public class DaoOAuthProvider implements AuthenticationProvider {
 

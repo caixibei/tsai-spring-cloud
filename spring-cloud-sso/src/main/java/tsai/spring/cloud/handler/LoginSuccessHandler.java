@@ -2,12 +2,14 @@ package tsai.spring.cloud.handler;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+@Beta
 @SuppressWarnings({WarningsConstants.DUPLICATES})
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
