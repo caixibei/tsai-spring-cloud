@@ -22,6 +22,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import tsai.spring.cloud.constant.RedisConstant;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -135,7 +136,10 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 存储在数据库中
         // return new JdbcTokenStore(dataSource);
         // 存储在 Redis 中
-        return new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        // 设置 token 前缀，方便管理
+        tokenStore.setPrefix(RedisConstant.OAUTH2_TOKEN_PREFIX);
+        return tokenStore;
     }
 
     /**

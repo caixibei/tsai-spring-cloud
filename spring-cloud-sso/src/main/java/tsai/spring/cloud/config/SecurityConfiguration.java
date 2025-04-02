@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
@@ -51,19 +52,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-            .formLogin()
-            // 自定义的登录页
-            .loginPage("/login.html")
-            // 必须和前端表单请求地址相同
-            .loginProcessingUrl("/login")
-            // 登录成功跳转页面
-            .successForwardUrl("/index")
-            // 登录失败跳转页面
-            .failureForwardUrl("/error")
-            // 登录失败处理器
-            .failureHandler(loginFailureHandler)
-            // TODO 暂不适用目前设计理念
-            // .successHandler(loginSuccessHandler)
+                .formLogin()
+                // 自定义的登录页
+                .loginPage("/login.html")
+                // 必须和前端表单请求地址相同
+                .loginProcessingUrl("/login")
+                // 登录成功跳转页面
+                .successForwardUrl("/index")
+                // 登录失败跳转页面
+                .failureForwardUrl("/error")
+                // 登录失败处理器
+                .failureHandler(loginFailureHandler)
+                // 登录成功处理器
+                .successHandler(loginSuccessHandler)
             .and()
                 .authorizeRequests()
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行
@@ -72,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.mp4", "/**/*.webm",
                         "/**/*.json", "/**/*.ttf", "/**/*.woff",
                         "/**/*.woff2", "/login.html","/error/403.html",
-                        "/error", "/login", "/oauth/**", "/sso/lineCaptcha")
+                        "/error", "/login", "/oauth/**", "/captcha/line")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
                 .anyRequest().authenticated()
@@ -81,12 +82,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 403：无权访问处理器
                 .accessDeniedHandler(accessDeniedHandler)
             .and()
-                // TODO 暂不适用目前设计理念
-                // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             // 开启 session 会话管理
             .sessionManagement()
                  // session 创建策略（无状态会话）
-                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                  // 应用并发会话策略机制（暂不开启）
                  //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                  // 最多允许登录端数量

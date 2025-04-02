@@ -1,4 +1,5 @@
 package tsai.spring.cloud.controller;
+
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tsai.spring.cloud.constant.RedisConstant;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +29,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
+
 /**
  * 验证码处理器
+ *
  * @author tsai
  */
 @Slf4j
@@ -103,7 +108,7 @@ public class CaptchaController {
             redisUtil.setEx(key, code, 3, TimeUnit.MINUTES);
             log.info("生成验证码======> uuid:{} \t code: {}", uuid, code);
             // 设置验证码图片的key，同时以图片形式返回验证码信息
-            request.getSession().setAttribute("Captcha", uuid);
+            request.getSession().setAttribute("uuid", uuid);
             responseCode(response, code, image);
         });
     }

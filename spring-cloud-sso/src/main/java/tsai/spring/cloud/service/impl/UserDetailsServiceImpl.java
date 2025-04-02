@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 @Service
 @SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION,WarningsConstants.DUPLICATES})
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements  UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -45,7 +45,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         object.putOnce("code", HttpStatus.HTTP_INTERNAL_ERROR);
         object.putOnce("success", false);
         object.putOnce("timestamp", System.currentTimeMillis());
-        String uuid = (String) request.getSession().getAttribute("Captcha");
+        String uuid = (String) request.getSession().getAttribute("uuid");
+        if (StrUtil.isBlank(uuid)) {
+             uuid = request.getParameter("uuid");
+        };
         String captcha = request.getParameter("captcha");
         String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, uuid);
         // 判断输入的用户名是否为空
