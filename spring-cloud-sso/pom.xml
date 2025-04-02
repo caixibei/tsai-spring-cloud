@@ -27,10 +27,10 @@
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
         <!--spring-session-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
-        </dependency>-->
+        </dependency>
         <!--actuator-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
