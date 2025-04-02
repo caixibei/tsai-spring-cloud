@@ -59,50 +59,50 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         // 头部安全配置
         http.headers()
-                .frameOptions().sameOrigin()
-                .xssProtection().block(true);
+            .frameOptions().sameOrigin()
+            .xssProtection().block(true);
         // 认证拦截
         http.authorizeRequests()
-                // 对静态资源、登录请求、获取token请求放行、获取验证码放行
-                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
-                        "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/**/*.mp4", "/**/*.webm",
-                        "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/login.html", "/error/403.html",
-                        "/error", "/login", "/oauth/**", "/captcha/line")
-                .permitAll()
-                // 其他所有请求必须通过认证后才能访问
-                .anyRequest().authenticated();
+            // 对静态资源、登录请求、获取token请求放行、获取验证码放行
+            .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
+                    "/**/*.png", "/**/*.gif", "/**/*.ico",
+                    "/**/*.mp4", "/**/*.webm",
+                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
+                    "/**/*.woff2", "/login.html", "/error/403.html",
+                    "/error", "/login", "/oauth/**", "/captcha/**")
+            .permitAll()
+            // 其他所有请求必须通过认证后才能访问
+            .anyRequest().authenticated();
         // 异常处理器
         http.exceptionHandling()
-                // 403：无权访问处理器
-                .accessDeniedHandler(accessDeniedHandler);
+            // 403：无权访问处理器
+            .accessDeniedHandler(accessDeniedHandler);
         // 自定义的认证校验（无状态 JWT 使用）
         // http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         // 开启 session 会话管理（有状态的 session 登录可以使用）
         http.sessionManagement()
-                // session 创建策略（无状态会话）
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                // 应用并发会话策略机制（暂不开启）
-                //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-                // 最多允许登录端数量
-                .maximumSessions(1)
-                // 超过最大数量是否阻止新的登录
-                .maxSessionsPreventsLogin(false);
+            // session 创建策略（无状态会话）
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            // 应用并发会话策略机制（暂不开启）
+            //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+            // 最多允许登录端数量
+            .maximumSessions(1)
+            // 超过最大数量是否阻止新的登录
+            .maxSessionsPreventsLogin(false);
         // 开启表单登录（有状态的 session 登录可以使用）
         http.formLogin()
-                // 自定义的登录页
-                .loginPage("/login.html")
-                // 必须和前端表单请求地址相同
-                .loginProcessingUrl("/login")
-                // 登录成功跳转页面
-                .successForwardUrl("/index")
-                // 登录失败跳转页面
-                .failureForwardUrl("/error")
-                // 登录失败处理器
-                .failureHandler(loginFailureHandler);
-                // 登录成功处理器（无状态 JWT 使用，用于返回 token ）
-                // .successHandler(loginSuccessHandler);
+            // 自定义的登录页
+            .loginPage("/login.html")
+            // 必须和前端表单请求地址相同
+            .loginProcessingUrl("/login")
+            // 登录成功跳转页面
+            .successForwardUrl("/index")
+            // 登录失败跳转页面
+            .failureForwardUrl("/error")
+            // 登录失败处理器
+            .failureHandler(loginFailureHandler);
+            // 登录成功处理器（无状态 JWT 使用，用于返回 token ）
+            // .successHandler(loginSuccessHandler);
     }
 
     public SessionRegistryImpl sessionRegistry() {
