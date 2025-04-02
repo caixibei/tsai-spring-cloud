@@ -33,6 +33,7 @@ import tsai.spring.cloud.strategy.SessionExpiredStrategy;
  */
 @Configuration
 @EnableWebSecurity
+@EnableRedisHttpSession(redisNamespace = RedisConstant.SPRING_SESSION_PREFIX, maxInactiveIntervalInSeconds = 900)
 @SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.UNUSED})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -84,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // session 创建策略（无状态会话）
             .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             // 应用并发会话策略机制（暂不开启）
-            //.sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+            // .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
             // 最多允许登录端数量
             .maximumSessions(1)
             // 超过最大数量是否阻止新的登录
@@ -123,12 +124,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return strategy;
     }
 
-    /**
-     * spring 分布式session，也可以通过 @EnableRedisHttpSession 注解开启
-     * @param redisTemplate redisTemplate
-     * @return {@link RedisIndexedSessionRepository}
-     */
-    @Bean
     public RedisIndexedSessionRepository sessionRepository(RedisTemplate<Object, Object> redisTemplate) {
         RedisIndexedSessionRepository repository = new RedisIndexedSessionRepository(redisTemplate);
         repository.setDefaultMaxInactiveInterval(900);
@@ -142,7 +137,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // auth.authenticationProvider(oAuthProvider);
         // 如果自定义的 provider 中已经配置了，这里无需再配置了
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .passwordEncoder(passwordEncoder());
     }
 
     @Bean
