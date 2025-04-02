@@ -15,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
@@ -23,7 +22,6 @@ import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.handler.LoginSuccessHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
-
 /**
  * Spring Security 核心配置
  *
