@@ -20,11 +20,11 @@ spring:
   resources:
     add-mappings: true
   session:
+    timeout: 30m
     redis:
-      # 每小时清理一次过期会话
+      namespace: spring:session:sso
+      flush-mode: on-save
       cleanup-cron: 0 * * * * *
-      # 禁用 keyspace 通知
-      notify-keyspace-events: ""
   redis:
     host: ${REDIS_HOST:116.205.112.132}
     port: ${REDIS_PORT:6379}
