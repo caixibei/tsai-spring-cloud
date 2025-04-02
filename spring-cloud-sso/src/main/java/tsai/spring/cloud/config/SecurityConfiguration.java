@@ -16,8 +16,6 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
-import org.springframework.session.Session;
-import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
@@ -31,7 +29,7 @@ import tsai.spring.cloud.strategy.SessionExpiredStrategy;
  */
 @Configuration
 @EnableWebSecurity
-@SuppressWarnings({WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION, WarningsConstants.UNUSED})
+@SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -48,9 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private SessionExpiredStrategy sessionExpiredStrategy;
 
     private JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    private SpringSessionBackedSessionRegistry<? extends Session> sessionRegistry;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -87,9 +82,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 超过最大数量是否阻止新的登录
             .maxSessionsPreventsLogin(false)
             // 会话过期策略
-            .expiredSessionStrategy(sessionExpiredStrategy)
+            .expiredSessionStrategy(sessionExpiredStrategy);
             // 会话注册表
-            .sessionRegistry(sessionRegistry);
+            //.sessionRegistry(sessionRegistry());
         // 开启表单登录（有状态的 session 登录可以使用）
         http.formLogin()
             // 自定义的登录页

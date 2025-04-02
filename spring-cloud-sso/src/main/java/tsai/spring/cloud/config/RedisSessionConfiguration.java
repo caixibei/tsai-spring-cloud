@@ -15,12 +15,12 @@ import tsai.spring.cloud.constant.RedisConstant;
 @Configuration
 @EnableRedisHttpSession(redisNamespace = RedisConstant.SPRING_SESSION_PREFIX,maxInactiveIntervalInSeconds = 900)
 public class RedisSessionConfiguration {
-    @Bean
+    @Beta
     public SpringSessionBackedSessionRegistry<? extends Session> sessionBackedSessionRegistry(RedisIndexedSessionRepository sessionRepository) {
         return new SpringSessionBackedSessionRegistry<>(sessionRepository);
     }
 
-    @Bean
+    @Beta
     protected RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
