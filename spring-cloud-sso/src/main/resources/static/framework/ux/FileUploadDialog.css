@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.tsai-upload-dialog .el-form-item.upload-file-item {
+    margin-bottom: 0 !important;
+}
+
+.tsai-upload-dialog .el-form-item:first-child>.el-form-item__content div {
+    width: 100%;
+}
+
+.tsai-upload-dialog .file-upload-space .el-space__item:first-child {
+    flex: 1 1 82%;
+}
+
+.tsai-upload-dialog .file-upload-space .el-space__item:nth-child(2) {
+    flex: 1 1 18%;
+}
+
+.tsai-upload-dialog .el-upload-list__item-name {
+    font-size: 8px;
+    color: #6d6e6e;
+    padding: 0 2px;
+}
+
+.tsai-upload-dialog .file-upload-tips {
+    display: inline-grid;
+    gap: 2px;
+}
+
+
+.tsai-upload-dialog .el-form-item {
+    margin: 0 0 10px 0 !important;
+}

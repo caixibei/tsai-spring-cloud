@@ -1,0 +1,93 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4799394 */
+  /* Color fonts */
+  src: 
+       url('iconfont.woff2?t=1736905421782') format('woff2'),
+       url('iconfont.woff?t=1736905421782') format('woff'),
+       url('iconfont.ttf?t=1736905421782') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tsai-bianji1:before {
+  content: "\e600";
+}
+
+.tsai-bianji2:before {
+  content: "\e607";
+}
+
+.tsai-bianji3:before {
+  content: "\e8ac";
+}
+
+.tsai-edit:before {
+  content: "\e667";
+}
+
+.tsai-bianji:before {
+  content: "\e626";
+}
+
+.tsai-bangzhu:before {
+  content: "\e6a4";
+}
+
+.tsai-bangzhu1:before {
+  content: "\e689";
+}
+
+.tsai-IPdizhi:before {
+  content: "\e61f";
+}
+
+.tsai-icon_shujuxian:before {
+  content: "\e61e";
+}
+
+.tsai-wangluo:before {
+  content: "\e60b";
+}
+
+.tsai-wangluo1:before {
+  content: "\e677";
+}
+
+.tsai-zujian-cipanIO:before {
+  content: "\e656";
+}
+
+.tsai-bangzhuyushuoming:before {
+  content: "\e70f";
+}
+
+.tsai-computer:before {
+  content: "\e602";
+}
+
+.tsai-JVM:before {
+  content: "\e653";
+}
+
+.tsai-cpu:before {
+  content: "\e650";
+}
+
+.tsai-fuwuqi:before {
+  content: "\e625";
+}
+
+.tsai-dianchi:before {
+  content: "\e67c";
+}
+
+.tsai-neicunshiyongshuai:before {
+  content: "\e62f";
+}
+

@@ -1,0 +1,142 @@
+{
+  "id": "4799394",
+  "name": "tsai-monitor",
+  "font_family": "iconfont",
+  "css_prefix_text": "tsai-",
+  "description": "项目地址：git@github.com:caixibei/tsai-monitor.git",
+  "glyphs": [
+    {
+      "icon_id": "2815703",
+      "name": "编辑",
+      "font_class": "bianji1",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "4880425",
+      "name": "编辑",
+      "font_class": "bianji2",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "11372640",
+      "name": "编辑",
+      "font_class": "bianji3",
+      "unicode": "e8ac",
+      "unicode_decimal": 59564
+    },
+    {
+      "icon_id": "11891760",
+      "name": "edit",
+      "font_class": "edit",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "5624778",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "10199222",
+      "name": "帮助",
+      "font_class": "bangzhu",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    },
+    {
+      "icon_id": "10968213",
+      "name": "帮助",
+      "font_class": "bangzhu1",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "12118997",
+      "name": "IP地址",
+      "font_class": "IPdizhi",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "5217217",
+      "name": "icon_数据线",
+      "font_class": "icon_shujuxian",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "3715728",
+      "name": "网络",
+      "font_class": "wangluo",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "8666847",
+      "name": "网络",
+      "font_class": "wangluo1",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "12378585",
+      "name": "组件-磁盘IO",
+      "font_class": "zujian-cipanIO",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "3456456",
+      "name": "帮助与说明",
+      "font_class": "bangzhuyushuoming",
+      "unicode": "e70f",
+      "unicode_decimal": 59151
+    },
+    {
+      "icon_id": "1632105",
+      "name": "computer",
+      "font_class": "computer",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "2420828",
+      "name": "JVM",
+      "font_class": "JVM",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "10977975",
+      "name": "cpu",
+      "font_class": "cpu",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "12018846",
+      "name": "服务器",
+      "font_class": "fuwuqi",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "33440066",
+      "name": "电池",
+      "font_class": "dianchi",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "36761816",
+      "name": "内存使用率",
+      "font_class": "neicunshiyongshuai",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    }
+  ]
+}

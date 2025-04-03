@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.tsai-pagination.pagination-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 5px;
+  overflow: auto;
+}
+
+.tsai-pagination.pagination-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 5px;
+  overflow: auto;
+}
