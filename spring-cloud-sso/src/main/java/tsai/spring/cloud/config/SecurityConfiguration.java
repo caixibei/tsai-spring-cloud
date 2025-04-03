@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
@@ -16,6 +17,9 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.session.Session;
+import org.springframework.session.data.redis.RedisIndexedSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
@@ -30,7 +34,7 @@ import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
 @EnableWebSecurity
 @SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration<S extends Session> extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -49,6 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Beta
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private RedisIndexedSessionRepository sessionRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -77,17 +84,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 自定义的认证校验（无状态 JWT 使用）
         // http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         // 开启 session 会话管理（有状态的 session 登录可以使用）
-        // http.sessionManagement()
-            // session 创建策略（无状态会话）
-            // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        http.sessionManagement()
+            // session 创建策略（有状态会话）
+            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             // 最多允许登录端数量
-            // .maximumSessions(1)
+            .maximumSessions(1)
             // 超过最大数量是否阻止新的登录
-            // .maxSessionsPreventsLogin(false)
+            .maxSessionsPreventsLogin(false)
+            // 会话注册表（spring session）
+            .sessionRegistry(springSessionBackedSessionRegistry())
             // 会话过期策略
-            // .expiredSessionStrategy(sessionExpiredStrategy);
-            // 会话注册表
-            // .sessionRegistry(sessionRegistry());
+            .expiredSessionStrategy(sessionExpiredStrategy);
         // 开启表单登录（有状态的 session 登录可以使用）
         http.formLogin()
             // 自定义的登录页
@@ -95,13 +102,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // 必须和前端表单请求地址相同
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
-            .successForwardUrl("/index")
+            .defaultSuccessUrl("/index", true)
             // 登录失败处理器
-            // .failureHandler(loginFailureHandler);
-            // 登录成功处理器（无状态 JWT 使用，用于返回 token ）
-            // .successHandler(loginSuccessHandler)
+            //.failureHandler(loginFailureHandler)
+            // 登录成功处理器
+            //.successHandler(loginSuccessHandler)
             // 登录失败跳转页面
-            .failureForwardUrl("/error");
+            .failureUrl("/error");
+    }
+
+    @Bean
+    public SpringSessionBackedSessionRegistry<? extends Session> springSessionBackedSessionRegistry() {
+        return new SpringSessionBackedSessionRegistry<>(sessionRepository);
     }
 
     @Beta
