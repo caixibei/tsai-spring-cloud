@@ -2,7 +2,6 @@ package tsai.spring.cloud.handler;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.BranchUtil;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -15,19 +14,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Beta
+@Component
 @SuppressWarnings(WarningsConstants.DUPLICATES)
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         JSONObject object = new JSONObject();
+        object.putOnce("details", exception.getMessage());
         BranchUtil.branchHandler(exception instanceof BadCredentialsException, () -> object.putOnce("details", "账号密码错误，请重新登录！"));
         BranchUtil.branchHandler(exception instanceof AccountExpiredException, () -> object.putOnce("details", "认证已过期，请重新登录！"));
         BranchUtil.branchHandler(exception instanceof AccountStatusException, () -> object.putOnce("details", "账号状态异常，请重新登录！"));
         object.putOnce("code", HttpStatus.HTTP_INTERNAL_ERROR);
         object.putOnce("success", false);
         object.putOnce("timestamp", System.currentTimeMillis());
-        object.putOnce("message", "登录失败！");
+        object.putOnce("message", "登录失败");
         response.reset();
         response.setContentType("application/json;charset=utf-8");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

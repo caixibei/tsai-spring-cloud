@@ -38,28 +38,56 @@ const app = createApp({
     /**登录逻辑*/
     const login = () => {
       formRef.value.validate((valid) => {
+        // if (valid) {
+        //   post('/login', Qs.stringify(loginForm.value), {
+        //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        //   }).then(res => {
+        //     console.log(res)
+        //     if(res?.data?.code === 500 || res?.data?.code === 400){
+        //       ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
+        //     } else {
+        //       // 如果授权服务器配置了跳转链接地址，则正确跳转目标页面;
+        //       // 反之，如果没有配置跳转链接地址，则跳转统一门户地址；
+        //       // const responseURL = res?.request?.responseURL
+        //       // const url = new URL(responseURL)
+        //       // const params = new URLSearchParams(url.search)
+        //       // const targetURL = params.get('target')
+        //       // if (!targetURL) {
+        //       //   window.location.href = responseURL
+        //       // }else{
+        //       //   window.location.href = targetURL
+        //       // }
+        //     }
+        //   }).catch(error => {
+        //     console.error(error)
+        //   })
+        // }
         if (valid) {
-          post('/login', Qs.stringify(loginForm.value), {
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          }).then(res => {
-            if(res?.data?.code === 500 || res?.data?.code === 400){
-              ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
-            } else {
-              // 如果授权服务器配置了跳转链接地址，则正确跳转目标页面;
-              // 反之，如果没有配置跳转链接地址，则跳转统一门户地址；
-              // const responseURL = res?.request?.responseURL
-              // const url = new URL(responseURL)
-              // const params = new URLSearchParams(url.search)
-              // const targetURL = params.get('target')
-              // if (!targetURL) {
-              //   window.location.href = responseURL
-              // }else{
-              //   window.location.href = targetURL
-              // }
-            }
-          }).catch(error => {
-            console.error(error)
-          })
+          // 使用表单提交而不是 AJAX
+          const form = document.createElement('form')
+          form.method = 'POST'
+          form.action = '/login'
+          form.style.display = 'none'
+          // 添加用户名
+          const usernameInput = document.createElement('input')
+          usernameInput.type = 'hidden'
+          usernameInput.name = 'username'
+          usernameInput.value = loginForm.value.username
+          form.appendChild(usernameInput)
+          // 添加密码
+          const passwordInput = document.createElement('input')
+          passwordInput.type = 'hidden'
+          passwordInput.name = 'password'
+          passwordInput.value = loginForm.value.password
+          form.appendChild(passwordInput)
+          // 添加验证码
+          const captchaInput = document.createElement('input')
+          captchaInput.type = 'hidden'
+          captchaInput.name = 'captcha'
+          captchaInput.value = loginForm.value.captcha
+          form.appendChild(captchaInput)
+          document.body.appendChild(form)
+          form.submit()
         }
       })
     }
