@@ -1,5 +1,4 @@
 package tsai.spring.cloud.controller;
-
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tsai.spring.cloud.constant.RedisConstant;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +28,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import static cn.hutool.core.img.ImgUtil.toBufferedImage;
-
 /**
  * 验证码处理器
  *
@@ -75,9 +71,9 @@ public class CaptchaController {
     @GetMapping("/line")
     public void getLineCaptcha(HttpServletRequest request, HttpServletResponse response) {
         // 定义图形验证码的长、宽、验证码位数、干扰线数量
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(150, 50, 4, 60);
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(150, 50, 4, 20);
         // 设置背景颜色
-        lineCaptcha.setBackground(new Color(249, 251, 220));
+        lineCaptcha.setBackground(new Color(255, 255, 255));
         // 获取输入的账号，作为存储验证码的键（Redis）
         String username = request.getParameter("username");
         // 如果传入空的用户名直接返回错误信息
