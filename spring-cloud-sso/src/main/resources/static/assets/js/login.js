@@ -94,7 +94,7 @@ const app = createApp({
                             if (form.parentNode) {
                                 form.parentNode.removeChild(form)
                             }
-                        }, 2000)
+                        }, 1000)
                     })
                 }
             })
