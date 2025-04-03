@@ -19,6 +19,22 @@ import java.io.IOException;
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        // 将错误信息存入 request
+        // request.setAttribute("error", exception.getMessage());
+        // 转发到登录页
+        // request.getRequestDispatcher("/login?error=true")
+        //         .forward(request,response);
+        failureJsonMessage(request,response,exception);
+    }
+
+    /**
+     * 针对现代 SPI 单页应用程序，往往喜欢返回 JSON 错误信息
+     * @param request 请求报文
+     * @param response 响应报文
+     * @param exception 异常信息
+     * @throws IOException 异常
+     */
+    protected void failureJsonMessage(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         JSONObject object = new JSONObject();
         object.putOpt("details", exception.getMessage());
         BranchUtil.branchHandler(exception instanceof BadCredentialsException, () -> object.putOpt("details", "账号密码错误，请重新登录！"));

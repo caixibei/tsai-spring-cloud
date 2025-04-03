@@ -1,7 +1,6 @@
 package tsai.spring.cloud.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import javax.servlet.http.HttpServletResponse;
 /**
  * 登录跳转处理器
  * @author tsai
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginRedirectController {
     /**
-     * 登录成功跳转
+     * 登录成功重定向首页
      * @return 跳转地址
      */
     @PostMapping("/index")
@@ -17,13 +16,8 @@ public class LoginRedirectController {
         return "redirect:/index.html";
     }
 
-    /**
-     * 登录失败跳转
-     * @return 跳转地址
-     */
-    @PostMapping("/error")
-    public String error(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return "redirect:/error/403.html";
+    @PostMapping("/login")
+    public String login() {
+        return "redirect:/login.html";
     }
 }
