@@ -1,5 +1,5 @@
 // 创建 Axios 请求实例
-const instance = axios.create({ timeout: 1000})
+const instance = axios.create({ timeout: 30000})
 
 // 请求拦截器
 instance.interceptors.request.use(config=>config, error => Promise.reject(error))

@@ -1,5 +1,4 @@
 package tsai.spring.cloud.config;
-
 import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
@@ -108,13 +107,13 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
             // 必须和前端表单请求地址相同
             .loginProcessingUrl("/login")
             // 登录成功跳转页面
-            .defaultSuccessUrl("/index", true)
+            .defaultSuccessUrl("/index.html", true);
             // 登录失败处理器
             //.failureHandler(loginFailureHandler)
             // 登录成功处理器
             //.successHandler(loginSuccessHandler)
             // 登录失败跳转页面
-            .failureUrl("/error");
+            // .failureUrl("/error.html");
     }
 
     @Bean
@@ -143,7 +142,7 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
         // auth.authenticationProvider(oAuthProvider);
         // 如果自定义的 provider 中已经配置了，这里无需再配置了
         auth.userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
