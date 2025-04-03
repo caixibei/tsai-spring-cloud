@@ -20,14 +20,14 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         JSONObject object = new JSONObject();
-        object.putOnce("details", exception.getMessage());
-        BranchUtil.branchHandler(exception instanceof BadCredentialsException, () -> object.putOnce("details", "账号密码错误，请重新登录！"));
-        BranchUtil.branchHandler(exception instanceof AccountExpiredException, () -> object.putOnce("details", "认证已过期，请重新登录！"));
-        BranchUtil.branchHandler(exception instanceof AccountStatusException, () -> object.putOnce("details", "账号状态异常，请重新登录！"));
-        object.putOnce("code", HttpStatus.HTTP_INTERNAL_ERROR);
-        object.putOnce("success", false);
-        object.putOnce("timestamp", System.currentTimeMillis());
-        object.putOnce("message", "登录失败");
+        object.putOpt("details", exception.getMessage());
+        BranchUtil.branchHandler(exception instanceof BadCredentialsException, () -> object.putOpt("details", "账号密码错误，请重新登录！"));
+        BranchUtil.branchHandler(exception instanceof AccountExpiredException, () -> object.putOpt("details", "认证已过期，请重新登录！"));
+        BranchUtil.branchHandler(exception instanceof AccountStatusException, () -> object.putOpt("details", "账号状态异常，请重新登录！"));
+        object.putOpt("code", HttpStatus.HTTP_INTERNAL_ERROR);
+        object.putOpt("success", false);
+        object.putOpt("timestamp", System.currentTimeMillis());
+        object.putOpt("message", "登录失败");
         response.reset();
         response.setContentType("application/json;charset=utf-8");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
