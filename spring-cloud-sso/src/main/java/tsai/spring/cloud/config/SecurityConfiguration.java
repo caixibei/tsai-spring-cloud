@@ -60,11 +60,17 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用 csrf
-        http.csrf().disable();
-        // 头部安全配置
-        // http.headers()
-        //     .frameOptions().sameOrigin()
-        //     .xssProtection().block(true);
+        http.csrf()
+            //.disable()
+            //.headers()
+            //.frameOptions()
+            //.disable()
+            // 禁用 XSS 保护
+            //.xssProtection()
+            //.disable()
+            // 禁用内容类型嗅探保护
+            //.contentTypeOptions()
+            .disable();
         // 认证拦截
         http.authorizeRequests()
             // 对静态资源、登录请求、获取token请求放行、获取验证码放行

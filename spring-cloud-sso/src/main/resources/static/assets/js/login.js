@@ -42,24 +42,23 @@ const app = createApp({
           post('/login', Qs.stringify(loginForm.value), {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           }).then(res => {
-            console.log(res,'----')
             if(res?.data?.code === 500 || res?.data?.code === 400){
               ElementPlus.ElMessage({ message: res?.data?.message + res?.data?.details, type: 'error'})
             } else {
               // 如果授权服务器配置了跳转链接地址，则正确跳转目标页面;
               // 反之，如果没有配置跳转链接地址，则跳转统一门户地址；
-              const responseURL = res?.request?.responseURL
-              const url = new URL(responseURL)
-              const params = new URLSearchParams(url.search)
-              const targetURL = params.get('target')
-              if (!targetURL) {
-                window.location.href = responseURL
-              }else{
-                window.location.href = targetURL
-              }
+              // const responseURL = res?.request?.responseURL
+              // const url = new URL(responseURL)
+              // const params = new URLSearchParams(url.search)
+              // const targetURL = params.get('target')
+              // if (!targetURL) {
+              //   window.location.href = responseURL
+              // }else{
+              //   window.location.href = targetURL
+              // }
             }
           }).catch(error => {
-            console.error(error,'---')
+            console.error(error)
           })
         }
       })
