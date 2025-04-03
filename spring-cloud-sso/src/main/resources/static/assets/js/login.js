@@ -88,6 +88,14 @@ const app = createApp({
                     form.appendChild(captchaInput)
                     document.body.appendChild(form)
                     form.submit()
+                    // 添加提交事件监听器，在表单提交后删除表单元素，防止内存泄露
+                    form.addEventListener('submit', function () {
+                        setTimeout(() => {
+                            if (form.parentNode) {
+                                form.parentNode.removeChild(form)
+                            }
+                        }, 2000)
+                    })
                 }
             })
         }
