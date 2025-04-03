@@ -48,4 +48,6 @@
     <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/controller/CaptchaController.java" title="验证码生成工具"/>
 	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/RedisConfiguration.java" title="Redis配置类（SpringSession）"/>
 	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/RedisSessionConfiguration.java" title="Spring分布式Session会话配置"/>
+	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/handler/SimpleLoginFailureHandler.java"
+	      title="登录失败处理器"/>
 </trees>

@@ -2,6 +2,7 @@ package tsai.spring.cloud.handler;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.BranchUtil;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -24,7 +25,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         // 转发到登录页
         // request.getRequestDispatcher("/login?error=true")
         //         .forward(request,response);
-        failureJsonMessage(request,response,exception);
+        // 保存错误信息到request属性
+        request.setAttribute("error", exception.getMessage());
+        // 转发而不是重定向，以保留request属性
+        request.getRequestDispatcher("/error")
+                .forward(request, response);
     }
 
     /**
@@ -34,6 +39,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
      * @param exception 异常信息
      * @throws IOException 异常
      */
+    @Beta
     protected void failureJsonMessage(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         JSONObject object = new JSONObject();
         object.putOpt("details", exception.getMessage());
