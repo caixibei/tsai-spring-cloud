@@ -16,10 +16,6 @@ const router = createRouter({
 
 // 应用挂载
 const app = createApp({
-    components: {
-        TsaiPagination: TsaiPagination,
-        FileUploadDialog: FileUploadDialog
-    },
     setup() {
         /**表单 ref 实例*/
         const formRef = ref()
