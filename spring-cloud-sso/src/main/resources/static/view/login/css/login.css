@@ -1,49 +1,3 @@
-[v-cloak] {
-    display: none !important;
-}
-
-::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px transparent;
-    border-radius: 1px;
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 1px;
-    -webkit-box-shadow: inset 0 0 1px transparent;
-    background: #c6c6c6ff;
-}
-
-.el-scrollbar .el-scrollbar__bar.is-horizontal {
-    height: 0;
-}
-
-.el-scrollbar .el-scrollbar__bar.is-vertical {
-    width: 0;
-}
-
-.el-scrollbar .el-scrollbar__bar.is-horizontal .el-scrollbar__thumb {
-    opacity: 1;
-    height: 0;
-    border-radius: 1px;
-    background-color: #c6c6c6ff;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
-.el-scrollbar .el-scrollbar__bar.is-vertical .el-scrollbar__thumb {
-    opacity: 1;
-    width: 1px;
-    border-radius: 2px;
-    background-color: #c6c6c6ff;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
 body,
 #app {
     height: 100vh;
@@ -53,25 +7,10 @@ body,
     overflow: hidden;
     display: flex;
     flex-direction: column;
-}
-
-.login_body {
-    height: 100vh;
-    width: 100vw;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.login_body>div:nth-child(2) {
-    flex: 0 1 20%;
-}
-
-.login_body>div {
-    flex: 1;
+    background: url("/public/img/login_bg_v1.png") no-repeat center center;
+    background-size: cover;
 }
 
 .login_area {
@@ -87,6 +26,7 @@ body,
     animation: ease;
     transition: 1s;
     overflow: hidden;
+    width: 24%;
 }
 
 .login_form {
@@ -184,6 +124,10 @@ body,
 }
 
 @media screen and (min-width: 768px) and (max-width: 900px) {
+    .login_area {
+        width: 90%;
+    }
+
     .login_body>div:nth-child(2) {
         flex: 1 1 70%;
     }
@@ -211,6 +155,10 @@ body,
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
+    .login_area {
+        width: 90%;
+    }
+
     .login_body>div:nth-child(2) {
         flex: 1 1 70%;
     }
@@ -238,6 +186,8 @@ body,
 }
 
 .index-footer {
+    position: fixed;
+    bottom: 0;
     width: 100vw;
     background-color: rgba(48, 59, 62, .3);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -263,36 +213,4 @@ body,
     justify-content: center;
     height: 30px;
     line-height: 15px;
-}
-
-.video_container {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: -100;
-    touch-action: none;
-    transform: translateZ(0);
-    /* 触发 GPU 加速 */
-    backface-visibility: hidden;
-}
-
-.video_container:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: block;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background: rgba(25, 29, 34, .65);
-    background-size: cover;
-}
-
-.video_container .video {
-    width: 100vw;
-    height: 100vh;
-    object-fit: fill;
-    filter: brightness(0.8);
 }

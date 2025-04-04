@@ -18,6 +18,7 @@ const app = createApp({
             captcha: undefined
         })
         /**验证码倒计时信息*/
+        const interval = ref()
         const captchaTipMessage = ref()
         /**验证码倒计时 180s */
         const total_seconds = ref(179)
@@ -99,11 +100,12 @@ const app = createApp({
             username_copy.value = loginForm.value && loginForm.value.username
             showCaptcha.value = true
             total_seconds.value = 179
-            const interval = setInterval(() => {
+            interval.value && clearInterval(interval.value)
+            interval.value = setInterval(() => {
                 if (total_seconds.value === 0) {
                     showCaptcha.value = false
                     captchaTipMessage.value = ''
-                    clearInterval(interval)
+                    interval.value && clearInterval(interval.value)
                     return
                 }
                 captchaTipMessage.value = (total_seconds.value--) + 's'
