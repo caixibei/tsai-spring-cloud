@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.session.ConcurrentSession
 import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisIndexedSessionRepository;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
 import tsai.spring.cloud.handler.LoginFailureHandler;
@@ -42,7 +41,7 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
     @Autowired
     private AccessDenyHandler accessDeniedHandler;
 
-    @Autowired
+    @Beta
     private LoginFailureHandler loginFailureHandler;
 
     @Beta
@@ -110,11 +109,11 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
             // 登录成功跳转页面
             .successForwardUrl("/home")
             // 登录失败处理器
-            .failureHandler(loginFailureHandler);
+            // .failureHandler(loginFailureHandler);
             // 登录成功处理器
             //.successHandler(loginSuccessHandler)
             // 登录失败跳转页面
-            //.failureForwardUrl("/login?error");
+            .failureForwardUrl("/error");
     }
 
     @Bean

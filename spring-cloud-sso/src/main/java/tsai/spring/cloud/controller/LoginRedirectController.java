@@ -2,7 +2,6 @@ package tsai.spring.cloud.controller;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 /**
@@ -19,13 +18,7 @@ public class LoginRedirectController {
      */
     @PostMapping("/home")
     public String dashboard() {
-        return "view/home/home";
-    }
-
-    @GetMapping("/login.html")
-    public String login(Model model) {
-        model.addAttribute("error", false);
-        return "login";
+        return "redirect:/home/home.html";
     }
 
     @PostMapping("/error")
@@ -34,6 +27,6 @@ public class LoginRedirectController {
         String errorMessage = (String) request.getAttribute("errorMessage");
         model.addAttribute("error", error);
         model.addAttribute("errorMessage", errorMessage);
-        return "login";
+        return "error/401";
     }
 }
