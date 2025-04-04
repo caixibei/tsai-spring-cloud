@@ -18,7 +18,7 @@ public class LoginRedirectController {
      */
     @PostMapping("/home")
     public String dashboard() {
-        return "redirect:/home/home.html";
+        return "redirect:view/home/home.html";
     }
 
     @PostMapping("/error")

@@ -113,7 +113,7 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
             // 登录成功处理器
             //.successHandler(loginSuccessHandler)
             // 登录失败跳转页面
-            .failureForwardUrl("/error");
+            .failureUrl("/error");
     }
 
     @Bean
