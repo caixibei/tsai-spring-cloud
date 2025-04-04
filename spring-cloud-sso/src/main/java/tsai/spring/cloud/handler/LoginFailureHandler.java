@@ -10,21 +10,25 @@ import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Beta
+@Component
 @SuppressWarnings(WarningsConstants.DUPLICATES)
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         // 保存错误信息到request属性
-        request.setAttribute("error", true);
-        request.setAttribute("errorMessage", exception.getMessage());
+        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, 401);
+        request.setAttribute(RequestDispatcher.ERROR_MESSAGE, exception.getMessage());
+        request.setAttribute(RequestDispatcher.ERROR_REQUEST_URI, request.getRequestURI());
+        request.setAttribute(RequestDispatcher.ERROR_EXCEPTION, exception);
+        request.setAttribute(RequestDispatcher.ERROR_EXCEPTION_TYPE, exception.getClass().getName());
         // 转发而不是重定向，以保留request属性
-        request.getRequestDispatcher("/error")
-                .forward(request, response);
+        request.getRequestDispatcher("/failure").forward(request, response);
     }
 
     /**
