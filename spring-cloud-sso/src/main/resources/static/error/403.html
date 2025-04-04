@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>403 | 统一认证门户</title>
-    <link rel="icon" type="images/x-icon" href="/public/img/favicon.ico"/>
+    <link rel="icon" type="images/x-icon" href="/public/img/favicon.ico" />
     <script type="text/javascript" src="/framework/js/jquery.min.js"></script>
     <style>
-        html, body {
+        html,
+        body {
             background: #DCDCDC;
             font-family: serif;
         }
@@ -44,7 +46,8 @@
             animation: shine 4s ease-in-out 3s infinite;
         }
 
-        .box .box__ghost .symbol:nth-child(1):before, .box .box__ghost .symbol:nth-child(1):after {
+        .box .box__ghost .symbol:nth-child(1):before,
+        .box .box__ghost .symbol:nth-child(1):after {
             content: '';
             width: 12px;
             height: 4px;
@@ -80,7 +83,8 @@
             animation: shine 3s ease-in-out .5s infinite;
         }
 
-        .box .box__ghost .symbol:nth-child(3):before, .box .box__ghost .symbol:nth-child(3):after {
+        .box .box__ghost .symbol:nth-child(3):before,
+        .box .box__ghost .symbol:nth-child(3):after {
             content: '';
             width: 12px;
             height: 4px;
@@ -104,7 +108,8 @@
             animation: shine 6s ease-in-out 1.6s infinite;
         }
 
-        .box .box__ghost .symbol:nth-child(4):before, .box .box__ghost .symbol:nth-child(4):after {
+        .box .box__ghost .symbol:nth-child(4):before,
+        .box .box__ghost .symbol:nth-child(4):after {
             content: '';
             width: 15px;
             height: 4px;
@@ -140,7 +145,8 @@
             animation: shine 2s ease-in-out 6s infinite;
         }
 
-        .box .box__ghost .symbol:nth-child(6):before, .box .box__ghost .symbol:nth-child(6):after {
+        .box .box__ghost .symbol:nth-child(6):before,
+        .box .box__ghost .symbol:nth-child(6):after {
             content: '';
             width: 15px;
             height: 4px;
@@ -301,9 +307,11 @@
             0% {
                 transform: translateY(5px);
             }
+
             50% {
                 transform: translateY(15px);
             }
+
             100% {
                 transform: translateY(5px);
             }
@@ -313,9 +321,11 @@
             0% {
                 width: 90px;
             }
+
             50% {
                 width: 100px;
             }
+
             100% {
                 width: 90px;
             }
@@ -325,63 +335,71 @@
             0% {
                 opacity: .2;
             }
+
             25% {
                 opacity: .1;
             }
+
             50% {
                 opacity: .2;
             }
+
             100% {
                 opacity: .2;
             }
         }
     </style>
 </head>
-<body>
-<div class="box">
-    <div class="box__ghost">
-        <div class="symbol"></div>
-        <div class="symbol"></div>
-        <div class="symbol"></div>
-        <div class="symbol"></div>
-        <div class="symbol"></div>
-        <div class="symbol"></div>
-        <div class="box__ghost-container">
-            <div class="box__ghost-eyes">
-                <div class="box__eye-left"></div>
-                <div class="box__eye-right"></div>
-            </div>
-            <div class="box__ghost-bottom">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-        <div class="box__ghost-shadow"></div>
-    </div>
 
-    <div class="box__description">
-        <div class="box__description-container">
-            <div class="box__description-title">403</div>
-            <div class="box__description-text">无访问权限！</div>
+<body>
+    <div class="box">
+        <div class="box__ghost">
+            <div class="symbol"></div>
+            <div class="symbol"></div>
+            <div class="symbol"></div>
+            <div class="symbol"></div>
+            <div class="symbol"></div>
+            <div class="symbol"></div>
+            <div class="box__ghost-container">
+                <div class="box__ghost-eyes">
+                    <div class="box__eye-left"></div>
+                    <div class="box__eye-right"></div>
+                </div>
+                <div class="box__ghost-bottom">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="box__ghost-shadow"></div>
         </div>
-        <a href="/view/home/home.html" class="box__button">返回</a>
+
+        <div class="box__description">
+            <div class="box__description-container">
+                <div class="box__description-title">403</div>
+                <div class="box__description-text">无访问权限！</div>
+                <div class="box__description-text"><span th:text="${error}"></span></div>
+            </div>
+            <a href="/view/home/home.html" class="box__button">返回</a>
+        </div>
     </div>
-</div>
-<script>
-  const pageX = $(document).width();
-  const pageY = $(document).height();
-  let mouseY = 0;
-  let mouseX = 0;
-  $(document).mousemove(function (event) {
-    mouseY = event.pageY;
-    const yAxis = (pageY / 2 - mouseY) / pageY * 300;
-    mouseX = event.pageX / -pageX;
-    const xAxis = -mouseX * 100 - 100;
-    $('.box__ghost-eyes').css({'transform': 'translate(' + xAxis + '%,-' + yAxis + '%)'});
-  });
-</script>
+    <script>
+        const pageX = $(document).width();
+        const pageY = $(document).height();
+        let mouseY = 0;
+        let mouseX = 0;
+        $(document).mousemove(function (event) {
+            mouseY = event.pageY;
+            const yAxis = (pageY / 2 - mouseY) / pageY * 300;
+            mouseX = event.pageX / -pageX;
+            const xAxis = -mouseX * 100 - 100;
+            $('.box__ghost-eyes').css({
+                'transform': 'translate(' + xAxis + '%,-' + yAxis + '%)'
+            });
+        });
+    </script>
 </body>
+
 </html>
