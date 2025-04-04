@@ -26,7 +26,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         // request.getRequestDispatcher("/login?error=true")
         //         .forward(request,response);
         // 保存错误信息到request属性
-        request.setAttribute("error", exception.getMessage());
+        request.setAttribute("error", true);
+        request.setAttribute("errorMessage", exception.getMessage());
         // 转发而不是重定向，以保留request属性
         request.getRequestDispatcher("/error")
                 .forward(request, response);
