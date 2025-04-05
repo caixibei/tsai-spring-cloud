@@ -267,7 +267,6 @@
             background: rgba(6, 139, 136);
             border: 1px solid transparent;
             border-radius: 50px;
-            width: 300px;
             height: 50px;
             text-align: center;
             text-decoration: none;
@@ -277,7 +276,8 @@
             padding: 0 70px;
             white-space: nowrap;
             margin-top: 25px;
-            transition: background .5s ease;
+            transform: translateX(-30px) rotate(45deg);
+            transition: all .5s cubic-bezier(0.19, 1, 0.22, 1);
             overflow: hidden;
         }
 
@@ -297,10 +297,60 @@
         .box .box__description .box__button:hover {
             background: transparent;
             border-color: #fff;
+            animation: rotate624 0.7s ease-in-out;
+        }
+
+        .box .box__description .box__button:hover span {
+            animation: storm1261 0.7s ease-in-out;
+            animation-delay: 0.06s;
         }
 
         .box .box__description .box__button:hover:before {
             transform: translateX(450px) rotate(45deg);
+        }
+
+        @keyframes rotate624 {
+            0% {
+                transform: rotate(0deg) translate3d(0, 0, 0);
+            }
+
+            25% {
+                transform: rotate(1deg) translate3d(0, 0, 0);
+            }
+
+            50% {
+                transform: rotate(-0.5deg) translate3d(0, 0, 0);
+            }
+
+            75% {
+                transform: rotate(1deg) translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: rotate(0deg) translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes storm1261 {
+            0% {
+                transform: translate3d(0, 0, 0) translateZ(0);
+            }
+
+            25% {
+                transform: translate3d(1px, 0, 0) translateZ(0);
+            }
+
+            50% {
+                transform: translate3d(-1px, 0, 0) translateZ(0);
+            }
+
+            75% {
+                transform: translate3d(1px, 0, 0) translateZ(0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) translateZ(0);
+            }
         }
 
         @keyframes upndown {
@@ -382,7 +432,9 @@
                 <div class="box__description-text">无访问权限！</div>
                 <div class="box__description-text"><span th:text="${message}"></span></div>
             </div>
-            <a href="/view/home/home.html" class="box__button">返回</a>
+            <a href="/view/home/home.html" class="box__button">
+                <span>返回</span>
+            </a>
         </div>
     </div>
     <script>

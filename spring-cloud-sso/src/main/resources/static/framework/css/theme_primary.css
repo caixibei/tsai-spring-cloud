@@ -88,7 +88,6 @@ body {
     color: #fff;
     white-space: nowrap;
     overflow: hidden;
-    text-transform: uppercase;
     transition: all 0.5s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
@@ -108,7 +107,7 @@ body {
 .el-button:hover {
     background: transparent;
     border-color: #fff;
-    animation: rotate624 0.7s ease-in-out both;
+    animation: rotate624 0.7s ease-in-out;
 }
 
 .el-button:hover:before {
@@ -118,7 +117,7 @@ body {
 }
 
 .el-button:hover span {
-    animation: storm1261 0.7s ease-in-out both;
+    animation: storm1261 0.7s ease-in-out;
     animation-delay: 0.06s;
 }
 
@@ -132,7 +131,7 @@ body {
     }
 
     50% {
-        transform: rotate(-1deg) translate3d(0, 0, 0);
+        transform: rotate(-0.5deg) translate3d(0, 0, 0);
     }
 
     75% {
@@ -150,7 +149,7 @@ body {
     }
 
     25% {
-        transform: translate3d(2px, 0, 0) translateZ(0);
+        transform: translate3d(1px, 0, 0) translateZ(0);
     }
 
     50% {
