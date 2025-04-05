@@ -94,7 +94,7 @@ body {
 .el-button:before {
     content: '';
     position: absolute;
-    width: 13px;
+    width: 10px;
     height: 7vh;
     background: #fff;
     bottom: -2vh;
