@@ -150,7 +150,7 @@ body {
     }
 
     25% {
-        transform: translate3d(2px, 0, 0) translateZ(0);
+        transform: translate3d(1px, 0, 0) translateZ(0);
     }
 
     50% {
