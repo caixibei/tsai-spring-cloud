@@ -128,11 +128,11 @@ body {
     }
 
     25% {
-        transform: rotate(3deg) translate3d(0, 0, 0);
+        transform: rotate(1deg) translate3d(0, 0, 0);
     }
 
     50% {
-        transform: rotate(-3deg) translate3d(0, 0, 0);
+        transform: rotate(-1deg) translate3d(0, 0, 0);
     }
 
     75% {
@@ -150,7 +150,7 @@ body {
     }
 
     25% {
-        transform: translate3d(1px, 0, 0) translateZ(0);
+        transform: translate3d(2px, 0, 0) translateZ(0);
     }
 
     50% {
