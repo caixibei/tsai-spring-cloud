@@ -1,4 +1,5 @@
 package tsai.spring.cloud.config;
+
 import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
 import com.tsaiframework.boot.util.RedisUtil;
@@ -25,6 +26,7 @@ import tsai.spring.cloud.handler.LoginFailureHandler;
 import tsai.spring.cloud.handler.LoginSuccessHandler;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
 import tsai.spring.cloud.strategy.SessionExpiredStrategy;
+
 /**
  * Spring Security 核心配置
  *
@@ -73,9 +75,9 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
         // 认证拦截
         http.authorizeRequests()
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行
-                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg", "/**/*.png", "/**/*.gif", "/**/*.ico",
-                        "/**/*.mp4", "/**/*.webm", "/**/*.json", "/**/*.ttf", "/**/*.woff",
-                        "/**/*.woff2", "/login.html", "/error/403.html",
+                .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg", "/**/*.png",
+                        "/**/*.gif", "/**/*.ico", "/**/*.json", "/**/*.ttf",
+                        "/**/*.woff", "/**/*.woff2", "/login.html", "/error/403.html",
                         "/error", "/login", "/oauth/**", "/captcha/**")
                 .permitAll()
                 // 其他所有请求必须通过认证后才能访问
