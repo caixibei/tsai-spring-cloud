@@ -28,7 +28,7 @@ spring:
   resources:
     add-mappings: true
   thymeleaf:
-    cache: true
+    cache: false
     prefix: classpath:/static/
     encoding: UTF-8
     suffix: .html

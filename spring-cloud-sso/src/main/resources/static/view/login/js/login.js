@@ -9,22 +9,22 @@ const markRaw = Vue.markRaw;
 
 const app = createApp({
     setup: function () {
-        /**表单 ref 实例*/
+        /** 表单 ref 实例 */
         const formRef = ref()
-        /**表单数据*/
+        /** 表单数据 */
         const loginForm = ref({
             username: 'admin',
             password: '123456',
             captcha: undefined
         })
-        /**验证码倒计时信息*/
+        /** 验证码倒计时信息 */
         const interval = ref()
         const captchaTipMessage = ref()
-        /**验证码倒计时 180s */
+        /** 验证码倒计时 180s */
         const total_seconds = ref(179)
-        /**是否显示验证码*/
+        /** 是否显示验证码 */
         const showCaptcha = ref(false)
-        /**表单校验规则*/
+        /** 表单校验规则 */
         const rules = ref({
             username: [{
                 required: true,
@@ -42,10 +42,10 @@ const app = createApp({
                 message: '验证码不可为空'
             }],
         })
-        /**时间戳*/
+        /** 时间戳 */
         const timestamp = ref(0)
         const username_copy = ref('')
-        /**登录逻辑*/
+        /** 登录逻辑 */
         const login = () => {
             formRef.value.validate((valid) => {
                 if (valid) {
@@ -73,9 +73,7 @@ const app = createApp({
                     captchaInput.value = loginForm.value.captcha
                     form.appendChild(captchaInput)
                     document.body.appendChild(form)
-                    form.submit(function (res) {
-                        console.log(res)
-                    })
+                    form.submit()
                     // 添加提交事件监听器，在表单提交后删除表单元素，防止内存泄露
                     form.addEventListener('submit', function () {
                         setTimeout(() => {
@@ -87,7 +85,7 @@ const app = createApp({
                 }
             })
         }
-        /**获取验证码，校验用户*/
+        /** 获取验证码，校验用户 */
         const getCaptcha = () => {
             if (!loginForm.value && loginForm.value.username) {
                 ElementPlus.ElMessage({
