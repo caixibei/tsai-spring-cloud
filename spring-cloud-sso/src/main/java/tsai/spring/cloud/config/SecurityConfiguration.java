@@ -73,10 +73,9 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
         // 认证拦截
         http.authorizeRequests()
             // 对静态资源、登录请求、获取token请求放行、获取验证码放行
-            .antMatchers("/**/*.css", "/**/*.js", "/**/*.jpg",
-                    "/**/*.png", "/**/*.gif", "/**/*.ico",
-                    "/**/*.mp4", "/**/*.webm",
-                    "/**/*.json", "/**/*.ttf", "/**/*.woff",
+            .antMatchers("/**/*.css", "/**/*.js", "/**/*.scss",
+                    "/**/*.jpg","/**/*.png", "/**/*.gif", "/**/*.ico",
+                    "/**/*.mp4", "/**/*.webm", "/**/*.json", "/**/*.ttf", "/**/*.woff",
                     "/**/*.woff2", "/login.html", "/error/403.html",
                     "/error", "/login", "/oauth/**", "/captcha/**")
             .permitAll()
