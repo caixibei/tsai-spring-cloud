@@ -126,6 +126,4 @@ const app = createApp({
 app.use(ElementPlus, {
     locale: ElementPlusLocaleZhCn,
 });
-app.directive('number', vNumber);
-app.directive('integer', vInteger);
 app.mount("#app");
