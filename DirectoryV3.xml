@@ -50,4 +50,7 @@
 	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/config/RedisSessionConfiguration.java" title="Spring分布式Session会话配置"/>
 	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/handler/SimpleLoginFailureHandler.java"
 	      title="登录失败处理器"/>
+	<tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/SessionService.java" title="会话管理服务"/>
+    <tree path="/spring-cloud-sso/src/main/java/tsai/spring/cloud/service/impl/SessionServiceImpl.java"
+          title="会话管理服务"/>
 </trees>
