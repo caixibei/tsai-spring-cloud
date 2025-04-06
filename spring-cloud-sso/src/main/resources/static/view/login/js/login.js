@@ -166,6 +166,10 @@ const app = createApp({
                 loop: true,
                 direction: 'alternate',
                 easing: 'easeInOutSine',
+                boxShadow: [
+                    '0 0 0 0 transparent,0 0 0 0 transparent', 
+                    '0 6px 20px rgba(0, 0, 0, 0.3), 0 4px 30px rgba(0, 0, 0, 0.3), 0 4px 45px rgba(0, 0, 0, 0.3)'
+                ],
             });
         }
 
