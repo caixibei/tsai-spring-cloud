@@ -14,7 +14,7 @@ const app = createApp({
             titleAnimation()
             formAnimation()
             titleSpanAnimation()
-            buttonAnimation()
+            formAreaAnimation()
         })
 
         /** 表单 ref 实例 */
@@ -140,11 +140,11 @@ const app = createApp({
                 ease: 'inOutCirc',
                 loopDelay: 1000,
                 loop: true
-            }); 
+            });
         }
 
         const formAnimation = () => {
-            animate('.el-form-item',{
+            animate('.el-form-item', {
                 translateX: [-30, 0],
                 opacity: [0, 1],
                 duration: 800,
@@ -153,18 +153,24 @@ const app = createApp({
             });
         }
 
-        const buttonAnimation = () => {
-            animate('.el-button',{
-                scale: [0.96, 1],
-                duration: 1000,
+        const formAreaAnimation = () => {
+            animate('.login_area', {
+                scale: [1, 1.1],
+                duration: 1500,
                 direction: 'alternate',
                 loop: true,
                 easing: 'easeInOutQuad'
             });
+            animate('.login_area', {
+                duration: 2000,
+                loop: true,
+                direction: 'alternate',
+                easing: 'easeInOutSine',
+            });
         }
 
         const titleAnimation = () => {
-            animate('.login_title',{
+            animate('.login_title', {
                 translateY: [-50, 0],
                 opacity: [0, 1],
                 duration: 1200,

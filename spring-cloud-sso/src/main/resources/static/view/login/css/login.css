@@ -21,12 +21,11 @@ body,
     align-items: center;
     flex-direction: column;
     padding: 3vh 1vw 3vh 1vw;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.14);
     animation: ease;
-    transition: 1s;
-    overflow: hidden;
+    transition: all 1s ease;
     width: 20%;
+    position: relative;
+    overflow: visible;
 }
 
 .login_form {
