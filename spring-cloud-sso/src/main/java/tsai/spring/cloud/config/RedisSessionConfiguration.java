@@ -20,8 +20,8 @@ import tsai.spring.cloud.constant.RedisConstant;
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800, redisNamespace = RedisConstant.SPRING_SESSION_PREFIX)
 public class RedisSessionConfiguration {
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         // 使用 StringRedisSerializer 序列化 key
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
