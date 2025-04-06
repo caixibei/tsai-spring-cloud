@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.google.common.annotations.Beta;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -18,7 +19,6 @@ import tsai.spring.cloud.constant.RedisConstant;
 @Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800, redisNamespace = RedisConstant.SPRING_SESSION_PREFIX)
 public class RedisSessionConfiguration {
-
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -54,7 +54,7 @@ public class RedisSessionConfiguration {
         return serializer;
     }
 
-    @Bean
+    @Beta
     public RedisSerializer<Object> redisSerializer() {
         return RedisSerializer.json();
     }

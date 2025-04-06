@@ -26,7 +26,7 @@ public class SessionServiceImpl implements SessionService {
     private RedisUtil redisUtil;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public List<Object> getOnlineUsers() {
@@ -38,7 +38,7 @@ public class SessionServiceImpl implements SessionService {
                 continue;
             }
             // 使用 RedisTemplate 直接获取数据
-            Map<Object, Object> map = redisTemplate.opsForHash().entries(key);
+            Map<Object, Object> map = redisUtil.hGetAll(key);
             if (ObjUtil.isNull(map)) {
                 continue;
             }
