@@ -121,7 +121,7 @@ const app = createApp({
         const titleSpanAnimation = () => {
             animate('.login_title span', {
                 y: [{
-                        to: '-2.75rem',
+                        to: '-1.25rem',
                         ease: 'outExpo',
                         duration: 600
                     },
