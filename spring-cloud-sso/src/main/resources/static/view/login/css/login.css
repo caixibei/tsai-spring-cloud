@@ -185,7 +185,8 @@ body,
 
     .login_title {
         font-size: 3vh;
-        padding: 1vh 0 3vh 0;
+        padding: 1vh 0 5vh 0;
+        gap: 9vw;
     }
 }
 
