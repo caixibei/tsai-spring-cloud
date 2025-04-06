@@ -27,6 +27,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         request.setAttribute(RequestDispatcher.ERROR_REQUEST_URI, request.getRequestURI());
         request.setAttribute(RequestDispatcher.ERROR_EXCEPTION, exception);
         request.setAttribute(RequestDispatcher.ERROR_EXCEPTION_TYPE, exception.getClass().getName());
+        // 具体错误信息处理
+        BranchUtil.branchHandler(exception instanceof BadCredentialsException, () -> request.setAttribute(RequestDispatcher.ERROR_MESSAGE, "账号密码错误，请检查后重试!"));
+        BranchUtil.branchHandler(exception instanceof AccountExpiredException, () -> request.setAttribute(RequestDispatcher.ERROR_MESSAGE, "认证信息已过期，请重新登录!"));
+        BranchUtil.branchHandler(exception instanceof AccountStatusException, () -> request.setAttribute(RequestDispatcher.ERROR_MESSAGE, "账号状态异常，请联系管理员处理!"));
         // 转发而不是重定向，以保留request属性
         request.getRequestDispatcher("/failure").forward(request, response);
     }
