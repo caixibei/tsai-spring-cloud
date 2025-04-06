@@ -6,9 +6,17 @@ const onMounted = Vue.onMounted;
 const defineEmits = Vue.defineEmits;
 const defineProps = Vue.defineProps;
 const markRaw = Vue.markRaw;
+const animate = anime.animate;
 
 const app = createApp({
     setup: function () {
+        onMounted(() => {
+            titleAnimation()
+            formAnimation()
+            titleSpanAnimation()
+            buttonAnimation()
+        })
+
         /** 表单 ref 实例 */
         const formRef = ref()
         /** 表单数据 */
@@ -109,6 +117,61 @@ const app = createApp({
                 captchaTipMessage.value = (total_seconds.value--) + 's'
             }, 1000)
         }
+
+        const titleSpanAnimation = () => {
+            animate('.login_title span', {
+                y: [{
+                        to: '-2.75rem',
+                        ease: 'outExpo',
+                        duration: 600
+                    },
+                    {
+                        to: 0,
+                        ease: 'outBounce',
+                        duration: 800,
+                        delay: 100
+                    }
+                ],
+                rotate: {
+                    from: '-1turn',
+                    delay: 0
+                },
+                delay: (_, i) => i * 50,
+                ease: 'inOutCirc',
+                loopDelay: 1000,
+                loop: true
+            }); 
+        }
+
+        const formAnimation = () => {
+            animate('.el-form-item',{
+                translateX: [-30, 0],
+                opacity: [0, 1],
+                duration: 800,
+                delay: anime.stagger(100),
+                easing: 'easeOutQuad'
+            });
+        }
+
+        const buttonAnimation = () => {
+            animate('.el-button',{
+                scale: [0.96, 1],
+                duration: 1000,
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutQuad'
+            });
+        }
+
+        const titleAnimation = () => {
+            animate('.login_title',{
+                translateY: [-50, 0],
+                opacity: [0, 1],
+                duration: 1200,
+                easing: 'spring(1, 80, 10, 0)'
+            });
+        }
+
         return {
             formRef: formRef,
             loginForm: loginForm,

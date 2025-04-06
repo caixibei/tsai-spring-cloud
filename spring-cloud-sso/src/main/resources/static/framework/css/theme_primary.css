@@ -89,6 +89,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transform-origin: center;
 }
 
 .el-button:before {
