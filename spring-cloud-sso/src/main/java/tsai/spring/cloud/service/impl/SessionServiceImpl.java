@@ -29,25 +29,26 @@ public class SessionServiceImpl implements SessionService {
         Set<String> keys = redisUtil.keys(RedisConstant.SPRING_SESSION_PREFIX+"*");
         List<Object> onlineUsers = new ArrayList<>();
         for (String key : keys) {
-            if (key.contains("expires")) {
+            if (key.contains("expir")) {
                 continue;
             }
-            //获取所有数据
+            // 获取所有数据
             Map<Object, Object> map = redisUtil.hGetAll(key);
-            //获取sessionId
-            String sessionId = key.replace(RedisConstant.SPRING_SESSION_PREFIX+":", "");
+            // 获取sessionId
+            String sessionId = key.replace(RedisConstant.SPRING_SESSION_PREFIX+":sessions:", "");
             long maxInactiveIntervalTime = ((Integer) map.get("maxInactiveInterval")).longValue();
             Duration maxInactiveInterval = Duration.ofSeconds(maxInactiveIntervalTime);
-            //判断是否已经过期了这个session
+            // 判断是否已经过期了这个session
             long lastAccessedTime = (Long) map.get("lastAccessedTime");
-            if (Instant.now().minus(maxInactiveInterval).compareTo(Instant.ofEpochMilli(lastAccessedTime)) >= 0) {
+            if (Instant.now().minus(maxInactiveInterval)
+                    .compareTo(Instant.ofEpochMilli(lastAccessedTime)) >= 0) {
                 continue;
             }
             SecurityContextImpl securityContexts = (SecurityContextImpl) map.get("sessionAttr:SPRING_SECURITY_CONTEXT");
             if (ObjUtil.isNull(securityContexts)) {
                 continue;
             }
-            //层级比较多需要一层一层拿出来
+            // 层级比较多需要一层一层拿出来
             Authentication authentication = securityContexts.getAuthentication();
             if (ObjUtil.isNull(authentication)) {
                 continue;

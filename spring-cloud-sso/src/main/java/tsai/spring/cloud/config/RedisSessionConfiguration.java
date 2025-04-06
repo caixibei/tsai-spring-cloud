@@ -1,5 +1,6 @@
 package tsai.spring.cloud.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
@@ -30,22 +31,30 @@ public class RedisSessionConfiguration {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         return redisTemplate;
     }
+
     @Bean
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
-        // 使用 StringRedisSerializer 序列化 key
+        // Key 序列化器（String）
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
         template.setKeySerializer(stringSerializer);
         template.setHashKeySerializer(stringSerializer);
-        // 使用 Jackson2JsonRedisSerializer 序列化 value
+        // Value 序列化器（JSON）
         Jackson2JsonRedisSerializer<Object> jsonSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        // 限制 DefaultTyping 范围（提升安全性）
+        objectMapper.activateDefaultTyping(
+                LaissezFaireSubTypeValidator.instance,
+                ObjectMapper.DefaultTyping.NON_FINAL,
+                JsonTypeInfo.As.PROPERTY
+        );
         jsonSerializer.setObjectMapper(objectMapper);
         template.setValueSerializer(jsonSerializer);
         template.setHashValueSerializer(jsonSerializer);
+        // 显式设置 Spring Session 的序列化器
+        template.setDefaultSerializer(jsonSerializer);
         template.afterPropertiesSet();
         return template;
     }
@@ -55,7 +64,7 @@ public class RedisSessionConfiguration {
         return ConfigureRedisAction.NO_OP;
     }
 
-    @Beta
+    @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         return RedisSerializer.json();
     }
