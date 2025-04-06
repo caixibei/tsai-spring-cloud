@@ -1,4 +1,5 @@
 package tsai.spring.cloud.service.impl;
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.annotations.Beta;
 import com.tsaiframework.boot.constant.WarningsConstants;
@@ -39,21 +40,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         // 获取并校验验证码签名
         String uuid = (String) request.getSession().getAttribute("uuid");
-        ExceptionUtil.throwException(StrUtil.isBlank(uuid), "验证码签名检验异常，请重新发送验证码");
+        ExceptionUtil.throwException(StrUtil.isBlank(uuid), "验证码签名检验异常，请重新发送验证码!");
         // 根据签名生成验证码标识 key
         String captcha = request.getParameter("captcha");
         String key = StrUtil.concat(false, RedisConstant.CAPTCHA_KEY_PREFIX, uuid);
         // 判断输入的用户名是否为空
-        ExceptionUtil.throwException(StrUtil.isBlank(username), "【用户名为空】请输入用户名后重新发送验证码");
+        ExceptionUtil.throwException(StrUtil.isBlank(username), "【用户名为空】请输入用户名后重新发送验证码!");
         // 判断验证码是否已经过期
-        ExceptionUtil.throwException(!redisUtil.hasKey(key), "【无效验证码】验证码已过期，请重新发送验证码");
+        ExceptionUtil.throwException(!redisUtil.hasKey(key), "【无效验证码】验证码已过期，请重新发送验证码!");
         // 校验验证码是否一致
         String verifyCode = redisUtil.get(key);
-        ExceptionUtil.throwException(!StrUtil.equals(verifyCode, captcha), "【验证码错误】验证码输入错误，请检查验证码是否正确");
+        ExceptionUtil.throwException(!StrUtil.equals(verifyCode, captcha), "【验证码错误】验证码输入错误，请检查验证码是否正确!");
         // 从用户信息表中检索用户
         tsai.spring.cloud.pojo.User user = userService.findByUserName(username);
         // 校验用户是否存在
-        ExceptionUtil.throwException(!redisUtil.hasKey(key), "【用户不存在】系统内无此用户，请检查用户名是否正确");
+        ExceptionUtil.throwException(ObjUtil.isNull(user), "【用户不存在】系统内无此用户，请检查用户名是否正确!");
         // 删除验证码，确保验证码只能使用一次
         redisUtil.delete(key);
         return new User(user.getUsername(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
