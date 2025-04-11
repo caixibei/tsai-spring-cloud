@@ -1,12 +1,12 @@
-const createApp = Vue.createApp;
-const ref = Vue.ref;
-const reactive = Vue.reactive;
-const computed = Vue.computed;
-const onMounted = Vue.onMounted;
-const defineEmits = Vue.defineEmits;
-const defineProps = Vue.defineProps;
-const markRaw = Vue.markRaw;
-const animate = anime.animate;
+const createApp = Vue.createApp
+const ref = Vue.ref
+const reactive = Vue.reactive
+const computed = Vue.computed
+const onMounted = Vue.onMounted
+const defineEmits = Vue.defineEmits
+const defineProps = Vue.defineProps
+const markRaw = Vue.markRaw
+const animate = anime.animate
 
 const app = createApp({
     setup: function () {
@@ -140,7 +140,7 @@ const app = createApp({
                 ease: 'inOutCirc',
                 loopDelay: 1000,
                 loop: true
-            });
+            })
         }
 
         const formAnimation = () => {
@@ -150,7 +150,7 @@ const app = createApp({
                 duration: 800,
                 delay: anime.stagger(100),
                 easing: 'easeOutQuad'
-            });
+            })
         }
 
         const formAreaAnimation = () => {
@@ -160,17 +160,17 @@ const app = createApp({
                 direction: 'alternate',
                 loop: true,
                 easing: 'easeInOutQuad'
-            });
+            })
             animate('.login_area', {
                 duration: 2000,
                 loop: true,
                 direction: 'alternate',
                 easing: 'easeInOutSine',
                 boxShadow: [
-                    '0 0 0 0 transparent,0 0 0 0 transparent', 
+                    '0 0 0 0 transparent,0 0 0 0 transparent',
                     '0 6px 20px rgba(0, 0, 0, 0.3), 0 4px 30px rgba(0, 0, 0, 0.3), 0 4px 45px rgba(0, 0, 0, 0.3)'
                 ],
-            });
+            })
         }
 
         const titleAnimation = () => {
@@ -179,7 +179,7 @@ const app = createApp({
                 opacity: [0, 1],
                 duration: 1200,
                 easing: 'spring(1, 80, 10, 0)'
-            });
+            })
         }
 
         return {
@@ -198,5 +198,5 @@ const app = createApp({
 
 app.use(ElementPlus, {
     locale: ElementPlusLocaleZhCn,
-});
-app.mount("#app");
+})
+app.mount("#app")
