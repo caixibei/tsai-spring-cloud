@@ -17,8 +17,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
-import org.springframework.session.data.redis.RedisIndexedSessionRepository;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import tsai.spring.cloud.filter.JwtAuthenticationFilter;
 import tsai.spring.cloud.handler.AccessDenyHandler;
@@ -56,7 +56,7 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
-    private RedisIndexedSessionRepository sessionRepository;
+    private FindByIndexNameSessionRepository<? extends Session> sessionRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -72,6 +72,8 @@ public class SecurityConfiguration<S extends Session> extends WebSecurityConfigu
                 // 禁用内容类型嗅探保护
                 //.contentTypeOptions()
                 .disable();
+        // 禁用 requestCache
+        // http.requestCache().disable();
         // 认证拦截
         http.authorizeRequests()
                 // 对静态资源、登录请求、获取token请求放行、获取验证码放行

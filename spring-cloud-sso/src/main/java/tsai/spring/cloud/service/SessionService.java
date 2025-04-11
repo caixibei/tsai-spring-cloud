@@ -1,6 +1,9 @@
 package tsai.spring.cloud.service;
-import java.util.List;
+import org.springframework.data.domain.Page;
+
+import java.io.IOException;
+
 public interface SessionService {
 
-    List<Object> getOnlineUsers ();
+    Page<String> getOnlineUsers ();
 }
