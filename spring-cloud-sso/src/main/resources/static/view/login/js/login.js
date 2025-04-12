@@ -10,13 +10,6 @@ const animate = anime.animate
 
 const app = createApp({
     setup: function () {
-        onMounted(() => {
-            titleAnimation()
-            formAnimation()
-            titleSpanAnimation()
-            formAreaAnimation()
-        })
-
         /** 表单 ref 实例 */
         const formRef = ref()
         /** 表单数据 */
@@ -118,6 +111,10 @@ const app = createApp({
             }, 1000)
         }
 
+        /**
+         * 标题动画
+         * @deprecated
+         */
         const titleSpanAnimation = () => {
             animate('.login_title span', {
                 y: [{
@@ -143,6 +140,10 @@ const app = createApp({
             })
         }
 
+        /**
+         * 表单动画
+         * @deprecated
+         */
         const formAnimation = () => {
             animate('.el-form-item', {
                 translateX: [-30, 0],
@@ -153,6 +154,10 @@ const app = createApp({
             })
         }
 
+        /**
+         * 表单区域动画
+         * @deprecated
+         */
         const formAreaAnimation = () => {
             animate('.login_area', {
                 scale: [1, 1.1],
@@ -173,6 +178,10 @@ const app = createApp({
             })
         }
 
+        /**
+         * 标题动画
+         * @deprecated
+         */
         const titleAnimation = () => {
             animate('.login_title', {
                 translateY: [-50, 0],

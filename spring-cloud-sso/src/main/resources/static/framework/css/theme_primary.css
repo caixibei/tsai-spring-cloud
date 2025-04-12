@@ -4,12 +4,21 @@
     display: none !important;
 }
 
+@font-face {
+    font-family: 'MapleMono';
+    src: url('/framework/fonts/maple.ttf') format('truetype');
+}
+
 /* 主题色 */
 :root {
     --el-scrollbar-bg-color: #c6c6c6ff;
     --el-color-white: #ffffff;
     --el-color-white-light-1: #eaeef2;
     --el-base-font-size: 13px;
+}
+
+* {
+    font-family: "MapleMono";
 }
 
 #app,
@@ -19,8 +28,9 @@ body {
     padding: 5px;
     margin: 0;
     background-color: var(--el-color-white);
-    font-family: "Monaco", "Arial", "Helvetica", "sans-serif";
 }
+
+
 
 /* 文本选中样式 */
 ::selection {

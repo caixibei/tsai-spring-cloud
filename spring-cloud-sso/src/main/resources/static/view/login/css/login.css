@@ -81,18 +81,14 @@ body,
 }
 
 .login_title {
-    font-size: 4vh;
+    font-size: 3.6vh;
     font-weight: 500;
-    font-family: STXingkai;
     color: #fff;
     padding: 1vh 0 3vh 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
-    color: transparent;
-    --text-stroke-color: rgba(255, 255, 255, 0.7);
-    -webkit-text-stroke: 1px var(--text-stroke-color);
     gap: 1.5vw;
 }
 
