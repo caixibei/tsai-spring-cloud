@@ -1,10 +1,18 @@
 package tsai.spring.cloud.config;
-import com.tsaiframework.boot.constant.WarningsConstants;
+
+import java.security.KeyPair;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -22,14 +30,12 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import com.tsaiframework.boot.constant.WarningsConstants;
+
 import tsai.spring.cloud.constant.RedisConstant;
 import tsai.spring.cloud.service.impl.UserDetailsServiceImpl;
-import javax.sql.DataSource;
-import java.security.KeyPair;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.springframework.security.core.GrantedAuthority;
+
 /**
  * Oauth 2 授权服务配置
  *
@@ -51,10 +57,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     private final RedisConnectionFactory redisConnectionFactory;
 
     public OauthServerConfiguration(AuthenticationManager authenticationManager,
-                                    UserDetailsServiceImpl userDetailsService,
-                                    RedisConnectionFactory redisConnectionFactory,
-                                    PasswordEncoder passwordEncoder,
-                                    DataSource dataSource) {
+        UserDetailsServiceImpl userDetailsService, RedisConnectionFactory redisConnectionFactory,
+        PasswordEncoder passwordEncoder, DataSource dataSource) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.redisConnectionFactory = redisConnectionFactory;
@@ -81,7 +85,8 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
 
     /**
      * 对于每个客户端应用，授权服务器会为其分配一个唯一的客户端ID和客户端密钥，并定义其授权范围和访问权限。
-     * <p>用于配置客户端详细信息服务，这个服务用来定义哪些客户端可以访问授权服务器以及客户端的配置信息。
+     * <p>
+     * 用于配置客户端详细信息服务，这个服务用来定义哪些客户端可以访问授权服务器以及客户端的配置信息。
      *
      * @param clients the client details configurer
      * @throws Exception 异常
@@ -101,10 +106,10 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     public void configure(AuthorizationServerSecurityConfigurer security) {
         // 允许客户端表单身份验证
         security.allowFormAuthenticationForClients()
-                // 仅允许认证后的用户访问密钥端点（单点登录必须，如果是无状态的，请改为 permitAll() ）
-                .tokenKeyAccess("isAuthenticated()")
-                // 允许所有人访问令牌验证端点
-                .checkTokenAccess("permitAll()");
+            // 仅允许认证后的用户访问密钥端点（单点登录必须，如果是无状态的，请改为 permitAll() ）
+            .tokenKeyAccess("isAuthenticated()")
+            // 允许所有人访问令牌验证端点
+            .checkTokenAccess("permitAll()");
     }
 
     /**
@@ -117,16 +122,16 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 配置用于密码模式的认证管理器
         endpoints.authenticationManager(authenticationManager)
-                // 授权码模式服务
-                .authorizationCodeServices(authorizationCodeServices())
-                // 在刷新令牌时使用此服务加载用户信息
-                .userDetailsService(userDetailsService)
-                // token 解析器
-                .accessTokenConverter(tokenConverter())
-                // token 扩展器
-                .tokenEnhancer(tokenEnhancer())
-                // 以 redis 存储 token
-                .tokenStore(tokenStore());
+            // 授权码模式服务
+            .authorizationCodeServices(authorizationCodeServices())
+            // 在刷新令牌时使用此服务加载用户信息
+            .userDetailsService(userDetailsService)
+            // token 解析器
+            .accessTokenConverter(tokenConverter())
+            // token 扩展器
+            .tokenEnhancer(tokenEnhancer())
+            // 以 redis 存储 token
+            .tokenStore(tokenStore());
     }
 
     @Bean
@@ -159,21 +164,21 @@ public class OauthServerConfiguration extends AuthorizationServerConfigurerAdapt
         // 从证书文件 jwt.jks 中获取秘钥对
         // 密钥删除命令：keytool -delete -alias jwt -keystore jwt.jks
         // 密钥生成命令：keytool -genkey -alias jwt -keyalg RSA -keypass 123456 -keystore jwt.jks -storepass 123456
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456" .toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "123456" .toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory =
+            new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
     }
 
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return (oAuth2AccessToken, oAuth2Authentication) -> {
             Map<String, Object> map = new HashMap<>(1);
-            User user = (User) oAuth2Authentication.getPrincipal();
+            User user = (User)oAuth2Authentication.getPrincipal();
             map.put("username", user.getUsername());
-            map.put("authorities", user.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList()));
+            map.put("authorities",
+                user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
             // ...其他信息可以自行添加
-            ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(map);
+            ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(map);
             return oAuth2AccessToken;
         };
     }

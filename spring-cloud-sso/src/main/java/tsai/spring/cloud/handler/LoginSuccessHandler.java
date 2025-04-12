@@ -1,19 +1,31 @@
 package tsai.spring.cloud.handler;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.google.common.annotations.Beta;
+import com.tsaiframework.boot.constant.WarningsConstants;
+
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.google.common.annotations.Beta;
-import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+/**
+ * 登录成功处理器
+ * 
+ * @author tsai
+ */
 @Beta
 @SuppressWarnings({WarningsConstants.DUPLICATES})
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+        Authentication authentication) throws IOException {
         try {
             // TODO 生成 token 返回
             JSONObject object = new JSONObject();

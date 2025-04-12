@@ -1,8 +1,30 @@
 package tsai.spring.cloud.controller;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.annotations.Beta;
+import com.tsaiframework.boot.constant.WarningsConstants;
+import com.tsaiframework.boot.util.BranchUtil;
+import com.tsaiframework.boot.util.RedisUtil;
+
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.ShearCaptcha;
+import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -10,25 +32,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.google.common.annotations.Beta;
-import com.tsaiframework.boot.constant.WarningsConstants;
-import com.tsaiframework.boot.util.BranchUtil;
-import com.tsaiframework.boot.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import tsai.spring.cloud.constant.RedisConstant;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import static cn.hutool.core.img.ImgUtil.toBufferedImage;
+
 /**
  * 验证码处理器
  *
@@ -51,15 +57,15 @@ public class CaptchaController {
     @Beta
     @GetMapping("/shear")
     public void getShearCaptcha(HttpServletResponse response) {
-        //定义图形验证码的长、宽、验证码字符数、干扰线宽度
+        // 定义图形验证码的长、宽、验证码字符数、干扰线宽度
         ShearCaptcha shearCaptcha = CaptchaUtil.createShearCaptcha(150, 50, 4, 3);
-        //设置背景颜色
+        // 设置背景颜色
         shearCaptcha.setBackground(new Color(249, 251, 220));
-        //生成四位验证码
+        // 生成四位验证码
         String code = RandomUtil.randomNumbers(4);
-        //生成验证码图片
+        // 生成验证码图片
         Image image = shearCaptcha.createImage(code);
-        //返回验证码信息
+        // 返回验证码信息
         responseCode(response, code, image);
     }
 
@@ -131,12 +137,12 @@ public class CaptchaController {
     }
 
     @SuppressWarnings(WarningsConstants.DEPRECATION)
-    protected static void responseCode(HttpServletResponse response, String code, Image image) {
+    protected static void responseCode(HttpServletResponse response, String ignoredCode, Image image) {
         response.setContentType("image/jpeg");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         try {
-            BufferedImage bufferedImage = toBufferedImage(image);
+            BufferedImage bufferedImage = ImgUtil.toBufferedImage(image);
             // 创建 ByteArrayOutputStream 用于存储图片数据
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             // 写入图片数据到 ByteArrayOutputStream

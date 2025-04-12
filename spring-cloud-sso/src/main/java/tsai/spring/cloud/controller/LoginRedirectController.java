@@ -1,13 +1,13 @@
 package tsai.spring.cloud.controller;
-import cn.hutool.core.util.ObjectUtil;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  * 登录跳转处理器
  *
@@ -27,6 +27,7 @@ public class LoginRedirectController {
 
     /**
      * 登录失败处理
+     * 
      * @param model 模型数据
      * @param request 请求报文
      * @return {@link String}

@@ -1,15 +1,21 @@
 package tsai.spring.cloud.strategy;
-import com.tsaiframework.boot.constant.WarningsConstants;
-import org.springframework.security.web.session.SessionInformationExpiredEvent;
-import org.springframework.security.web.session.SessionInformationExpiredStrategy;
-import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.springframework.security.web.session.SessionInformationExpiredEvent;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.stereotype.Component;
+
+import com.tsaiframework.boot.constant.WarningsConstants;
+
 /**
  * 多端登录Session过期策略
+ * 
  * @author tsai
  */
 @Component

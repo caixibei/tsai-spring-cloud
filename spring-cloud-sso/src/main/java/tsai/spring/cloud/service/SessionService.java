@@ -1,6 +1,7 @@
 package tsai.spring.cloud.service;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
+import java.util.Map;
 public interface SessionService {
 
-    UserDetails getOnlineUsers ();
+    List<Map<String, Object>> getOnlineUsers ();
 }

@@ -1,10 +1,20 @@
 package tsai.spring.cloud.pojo;
-import com.baomidou.mybatisplus.annotation.*;
+
+import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tsaiframework.boot.base.pojo.TsaiPOJO;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.io.Serializable;
+
+/**
+ * 用户实体
+ * 
+ * @author tsai
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "tsai_user")

@@ -1,6 +1,8 @@
 package tsai.spring.cloud.constant;
+
 /**
  * Redis 键常量
+ * 
  * @author tsai
  */
 public class RedisConstant {
@@ -18,5 +20,5 @@ public class RedisConstant {
     /**
      * spring session 前缀
      */
-    public static final String SPRING_SESSION_PREFIX = "spring:session:sso";
+    public static final String SPRING_SESSION_PREFIX = "spring:session";
 }
