@@ -30,6 +30,12 @@ import tsai.spring.cloud.constant.RedisConstant;
 @Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800, redisNamespace = RedisConstant.SPRING_SESSION_PREFIX)
 public class RedisSessionConfiguration {
+    /**
+     * 配置 redis 数据序列化和反序列化，但是在spring session场景下会导致登录失败，所以暂时这里不做处理
+     * 
+     * @param factory redis连接工厂
+     * @return {@link RedisTemplate} redis 序列化模板
+     */
     @Beta
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
@@ -52,7 +58,12 @@ public class RedisSessionConfiguration {
         return redisTemplate;
     }
 
-    @Bean
+    /**
+     * 同样的，因为会导致 redis 反序列化失败，所以我们不做额外的处理
+     * 
+     * @return {@link RedisSerializer} 序列化实例
+     */
+    @Beta
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         ObjectMapper objectMapper = new ObjectMapper().registerModules(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -60,6 +71,11 @@ public class RedisSessionConfiguration {
         return new GenericJackson2JsonRedisSerializer(objectMapper);
     }
 
+    /**
+     * 这个配置往往是因为 redis 安全隐患导致的，生产环境最好不要将 config 命令暴露出来
+     * 
+     * @return {@link ConfigureRedisAction} redis 配置
+     */
     @Bean
     public ConfigureRedisAction configureRedisAction() {
         return ConfigureRedisAction.NO_OP;
