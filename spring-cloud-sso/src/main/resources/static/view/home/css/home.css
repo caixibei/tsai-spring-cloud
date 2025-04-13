@@ -43,6 +43,7 @@
 
 .home-header img {
     height: var(--header-height);
+    cursor: pointer;
 }
 
 .home-content {
