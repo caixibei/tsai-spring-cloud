@@ -1,5 +1,6 @@
 .home-layout {
     --header-height: 60px;
+    --border-color: rgba(236, 236, 236);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -30,7 +31,7 @@
     width: 100%;
     height: var(--header-height);
     flex: 0 1 var(--header-height);
-    border-bottom: 1px solid rgba(209, 209, 209);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .home-header-left {
@@ -52,4 +53,17 @@
     justify-content: center;
     align-items: center;
     flex: 1 1 calc(100% - var(--header-height));
+}
+
+.home-content-left {
+    flex: 0 0 12%;
+    box-sizing: border-box;
+    height: 100%;
+    border-right: 1px solid var(--border-color);
+}
+
+.home-content-right {
+    flex: 1;
+    box-sizing: border-box;
+    height: 100%;
 }
