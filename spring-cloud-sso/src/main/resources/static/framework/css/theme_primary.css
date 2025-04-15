@@ -25,7 +25,8 @@ html {
     font-size: var(--el-base-font-size);
 }
 
-#app,body {
+#app,
+body {
     width: calc(100vw - 10px);
     height: calc(100vh - 10px);
     background-color: var(--el-color-white);
@@ -92,92 +93,11 @@ html {
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
-/** 按钮动画效果 */
+/* 按钮存在样式问题 */
 .el-button {
-    display: block;
-    position: relative;
-    border: 1px solid transparent;
-    border-radius: 50px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.02, 0.01, 0.47, 1);
-    transform-origin: center;
+    line-height: unset;
 }
 
-.el-button:before {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 7vh;
-    background: #fff;
-    bottom: -2vh;
-    left: 0;
-    border: 2px solid #fff;
-    transform: translateX(-30px) rotate(45deg);
-    transition: all .5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.el-button:hover {
-    animation: rotate624 0.7s ease-in-out;
-}
-
-.el-button:hover:before {
-    left: 100%;
-    transform: translateX(30px) rotate(45deg);
-    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.el-button:hover span {
-    animation: storm1261 0.7s ease-in-out;
-    animation-delay: 0.06s;
-}
-
-@keyframes rotate624 {
-    0% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
-
-    25% {
-        transform: rotate(1deg) translate3d(0, 0, 0);
-    }
-
-    50% {
-        transform: rotate(-0.5deg) translate3d(0, 0, 0);
-    }
-
-    75% {
-        transform: rotate(1deg) translate3d(0, 0, 0);
-    }
-
-    100% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
-}
-
-@keyframes storm1261 {
-    0% {
-        transform: translate3d(0, 0, 0) translateZ(0);
-    }
-
-    25% {
-        transform: translate3d(1px, 0, 0) translateZ(0);
-    }
-
-    50% {
-        transform: translate3d(-1px, 0, 0) translateZ(0);
-    }
-
-    75% {
-        transform: translate3d(1px, 0, 0) translateZ(0);
-    }
-
-    100% {
-        transform: translate3d(0, 0, 0) translateZ(0);
-    }
-}
 
 /* 下拉框样式 */
 .el-select__wrapper {
