@@ -37,7 +37,7 @@ import tsai.spring.cloud.strategy.SessionExpiredStrategy;
 @Configuration
 @EnableWebSecurity
 @SuppressWarnings(WarningsConstants.SPRING_JAVA_AUTOWIRED_FIELDS_WARNING_INSPECTION)
-public class SecurityConfiguration<S extends Session> extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
