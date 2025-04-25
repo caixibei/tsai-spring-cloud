@@ -9,7 +9,7 @@ body,
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url("/public/img/login_bg_v7.jpg") no-repeat center center;
+    background: url("/public/img/bg.jpg") no-repeat center center;
     background-size: cover;
 }
 

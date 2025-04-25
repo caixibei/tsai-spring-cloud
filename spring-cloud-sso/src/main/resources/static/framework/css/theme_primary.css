@@ -5,8 +5,17 @@
 }
 
 @font-face {
-    font-family: 'MapleMono';
-    src: url('/framework/fonts/maple.ttf') format('truetype');
+    font-family: 'TsaiFont';
+    src: url('/framework/fonts/maplemono.woff2') format('woff2');
+    unicode-range: U+0000-007F;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TsaiFont';
+    src: url('/framework/fonts/pingfang.woff2') format('woff2');
+    unicode-range: U+4E00-9FFF;
+    font-display: swap;
 }
 
 /* 主题色 */
@@ -18,7 +27,7 @@
 }
 
 * {
-    font-family: "MapleMono";
+    font-family: 'TsaiFont', sans-serif;
 }
 
 html {
@@ -124,6 +133,15 @@ body {
 .el-popper.is-dark {
     max-width: 20%;
     white-space: pre-wrap;
+    background-color: #fafafa;
+    color: var(--el-color-primary);
+    border: 1px solid var(--el-color-primary);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.el-popper.is-dark .el-popper__arrow {
+    background-color: #fafafa;
+    border: 1px solid var(--el-color-primary);
 }
 
 /* 弹窗样式 */
@@ -196,6 +214,10 @@ body {
 }
 
 /* 标签样式 */
+.el-tag {
+    line-height: unset;
+}
+
 .el-tag.el-tag--primary {
     --el-tag-text-color: var(--el-color-primary);
     --el-tag-bg-color: transparent;
