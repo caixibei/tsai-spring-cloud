@@ -20,10 +20,10 @@ body,
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 3vh 1vw 3vh 1vw;
+    padding: 1rem;
     animation: ease;
     transition: all 1s ease;
-    width: 20%;
+    width: 30rem;
     position: relative;
     overflow: visible;
 }
@@ -37,7 +37,9 @@ body,
 }
 
 .login_form .el-form-item:nth-child(3) .el-input {
-    flex: 1 1 80%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 72%;
 }
 
 .login_form .el-form-item:nth-child(4) .span {
@@ -81,15 +83,15 @@ body,
 }
 
 .login_title {
-    font-size: 3.6vh;
+    font-size: 2.4rem;
     font-weight: 500;
     color: #fff;
-    padding: 1vh 0 3vh 0;
+    padding: 2rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
-    gap: 1.5vw;
+    gap: 3rem;
 }
 
 .login_btn .el-form-item__content .el-button {
@@ -105,17 +107,18 @@ body,
 
 .captcha_cls .img {
     height: 25px;
-    flex: 1 1 28%;
     border-radius: 2px;
     display: flex;
+    flex: 0 1 28%;
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-.captcha_cls .img img {
+.captcha_cls .img * {
     height: 100%;
     width: 100%;
     border-radius: 2px;
+    justify-content: center;
 }
 
 .captcha_cls .img:hover {
@@ -139,17 +142,13 @@ body,
         flex: 1 1 74%;
     }
 
-    .captcha_cls .img {
-        flex: 1 1 24%;
-    }
-
     .captcha_cls {
         gap: 1px;
     }
 
     .login_title {
-        font-size: 3vh;
-        padding: 1vh 0 3vh 0;
+        font-size: 2rem;
+        padding: 2rem 0;
     }
 }
 
@@ -167,11 +166,7 @@ body,
     }
 
     .login_form .el-form-item:nth-child(3) .el-input {
-        flex: 1 1 74%;
-    }
-
-    .captcha_cls .img {
-        flex: 1 1 25%;
+        flex: 1 1 75%;
     }
 
     .captcha_cls {
@@ -179,15 +174,16 @@ body,
     }
 
     .login_title {
-        font-size: 3vh;
-        padding: 1vh 0 5vh 0;
+        font-size: 2rem;
+        padding: 2rem 0;
         gap: 9vw;
     }
 }
 
 .index-footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
+    left: 0;
     width: 100vw;
     background-color: rgba(48, 59, 62, .3);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -198,10 +194,10 @@ body,
     justify-content: center;
     align-items: center;
     color: rgba(255, 255, 255);
-    font-size: 10px;
+    font-size: 0.8rem;
     gap: 4px;
     padding: 3px 0;
-    height: 5%;
+    height: 40px;
     margin: 0;
 }
 

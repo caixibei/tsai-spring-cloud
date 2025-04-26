@@ -1,10 +1,19 @@
 @font-face {
-    font-family: 'MapleMono';
-    src: url('/framework/fonts/maple.ttf') format('truetype');
+    font-family: 'TsaiFont';
+    src: url('/framework/fonts/maplemono.woff2') format('woff2');
+    unicode-range: U+0000-007F;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TsaiFont';
+    src: url('/framework/fonts/pingfang.woff2') format('woff2');
+    unicode-range: U+4E00-9FFF;
+    font-display: swap;
 }
 
 * {
-    font-family: "MapleMono";
+    font-family: 'TsaiFont', sans-serif;
 }
 
 html,
@@ -34,7 +43,7 @@ body {
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
     .box {
-        width: 95vw;
+        width: 30vh;
     }
 }
 
