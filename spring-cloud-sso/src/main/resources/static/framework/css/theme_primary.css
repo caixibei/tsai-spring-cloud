@@ -102,11 +102,6 @@ body {
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
-/* 按钮存在样式问题 */
-.el-button {
-    line-height: unset;
-}
-
 /* 下拉框样式 */
 .el-select__wrapper {
     min-width: 80px;
@@ -214,10 +209,6 @@ body {
 }
 
 /* 标签样式 */
-.el-tag {
-    line-height: unset;
-}
-
 .el-tag.el-tag--primary {
     --el-tag-text-color: var(--el-color-primary);
     --el-tag-bg-color: transparent;

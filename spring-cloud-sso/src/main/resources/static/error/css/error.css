@@ -26,7 +26,7 @@ body {
     padding: 0;
     margin: 0;
     overflow: hidden;
-    background-color: rgba(136,136,136,.4);
+    background-color: rgba(136, 136, 136, .4);
 }
 
 .box {
@@ -44,6 +44,12 @@ body {
 @media screen and (min-width: 320px) and (max-width: 480px) {
     .box {
         width: 30vh;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 900px) {
+    .box {
+        width: 50vh;
     }
 }
 
@@ -275,11 +281,11 @@ body {
     overflow-wrap: break-word;
 }
 
-.box .box__description .box__description-container .box__description-text:nth-child(2){
+.box .box__description .box__description-container .box__description-text:nth-child(2) {
     font-size: x-large;
 }
 
-.box .box__description .box__description-container .box__description-text:nth-child(3) span{
+.box .box__description .box__description-container .box__description-text:nth-child(3) span {
     font-size: 14px;
 }
 
