@@ -18,24 +18,24 @@
     font-display: swap;
 }
 
+/* 应用字体 */
+* {
+    font-family: 'TsaiFont', sans-serif;
+}
+
 /* 主题色 */
 :root {
-    --el-scrollbar-bg-color: #c6c6c6ff;
+    --el-scrollbar-bg-color: #fafafa;
     --el-color-white: #ffffff;
     --el-color-white-light-1: #eaeef2;
     --el-base-font-size: 14px;
-}
-
-* {
-    font-family: 'TsaiFont', sans-serif;
 }
 
 html {
     font-size: var(--el-base-font-size);
 }
 
-#app,
-body {
+#app, body {
     width: calc(100vw - 10px);
     height: calc(100vh - 10px);
     background-color: var(--el-color-white);
@@ -49,19 +49,19 @@ body {
 
 /* 文本选中样式 */
 ::selection {
-    background-color: rgba(235, 243, 253, 0.5);
-    color: var(--el-color-primary);
+    background-color: rgba(6, 139, 136, 0.1);
+    filter: invert(100%);
 }
 
 ::-moz-selection {
-    background-color: rgba(235, 243, 253, 0.5);
-    color: var(--el-color-primary);
+    background-color: rgba(6, 139, 136, 0.1);
+    filter: invert(100%);
 }
 
 /* 浏览器滚动条样式 */
 ::-webkit-scrollbar {
     width: 3px !important;
-    height: 3px !important;
+    height: 6px !important;
     background-color: transparent;
 }
 
@@ -79,7 +79,7 @@ body {
 
 /* element-plus 滚动条样式 */
 .el-scrollbar .el-scrollbar__bar.is-horizontal {
-    height: 3px;
+    height: 6px;
 }
 
 .el-scrollbar .el-scrollbar__bar.is-vertical {
@@ -88,18 +88,23 @@ body {
 
 .el-scrollbar .el-scrollbar__bar.is-horizontal .el-scrollbar__thumb {
     opacity: 1;
-    height: 0;
-    border-radius: 1px;
+    height: 5px;
+    border-radius: 3px;
     background-color: var(--el-scrollbar-bg-color);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 .el-scrollbar .el-scrollbar__bar.is-vertical .el-scrollbar__thumb {
     opacity: 1;
-    width: 1px;
-    border-radius: 2px;
+    width: 3px;
+    border-radius: 4px;
     background-color: var(--el-scrollbar-bg-color);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+/** 按钮效果 */
+.el-button {
+    border-radius: 50px;
 }
 
 /* 下拉框样式 */
@@ -131,10 +136,9 @@ body {
     background-color: #fafafa;
     color: var(--el-color-primary);
     border: 1px solid var(--el-color-primary);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
-.el-popper.is-dark .el-popper__arrow {
+.el-popper.is-dark .el-popper__arrow:before {
     background-color: #fafafa;
     border: 1px solid var(--el-color-primary);
 }
@@ -242,4 +246,8 @@ body {
     --el-tag-bg-color: transparent;
     --el-tag-border-color: var(--el-color-info);
     --el-tag-hover-color: var(--el-color-info);
+}
+
+.el-zoom-in-center-enter-from {
+    transform: unset !important;
 }
